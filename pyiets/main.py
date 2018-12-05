@@ -8,4 +8,4 @@ if __name__ == '__main__':
     #  print(parser._get_natoms())
     #  print(parser.get_molecule())
     #  print(parser.get_nmodes())
-    print(parser.get_mode(0))
+    print(parser.get_mode(1))

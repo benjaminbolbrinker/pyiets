@@ -5,7 +5,6 @@ import numpy as np
 import vibration as vib
 
 
-
 class snfParser:
     def __init__(self, snfoutname='snf.out'):
         self.snfoutname = snfoutname
@@ -66,13 +65,10 @@ class snfParser:
         raw_modes_str = [re.findall('\-?\d+\.\d+',
                                     self.snfoutfile[lidx0+line_idx+4])
                          for line_idx in range(3*self.natoms)]
-        raw_modes_float = list(map(lambda x: [float(st) for st in x],
-                                              raw_modes_str))
+        modes = list(map(lambda x: [float(st) for st in x], raw_modes_str))
+        modes = list(map(list, zip(*modes)))[idx]
 
-
-        return raw_modes_float
-        #  return self.snfoutfile[lidx0:lidx1]
-
+        return modes
 
     def get_modes(self):
         modes = []
@@ -80,3 +76,6 @@ class snfParser:
             modes.append(self._get_mode(idx))
         assert len(modes) == self.nmodes
         return modes
+
+def writeDisortions():
+    pass
