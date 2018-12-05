@@ -62,10 +62,15 @@ class snfParser:
 
         vibenergy = np.fromstring(self.snfoutfile[lidx0+2],
                                   dtype=np.float, sep=' ')[idx]
-        modecolidx = re.search('\number', line).start()
 
-        return modecolidx
-        #  return vibenergy
+        raw_modes_str = [re.findall('\-?\d+\.\d+',
+                                    self.snfoutfile[lidx0+line_idx+4])
+                         for line_idx in range(3*self.natoms)]
+        raw_modes_float = list(map(lambda x: [float(st) for st in x],
+                                              raw_modes_str))
+
+
+        return raw_modes_float
         #  return self.snfoutfile[lidx0:lidx1]
 
 
