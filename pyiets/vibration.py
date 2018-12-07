@@ -26,6 +26,6 @@ class Mode:
     def print(self):
         print('Printing mode...')
         print('Wavenumber:', self.wavenumber)
-        assert len(self.atoms) == len(self.get_vectors)
+        assert len(self.atoms) == len(self.vectors)
         for idx, atom in enumerate(self.atoms):
             print(atom, self.vectors[idx])

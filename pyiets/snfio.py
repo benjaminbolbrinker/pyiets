@@ -6,7 +6,6 @@ import vibration as vib
 import molecule as mol
 
 
-
 class snfParser:
     def __init__(self, snfoutname='snf.out'):
         self.snfoutname = snfoutname
@@ -14,13 +13,14 @@ class snfParser:
             self.snfoutfile = fp.readlines()
         self.natoms = self._get_natoms()
         self.nmodes = self._get_nmodes()
+        self.molecule = self.get_molecule()
 
     def _get_natoms(self):
         natomline = [line for line in self.snfoutfile
                      if 'Number of atoms' in line]
         if len(set(natomline)) in [1]:
             line = natomline[0].strip().replace(' ', '')
-            idx = re.search('\d+', line).start()
+            idx = re.search(r'\d+', line).start()
             natomstr = line[idx:]
             return int(natomstr)
         elif len(set(natomline)) in [0]:
@@ -67,19 +67,20 @@ class snfParser:
                 lidx0 = counter
                 break
             counter += 1
-        lidx1 = lidx0 + 4 + 3 * self.natoms
 
         vibenergy = np.fromstring(self.snfoutfile[lidx0+2],
                                   dtype=np.float, sep=' ')[idx]
 
-        raw_modes_str = [re.findall('\-?\d+\.\d+',
+        raw_modes_str = [re.findall(r'\-?\d+\.\d+',
                                     self.snfoutfile[lidx0+line_idx+4])
                          for line_idx in range(3*self.natoms)]
         modes = list(map(lambda x: [float(st) for st in x], raw_modes_str))
         modevectors = list(map(list, zip(*modes)))[idx]
         assert len(modevectors) % 3 == 0
         modevectors = np.array(modevectors).reshape(int(len(modes)/3), 3)
-        mode = vib.mode(vectors=modevectors, atoms=[], wavenumber=vibenergy)
+        mode = vib.Mode(vectors=modevectors,
+                        atoms=self.molecule.atoms,
+                        wavenumber=vibenergy)
         return mode
 
     def get_modes(self):
@@ -88,6 +89,7 @@ class snfParser:
             modes.append(self._get_mode(idx))
         assert len(modes) == self.nmodes
         return modes
+
 
 def writeDisortions():
     pass
