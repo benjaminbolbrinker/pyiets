@@ -3,6 +3,8 @@ import re
 import numpy as np
 
 import vibration as vib
+import molecule as mol
+
 
 
 class snfParser:
@@ -47,8 +49,16 @@ class snfParser:
                 lidx1 = counter
                 break
             counter += 1
-        modelines = self.snfoutfile[lidx0:lidx1]
-        return modelines
+        moleculestring = self.snfoutfile[lidx0:lidx1]
+        moleculestring = moleculestring[4:-1]
+
+        atoms = [atomstring.split()[1] for atomstring in moleculestring]
+        moleculestring = [atomstring.split()[4:]
+                          for atomstring in moleculestring]
+
+        molecvectors = [[float(i) for i in vec] for vec in moleculestring]
+        molec = mol.Molecule(atoms=atoms, vectors=molecvectors)
+        return molec
 
     def get_mode(self, idx):
         counter = 0
@@ -66,9 +76,11 @@ class snfParser:
                                     self.snfoutfile[lidx0+line_idx+4])
                          for line_idx in range(3*self.natoms)]
         modes = list(map(lambda x: [float(st) for st in x], raw_modes_str))
-        modes = list(map(list, zip(*modes)))[idx]
-
-        return modes
+        modevectors = list(map(list, zip(*modes)))[idx]
+        assert len(modevectors) % 3 == 0
+        modevectors = np.array(modevectors).reshape(int(len(modes)/3), 3)
+        mode = vib.mode(vectors=modevectors, atoms=[], wavenumber=vibenergy)
+        return mode
 
     def get_modes(self):
         modes = []
