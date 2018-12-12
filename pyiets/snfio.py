@@ -99,11 +99,10 @@ class SnfParser:
         return modes
 
 
-def writeDisortion(mode_idx, outformat, snfoutname='snf.out', delta=0.1):
+def exportMolecule(snfoutname, outformat):
     """TODO: to be defined1. """
     snfparser = SnfParser(snfoutname=snfoutname)
     molecule = snfparser.get_molecule()
-
     asemolecule = molecule.to_ASE_atoms_obj()
     io.write(asemolecule.get_chemical_formula(mode='hill')
              + '.' + str(outformat),

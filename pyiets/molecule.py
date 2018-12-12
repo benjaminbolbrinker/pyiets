@@ -1,3 +1,4 @@
+import numpy as np
 from ase import Atoms
 from ase.units import Bohr
 
@@ -7,7 +8,7 @@ class Molecule:
     def __init__(self, atoms=None, vectors=None):
         """TODO: to be defined1. """
         self.atoms = atoms
-        self.vectors = vectors
+        self.vectors = np.array(vectors)
 
     def to_ASE_atoms_obj(self):
         """TODO: to be defined1. """

@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import snfio
+import createInput
 
 if __name__ == '__main__':
     parser = snfio.SnfParser('snf.out')
@@ -9,4 +10,5 @@ if __name__ == '__main__':
     parser.get_molecule().print()
     print(parser.nmodes)
     parser.get_mode(1).print()
-    snfio.writeDisortion(0, 'xyz')
+    snfio.exportMolecule('snf.out', 'xyz')
+    createInput.writeDisortion(0, 'xyz')

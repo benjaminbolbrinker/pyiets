@@ -1,9 +1,11 @@
+import numpy as np
+
 
 class Mode:
     """Docstring for MyClass. """
     def __init__(self, vectors=None, atoms=None, wavenumber=None):
         """TODO: to be defined1. """
-        self.vectors = vectors
+        self.vectors = np.array(vectors)
         self.atoms = atoms
         self.wavenumber = wavenumber
 
