@@ -94,7 +94,7 @@ class SnfParser:
         """TODO: to be defined1. """
         modes = []
         for idx in range(self.nmodes):
-            modes.append(self._get_mode(idx))
+            modes.append(self.get_mode(idx))
         assert len(modes) == self.nmodes
         return modes
 

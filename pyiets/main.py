@@ -11,4 +11,4 @@ if __name__ == '__main__':
     print(parser.nmodes)
     parser.get_mode(1).print()
     snfio.exportMolecule('snf.out', 'xyz')
-    createInput.writeDisortion(0, 'xyz')
+    createInput.writeDisortion('xyz')
