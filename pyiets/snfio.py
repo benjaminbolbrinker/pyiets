@@ -1,13 +1,16 @@
 
 import re
 import numpy as np
+from ase import io
 
 import vibration as vib
 import molecule as mol
 
 
-class snfParser:
+class SnfParser:
+    """Docstring for MyClass. """
     def __init__(self, snfoutname='snf.out'):
+        """TODO: to be defined1. """
         self.snfoutname = snfoutname
         with open(self.snfoutname, 'r') as fp:
             self.snfoutfile = fp.readlines()
@@ -16,6 +19,7 @@ class snfParser:
         self.molecule = self.get_molecule()
 
     def _get_natoms(self):
+        """TODO: to be defined1. """
         natomline = [line for line in self.snfoutfile
                      if 'Number of atoms' in line]
         if len(set(natomline)) in [1]:
@@ -31,6 +35,7 @@ class snfParser:
                             .format(self.snfoutname))
 
     def _get_nmodes(self):
+        """TODO: to be defined1. """
         counter = 0
         for line in self.snfoutfile:
             if 'root no.' in line:
@@ -41,6 +46,7 @@ class snfParser:
                                  dtype=np.float, sep=' '))
 
     def get_molecule(self):
+        """TODO: to be defined1. """
         counter = 0
         for line in self.snfoutfile:
             if 'Molecule of snf run' in line:
@@ -61,6 +67,7 @@ class snfParser:
         return molec
 
     def get_mode(self, idx):
+        """TODO: to be defined1. """
         counter = 0
         for line in self.snfoutfile:
             if 'root no.' in line:
@@ -84,6 +91,7 @@ class snfParser:
         return mode
 
     def get_modes(self):
+        """TODO: to be defined1. """
         modes = []
         for idx in range(self.nmodes):
             modes.append(self._get_mode(idx))
@@ -91,5 +99,12 @@ class snfParser:
         return modes
 
 
-def writeDisortions():
-    pass
+def writeDisortion(mode_idx, outformat, snfoutname='snf.out', delta=0.1):
+    """TODO: to be defined1. """
+    snfparser = SnfParser(snfoutname=snfoutname)
+    molecule = snfparser.get_molecule()
+    asemolecule = molecule.to_ASE_atoms_obj()
+    io.write(asemolecule.get_chemical_formula(mode='hill')
+             + '.' + str(outformat),
+             asemolecule,
+             format=outformat)
