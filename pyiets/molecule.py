@@ -1,6 +1,7 @@
 from ase import Atoms
 from ase.units import Bohr
 
+
 class Molecule:
     """Docstring for MyClass. """
     def __init__(self, atoms=None, vectors=None):
