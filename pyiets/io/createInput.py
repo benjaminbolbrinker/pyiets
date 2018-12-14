@@ -6,6 +6,9 @@ from pyiets.io.snfio import SnfParser
 from pyiets.atoms.molecule import Molecule
 
 
+outdir = 'dissortions'
+
+
 def createOutDir_ascending(outdirname):
     if not os.path.exists(outdirname):
         os.mkdir(outdirname)
@@ -27,7 +30,6 @@ def writeDisortion(outformat, snfoutname='snf.out', delta=0.1):
 
     modes = snfparser.get_modes()
 
-    outdir = 'dissortions'
     outdirpath = createOutDir_ascending(cwd + outdir)
     for mode_idx, mode in enumerate(modes):
         mode_vecs = snfparser.get_mode(mode_idx).vectors
