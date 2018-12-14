@@ -3,7 +3,6 @@
 
 import snfio
 import createInput
-import parseInput
 
 if __name__ == '__main__':
     parser = snfio.SnfParser('snf.out')
@@ -13,5 +12,3 @@ if __name__ == '__main__':
     parser.get_mode(1).print()
     snfio.exportMolecule('snf.out', 'xyz')
     createInput.writeDisortion('turbomole', 'snf.out', delta=0.1)
-
-    inparser = parseInput.InputParser('input.json')
