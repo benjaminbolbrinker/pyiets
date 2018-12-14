@@ -2,8 +2,8 @@ import os
 
 from ase import io
 
-from snfio import SnfParser
-from molecule import Molecule
+from pyiets.io.snfio import SnfParser
+from pyiets.atoms.molecule import Molecule
 
 
 def createOutDir_ascending(outdirname):

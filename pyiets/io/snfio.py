@@ -3,8 +3,8 @@ import re
 import numpy as np
 from ase import io
 
-import vibration as vib
-import molecule as mol
+import pyiets.atoms.vibration as vib
+import pyiets.atoms.molecule as mol
 
 
 class SnfParser:
