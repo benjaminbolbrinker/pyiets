@@ -8,17 +8,8 @@ supported_qc_progs = [
 ]
 
 
-def eprint(*args, **kwargs):
-    print(*args, file=sys.stderr, **kwargs)
-
-
 def _wrongInputErrorMessage(parameter):
-    eprint('Wrong input {}'.format(parameter))
-
-
-def checkInput(indata):
-    if indata['sp_control']['qc_prog'] not in supported_qc_progs:
-        _wrongInputErrorMessage(indata['sp_control']['qc_prog'])
+    print('Wrong input {}'.format(parameter), file=sys.stderr)
 
 
 class InputParser():
@@ -27,7 +18,12 @@ class InputParser():
             self.indata = json.load(infile)
 
     def getSinglePointOptions(self):
-        return self.indata['sp_control']
+        try:
+            supported_qc_progs.index(self.indata['sp_control']['qc_prog'])
+        except ValueError:
+            _wrongInputErrorMessage(self.indata['sp_control']['qc_prog'])
+            raise SystemExit
+        return self.indata
     #  try:
     #      self.qc_progs[self.indata['sp_control']['qc_prog']]
     #  except KeyError:
