@@ -1,12 +1,13 @@
+import io
 import os
 import sys
 import glob
 import ase.io
 from ase.calculators.turbomole import Turbomole
+from contextlib import redirect_stdout
 
 
 def run(folder, paramdict):
-    print('Using turbomole...')
     cwd = os.getcwd()
     os.chdir(folder)
 
@@ -24,6 +25,13 @@ def run(folder, paramdict):
     molecule = ase.io.read(coord, format='turbomole')
     molecule.set_calculator(calc)
 
-    molecule.get_potential_energy()
-
+    tmoutname = 'turbomole.out'
+    print('''
+Starting turbomole in \'{}\'
+Redirecting output to \'{}\')
+'''.format(folder, tmoutname))
+    f = io.StringIO()
+    with open(tmoutname, 'w') as f:
+        with redirect_stdout(f):
+            molecule.get_potential_energy()
     os.chdir(cwd)

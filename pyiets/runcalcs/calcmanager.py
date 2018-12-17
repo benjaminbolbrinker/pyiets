@@ -1,31 +1,24 @@
 import os
-import threading
+import multiprocessing
 
 import pyiets.io.createInput
 import pyiets.io.parseInput
 import pyiets.runcalcs.turbomole as turbomole
 
 
-def startSinglePoints(calc_options):
+def startSinglePoints_sp(calc_options):
     outdir = pyiets.io.createInput.outdir
     mode_folders = [f.path for f in os.scandir(outdir) if f.is_dir()]
     for mode_folder in mode_folders:
         turbomole.run(mode_folder, calc_options)
 
 
-def startSinglePoints_threaded(calc_options):
+def startSinglePoints_mp(calc_options, nthreads):
     outdir = pyiets.io.createInput.outdir
     mode_folders = [f.path for f in os.scandir(outdir) if f.is_dir()]
-    for mode_folder in mode_folders:
-        turbomole.run(calc_options)
 
-
-class SP_Thread(threading.Thread):
-    def __init__(self, threadID, name, counter):
-        threading.Thread.__init__(self)
-        self.threadID = threadID
-        self.folder = name
-        self.counter = counter
-
-    def run(self):
-        pass
+    processes = [multiprocessing.Process(target=turbomole.run,
+                                         args=(folder, calc_options))
+                 for folder in mode_folders]
+    [process.start() for process in processes]
+    [process.join() for process in processes]
