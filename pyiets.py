@@ -19,4 +19,4 @@ if __name__ == '__main__':
     pyiets.io.createInput.writeDisortion('turbomole', 'snf.out', delta=0.1)
     inparser = pyiets.io.parseInput.InputParser('input.json')
     #  calcmanager.startSinglePoints(inparser.getSinglePointOptions())
-    calcmanager.startSinglePoints_mp(inparser.getSinglePointOptions(), 6)
+    calcmanager.startSinglePoints_mp(inparser.getSinglePointOptions(), 2)
