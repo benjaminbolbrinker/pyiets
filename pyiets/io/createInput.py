@@ -10,6 +10,7 @@ outdir = 'dissortions'
 
 
 def createOutDir_ascending(outdirname):
+    global outdir
     if not os.path.exists(outdirname):
         os.mkdir(outdirname)
         return outdirname
@@ -19,6 +20,7 @@ def createOutDir_ascending(outdirname):
             i += 1
         dirname = outdirname + '{}'.format(i)
         os.mkdir(dirname)
+        outdir = dirname
         return dirname
 
 
