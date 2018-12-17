@@ -2,6 +2,6 @@
 "sp_control": 
     {
       "qc_prog": "turbomole",
-      "define_string": "\n\na coord\n*\nno\nb all def2-QZV\n*\neht\n\n\n\n*"
+      "define_string": "\n\na coord\n*\nno\nb all def2-QZVP\n*\neht\n\n\n\n*"
     }
 }

@@ -7,13 +7,14 @@ supported_qc_progs = [
     'turbomole'
 ]
 
-
-def _wrongInputErrorMessage(parameter):
-    print('Wrong input {}'.format(parameter), file=sys.stderr)
+def _wrongInputErrorMessage(parameter, filename):
+    print('Wrong input \'{}\' in {}'.format(parameter, filename),
+          file=sys.stderr)
 
 
 class InputParser():
     def __init__(self, inputfilename):
+        self.inputfilename = inputfilename
         with open(inputfilename, 'r') as infile:
             self.indata = json.load(infile)
 
@@ -21,7 +22,8 @@ class InputParser():
         try:
             supported_qc_progs.index(self.indata['sp_control']['qc_prog'])
         except ValueError:
-            _wrongInputErrorMessage(self.indata['sp_control']['qc_prog'])
+            _wrongInputErrorMessage(self.indata['sp_control']['qc_prog'],
+                                    filename)
             raise SystemExit
         return self.indata
     #  try:
