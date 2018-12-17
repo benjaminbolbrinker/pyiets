@@ -20,7 +20,6 @@ def startSinglePoints_mp(calc_options, nthreads):
     processes = [multiprocessing.Process(target=turbomole.run,
                                          args=(folder, calc_options))
                  for folder in mode_folders]
-    [[process.start() for process in processes[i:i+nthreads]]
-     for i in range(0, len(processes), nthreads)]
-    [[process.join() for process in processes[i:i+nthreads]]
-     for i in range(0, len(processes), nthreads)]
+    for i in range(0, len(processes), nthreads):
+        [process.start() for process in processes[i:i+nthreads]]
+        [process.join() for process in processes[i:i+nthreads]]
