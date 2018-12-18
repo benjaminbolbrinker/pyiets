@@ -41,3 +41,4 @@ Redirecting output to \'{}\')
         with redirect_stdout(f):
             molecule.get_potential_energy()
     os.chdir(cwd)
+    return True

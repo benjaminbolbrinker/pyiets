@@ -18,6 +18,10 @@ def create_ascending_name(outdirname):
         dirname = outdirname + '{}'.format(i)
         return dirname
 
+def find_descending_dirname(path):
+    folders = [os.path.join(path, o) for o in os.listdir(path)
+               if os.path.isdir(os.path.join(path,o))]
+    return folders
 
 def writeDisortion(outfolder, outformat, snfoutname='snf.out', delta=0.1):
     """TODO: to be defined1. """
