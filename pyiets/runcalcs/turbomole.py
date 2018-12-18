@@ -11,9 +11,7 @@ def run(folder, paramdict):
     cwd = os.getcwd()
     os.chdir(folder)
 
-    if 'define_string' in paramdict['sp_control']:
-        calc = Turbomole(define_str=paramdict['sp_control']['define_string'])
-    elif 'params' in paramdict['sp_control']:
+    if 'params' in paramdict['sp_control']:
         calc = Turbomole(**paramdict['sp_control']['params'])
     else:
         print('''Missing turbomole configuration!
