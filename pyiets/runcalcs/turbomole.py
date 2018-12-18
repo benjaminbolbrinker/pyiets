@@ -76,7 +76,9 @@ Add \'define_string\' or \'params\' in \'sp_control\'
             os.remove(cleanupFile)
         #  calc.set(restart=True)
 
+    lock.acquire()
     molecule = ase.io.read(coord, format='turbomole')
+    lock.release()
     molecule.set_calculator(calc)
 
     tmoutname = 'turbomole.out'
