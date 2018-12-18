@@ -25,7 +25,8 @@ def find_descending_dirname(path):
     return folders
 
 
-def writeDisortion(outfolder, outformat, snfoutname='snf.out', delta=0.1):
+def writeDisortion(outname, outfolder, outformat,
+                   snfoutname='snf.out', delta=0.1):
     """TODO: to be defined1. """
     cwd = os.getcwd()
     snfparser = SnfParser(snfoutname=snfoutname)
@@ -48,8 +49,7 @@ def writeDisortion(outfolder, outformat, snfoutname='snf.out', delta=0.1):
             modedir = 'mode' + str(mode_idx) + '_' + str(idx)
             os.mkdir(modedir)
             os.chdir(modedir)
-            io.write(dissortion.get_chemical_formula(mode='hill')
-                     + '.' + str(outformat),
+            io.write(outname,
                      dissortion,
                      format=outformat)
             os.chdir('../')

@@ -26,7 +26,12 @@ Add \'define_string\' or \'params\' in \'sp_control\'
         print('Something went terribly wrong!', file=sys.stderr)
         raise SystemExit
     else:
-        calc.set(restart=True)
+        cleanupFiles = files
+        cleanupFiles.remove('H2O.turbomole')
+        for cleanupFile in cleanupFiles:
+            os.remove(cleanupFile)
+
+        #  calc.set(restart=True)
 
     molecule = ase.io.read(coord, format='turbomole')
     molecule.set_calculator(calc)
@@ -34,7 +39,7 @@ Add \'define_string\' or \'params\' in \'sp_control\'
     tmoutname = 'turbomole.out'
     print('''
 Starting turbomole in \'{}\'
-Redirecting output to \'{}\')
+Redirecting output to \'{}\'
 '''.format(folder, tmoutname))
     f = io.StringIO()
     with open(tmoutname, 'w') as f:
@@ -65,7 +70,11 @@ Add \'define_string\' or \'params\' in \'sp_control\'
         print('Something went terribly wrong!', file=sys.stderr)
         raise SystemExit
     else:
-        calc.set(restart=True)
+        cleanupFiles = files
+        cleanupFiles.remove('H2O.turbomole')
+        for cleanupFile in cleanupFiles:
+            os.remove(cleanupFile)
+        #  calc.set(restart=True)
 
     molecule = ase.io.read(coord, format='turbomole')
     molecule.set_calculator(calc)
@@ -73,7 +82,7 @@ Add \'define_string\' or \'params\' in \'sp_control\'
     tmoutname = 'turbomole.out'
     print('''
 Starting turbomole in \'{}\'
-Redirecting output to \'{}\')
+Redirecting output to \'{}\'
 '''.format(folder, tmoutname))
     f = io.StringIO()
     with open(tmoutname, 'w') as f:
