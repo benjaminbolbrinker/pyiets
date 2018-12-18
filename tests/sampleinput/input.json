@@ -3,10 +3,10 @@
     {
       "qc_prog": "turbomole",
       "params": {
-        "define_str": "\n\na coord\n*\nno\nb all def2-TZVP\n*\neht\n\n\n\n*"
+        "define_str": "\n\na coord\n*\nno\nb all def2-QZVP\n*\neht\n\n\n\n*"
         }
     },
 "restart": false,
 "folder": "dissortions",
-"mp": 1
+"mp": 2
 }

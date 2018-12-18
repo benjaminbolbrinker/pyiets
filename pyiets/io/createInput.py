@@ -8,20 +8,22 @@ from pyiets.atoms.molecule import Molecule
 outdir = ''
 
 
-def create_ascending_name(outdirname):
-    if not os.path.exists(outdirname):
-        return outdirname
+def create_ascending_name(name):
+    if not os.path.exists(name):
+        return name
     else:
         i = 0
-        while os.path.exists(outdirname + '{}'.format(i)):
+        while os.path.exists(name + '{}'.format(i)):
             i += 1
-        dirname = outdirname + '{}'.format(i)
+        dirname = name + '{}'.format(i)
         return dirname
+
 
 def find_descending_dirname(path):
     folders = [os.path.join(path, o) for o in os.listdir(path)
-               if os.path.isdir(os.path.join(path,o))]
+               if os.path.isdir(os.path.join(path, o))]
     return folders
+
 
 def writeDisortion(outfolder, outformat, snfoutname='snf.out', delta=0.1):
     """TODO: to be defined1. """

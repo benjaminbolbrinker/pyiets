@@ -15,6 +15,7 @@ if __name__ == '__main__':
     options = inparser.getSinglePointOptions()
     qc_prog = options['sp_control']['qc_prog']
     restart = False
+    restartfile = pyiets.io.createInput.create_ascending_name('pyiets.restart')
     mp = 1
 
     if 'mp' in options:
@@ -28,9 +29,11 @@ if __name__ == '__main__':
         if 'folder' in options:
             folder = options['folder']
         if mp == 1:
-            calcmanager.restart_tm_single_points_sp(folder, options)
+            calcmanager.restart_tm_single_points_sp(folder, options,
+                                                    restartfile)
         elif mp > 1:
-            calcmanager.restart_tm_single_points_np(folder, options, 6)
+            calcmanager.restart_tm_single_points_mp(folder, options, mp,
+                                                    restartfile)
         else:
             pyiets.io.parseInput._wrongInputErrorMessage(mp, infile)
     else:
@@ -41,8 +44,10 @@ if __name__ == '__main__':
         pyiets.io.createInput.writeDisortion(outfolder, qc_prog,
                                              'snf.out', delta=0.1)
         if mp == 1:
-            calcmanager.start_tm_single_points_sp(outfolder, options)
+            calcmanager.start_tm_single_points_sp(outfolder, options,
+                                                  restartfile)
         elif mp > 1:
-            calcmanager.start_tm_single_points_np(outfolder, options, 6)
+            calcmanager.start_tm_single_points_mp(outfolder, options, mp,
+                                                  restartfile)
         else:
             pyiets.io.parseInput._wrongInputErrorMessage(mp, infile)
