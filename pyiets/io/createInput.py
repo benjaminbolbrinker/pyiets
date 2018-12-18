@@ -8,31 +8,26 @@ from pyiets.atoms.molecule import Molecule
 outdir = ''
 
 
-def createOutDir_ascending(outdirname):
-    global outdir
+def create_ascending_name(outdirname):
     if not os.path.exists(outdirname):
-        os.mkdir(outdirname)
-        outdir = outdirname
         return outdirname
     else:
         i = 0
         while os.path.exists(outdirname + '{}'.format(i)):
             i += 1
         dirname = outdirname + '{}'.format(i)
-        os.mkdir(dirname)
-        outdir = dirname
         return dirname
 
 
-def writeDisortion(outformat, snfoutname='snf.out', delta=0.1):
+def writeDisortion(outfolder, outformat, snfoutname='snf.out', delta=0.1):
     """TODO: to be defined1. """
     cwd = os.getcwd()
     snfparser = SnfParser(snfoutname=snfoutname)
     molecule = snfparser.get_molecule()
 
     modes = snfparser.get_modes()
-
-    outdirpath = createOutDir_ascending(cwd + '/dissortions')
+    os.mkdir(outfolder)
+    outdirpath = os.path.abspath(outfolder)
     for mode_idx, mode in enumerate(modes):
         mode_vecs = snfparser.get_mode(mode_idx).vectors
         dissortions = [molecule.vectors - mode_vecs*delta,
