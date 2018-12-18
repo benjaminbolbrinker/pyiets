@@ -11,7 +11,15 @@ def run(folder, paramdict):
     cwd = os.getcwd()
     os.chdir(folder)
 
-    calc = Turbomole(define_str=paramdict['sp_control']['define_string'])
+    if 'define_string' in paramdict['sp_control']:
+        calc = Turbomole(define_str=paramdict['sp_control']['define_string'])
+    elif 'params' in paramdict['sp_control']:
+        calc = Turbomole(**paramdict['sp_control']['params'])
+    else:
+        print('''Missing turbomole configuration!
+Add \'define_string\' or \'params\' in \'sp_control\'
+              ''', file=sys.stderr)
+        raise SystemExit
 
     files = glob.glob('*')
     if len(files) == 1:
