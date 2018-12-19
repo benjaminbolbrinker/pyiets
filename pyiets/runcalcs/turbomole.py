@@ -1,35 +1,41 @@
 import io
 import os
-import sys
 import glob
 import ase.io
 from ase.calculators.turbomole import Turbomole
 from contextlib import redirect_stdout
 
 
-def run(restartfilename, lock, folder, paramdict):
-    """TODO: to be defined1. """
+def run(coord, restartfilename, lock, folder, params):
+    """Run turbomole calculation in specified folder after cleaning directory.
+    If successfull safly write foldername in file.
+
+    Args:
+        coord (str): name of turbomole coord file in folder.
+        restartfilename (str): name of restartfile.
+        lock (multiprocessing.Manager.lock): lock for multiprocessing
+        params (dict): dictionary containing the turbomole parameters
+                      (ASE format)
+    """
+
     cwd = os.getcwd()
     os.chdir(folder)
 
-    calc = Turbomole(**paramdict['params'])
+    calc = Turbomole(**params)
 
+    # Clean directory
     files = glob.glob('*')
-    if len(files) == 1:
-        coord = files[0]
-    elif len(files) == 0:
-        print('Something went terribly wrong!', file=sys.stderr)
-        raise SystemExit
-    else:
-        cleanupFiles = files
-        cleanupFiles.remove('H2O.turbomole')
-        for cleanupFile in cleanupFiles:
-            os.remove(cleanupFile)
-        coord = 'H2O.turbomole'
+    cleanupFiles = files
+    cleanupFiles.remove(coord)
+    for cleanupFile in cleanupFiles:
+        os.remove(cleanupFile)
 
     molecule = ase.io.read(coord, format='turbomole')
+
+    # Run
     molecule.set_calculator(calc)
 
+    # Redirect output
     tmoutname = 'turbomole.out'
     print('''
 Starting turbomole in \'{}\'
@@ -39,7 +45,10 @@ Redirecting output to \'{}\'
     with open(tmoutname, 'w') as f:
         with redirect_stdout(f):
             molecule.get_potential_energy()
+
     os.chdir(cwd)
+
+    # Safefly write to restartfile
     lock.acquire()
     with open(restartfilename, 'a') as restart_file:
         restart_file.write(folder + ' ')

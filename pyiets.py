@@ -44,7 +44,8 @@ def pyiets_run():
 
     if options['sp_control']['qc_prog'] == 'turbomole':
         calcmanager.start_tm_single_points(mode_folders,
-                                           options['sp_control'],
+                                           dissotionoutname,
+                                           options['sp_control']['params'],
                                            options['mp'],
                                            options['restart_file'])
 
