@@ -10,11 +10,15 @@ import pyiets.runcalcs.calcmanager as calcmanager
 import pyiets.io.checkinput
 
 
-def pyiets_run():
-    """Run pyiets"""
+def pyiets_run(path):
+    """Run pyiets
+    Args:
+        path (str): path to inputfiles
+    """
     defaults_parser = pyiets.io.parseInput.InputParser('default_settings.json')
     options = defaults_parser.getSinglePointOptions()
-    os.chdir(sys.argv[1])
+
+    os.chdir(path)
     inparser = pyiets.io.parseInput.InputParser(options['input_file'])
     options.update(inparser.getSinglePointOptions())
     pyiets.io.checkinput.check_options(options)
@@ -51,4 +55,4 @@ def pyiets_run():
 
 
 if __name__ == '__main__':
-    pyiets_run()
+    pyiets_run(sys.argv[1])
