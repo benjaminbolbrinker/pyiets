@@ -1,0 +1,8 @@
+{
+"input_file": "input.json",
+"snf_out": "snf.out",
+"restart": false,
+"restart_file": "pyiets.restart",
+"mode_folder": "dissortions",
+"mp": 1
+}

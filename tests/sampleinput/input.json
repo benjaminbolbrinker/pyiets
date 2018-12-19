@@ -7,8 +7,8 @@
         }
     },
 "snf_out": "snf.out",
-"restart": true,
+"restart": false,
 "restart_file": "pyiets.restart",
-"folder": "dissortions",
+"mode_folder": "dissortions",
 "mp": 2
 }
