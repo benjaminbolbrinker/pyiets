@@ -1,4 +1,9 @@
 {
+"sp_control": 
+    {
+      "qc_prog": null,
+      "params": null
+    },
 "input_file": "input.json",
 "snf_out": "snf.out",
 "restart": false,

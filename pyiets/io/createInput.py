@@ -9,6 +9,7 @@ outdir = ''
 
 
 def create_ascending_name(name):
+    """TODO: to be defined1. """
     if not os.path.exists(name):
         return name
     else:
@@ -20,6 +21,7 @@ def create_ascending_name(name):
 
 
 def find_descending_dirname(path):
+    """TODO: to be defined1. """
     folders = [os.path.join(path, o) for o in os.listdir(path)
                if os.path.isdir(os.path.join(path, o))]
     return folders
@@ -31,6 +33,7 @@ def writeDisortion(outname, outfolder, outformat,
     cwd = os.getcwd()
     snfparser = SnfParser(snfoutname=snfoutname)
     molecule = snfparser.get_molecule()
+    dissortion_folders = []
 
     modes = snfparser.get_modes()
     os.mkdir(outfolder)
@@ -48,9 +51,11 @@ def writeDisortion(outname, outfolder, outformat,
         for idx, dissortion in enumerate(asedissortions):
             modedir = 'mode' + str(mode_idx) + '_' + str(idx)
             os.mkdir(modedir)
+            dissortion_folders.append(modedir)
             os.chdir(modedir)
             io.write(outname,
                      dissortion,
                      format=outformat)
             os.chdir('../')
     os.chdir(cwd)
+    return dissortion_folders

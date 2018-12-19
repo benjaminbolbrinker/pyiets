@@ -8,16 +8,11 @@ from contextlib import redirect_stdout
 
 
 def run(restartfilename, lock, folder, paramdict):
+    """TODO: to be defined1. """
     cwd = os.getcwd()
     os.chdir(folder)
 
-    if 'params' in paramdict['sp_control']:
-        calc = Turbomole(**paramdict['sp_control']['params'])
-    else:
-        print('''Missing turbomole configuration!
-Add \'define_string\' or \'params\' in \'sp_control\'
-              ''', file=sys.stderr)
-        raise SystemExit
+    calc = Turbomole(**paramdict['params'])
 
     files = glob.glob('*')
     if len(files) == 1:
@@ -30,11 +25,9 @@ Add \'define_string\' or \'params\' in \'sp_control\'
         cleanupFiles.remove('H2O.turbomole')
         for cleanupFile in cleanupFiles:
             os.remove(cleanupFile)
-        #  calc.set(restart=True)
+        coord = 'H2O.turbomole'
 
-    lock.acquire()
     molecule = ase.io.read(coord, format='turbomole')
-    lock.release()
     molecule.set_calculator(calc)
 
     tmoutname = 'turbomole.out'
