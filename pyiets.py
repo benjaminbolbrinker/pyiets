@@ -11,7 +11,7 @@ import pyiets.io.checkinput
 
 
 def pyiets_run():
-    """TODO: to be defined1. """
+    """Run pyiets"""
     defaults_parser = pyiets.io.parseInput.InputParser('default_settings.json')
     options = defaults_parser.getSinglePointOptions()
     os.chdir(sys.argv[1])

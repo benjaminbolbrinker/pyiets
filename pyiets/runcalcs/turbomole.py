@@ -13,9 +13,8 @@ def run(coord, restartfilename, lock, folder, params):
     Args:
         coord (str): name of turbomole coord file in folder.
         restartfilename (str): name of restartfile.
-        lock (multiprocessing.Manager.lock): lock for multiprocessing
-        params (dict): dictionary containing the turbomole parameters
-                      (ASE format)
+        lock (multiprocessing.Manager.lock): lock for multiprocessing.
+        params (dict): ASE params for turbomole.
     """
 
     cwd = os.getcwd()
