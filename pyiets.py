@@ -24,35 +24,29 @@ def pyiets_run():
         .get_chemical_formula(mode='hill') + '.' + str(
             options['sp_control']['qc_prog'])
 
-    if options['restart']:
-        if options['sp_control']['qc_prog'] == 'turbomole':
-            if os.path.exists(options['restart_file']):
-                with open(options['restart_file'], 'r') as restartfile:
-                    mode_folders = set([f.path for f in
-                                        os.scandir(options['mode_folder'])
-                                        if f.is_dir()]) \
-                                   - set(restartfile.read().split())
-                    calcmanager.start_tm_single_points(mode_folders,
-                                                       options['sp_control'],
-                                                       options['mp'],
-                                                       options['restart_file'])
-
-    else:
-        outfolder = pyiets.io.createInput.\
-            create_ascending_name(options['mode_folder'])
-        restartfile = pyiets.io.createInput.create_ascending_name(
-            options['restart_file'])
-        pyiets.io.createInput.writeDisortion(dissotionoutname, outfolder,
+    if not os.path.exists(options['mode_folder']):
+        pyiets.io.createInput.writeDisortion(dissotionoutname,
+                                             options['mode_folder'],
                                              options['sp_control']['qc_prog'],
                                              options['snf_out'],
                                              delta=0.1)
-        if options['sp_control']['qc_prog'] == 'turbomole':
-            mode_folders = {f.path for f in os.scandir(options['mode_folder'])
-                            if f.is_dir()}
-            calcmanager.start_tm_single_points(mode_folders,
-                                               options['sp_control'],
-                                               options['mp'],
-                                               restartfile)
+
+    if os.path.exists(options['restart_file']):
+        with open(options['restart_file'], 'r') as restartfile:
+            mode_folders = set([f.path for f in
+                                os.scandir(options['mode_folder'])
+                                if f.is_dir()]) \
+                            - set(restartfile.read().split())
+    else:
+            mode_folders = set([f.path for f in
+                                os.scandir(options['mode_folder'])
+                                if f.is_dir()])
+
+    if options['sp_control']['qc_prog'] == 'turbomole':
+        calcmanager.start_tm_single_points(mode_folders,
+                                           options['sp_control'],
+                                           options['mp'],
+                                           options['restart_file'])
 
 
 if __name__ == '__main__':
