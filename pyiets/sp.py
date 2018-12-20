@@ -26,7 +26,7 @@ def run(path, options):
                                              options['mode_folder'],
                                              options['sp_control']['qc_prog'],
                                              options['snf_out'],
-                                             delta=0.1)
+                                             delta=options['delta'])
 
     if os.path.exists(options['restart_file']):
         with open(options['restart_file'], 'r') as restartfile:
