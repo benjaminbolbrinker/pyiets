@@ -1,13 +1,50 @@
 {
-"sp_control": 
-    {
-      "qc_prog": null,
-      "params": null
+  "sp_control": 
+  {
+    "qc_prog": null,
+    "params": null
+  },
+  "artaios_control":
+  {
+    "general": {
+      "qcprog": "tm",
+      "mosfile": "ridft.out",
+      "ham_conv": 27.21,
+      "rbas": true, 
+      "do_transport": true,
+      "print_green": true
     },
-"input_file": "input.json",
-"snf_out": "snf.out",
-"restart": false,
-"restart_file": "pyiets.restart",
-"mode_folder": "dissortions",
-"mp": 1
+
+    "partitioning": {
+      "leftatoms": [1],
+      "centralatoms": [2],
+      "rightatoms": [3]
+    },
+
+    "energy_range": {
+      "start": -10.0,
+      "end": 0.0,
+      "steps": 400
+    },
+
+    "system": {
+      "nspin": 1
+    },
+
+    "electrodes": {
+      "fermi_level": -5.0,
+      "self_energy": "wbl",
+      "dos_s": 0.036
+    },
+
+    "debug": {
+      "xyzfile": "coord"
+    }
+  },
+  "input_file": "input.json",
+  "snf_out": "snf.out",
+  "restart": false,
+  "restart_file": "pyiets.restart",
+  "mode_folder": "dissortions",
+  "mp": 1
 }

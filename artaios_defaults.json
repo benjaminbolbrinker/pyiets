@@ -1,0 +1,36 @@
+{
+  "general": [
+    "rbas", 
+    "do_transport",
+    {"qcprog": "tm"},
+    {"mosfile": "ridft.out"},
+    {"ham_conv": 27.21},
+    "print_green"
+  ],
+
+  "partitioning": [
+    "leftatoms": [1],
+    "centralatoms": [2],
+   "rightatoms": [3]
+  ],
+
+  "energy_range": [
+    "start": -10.0,
+    "end": 0.0,
+    "steps": 400
+  ],
+
+  "system": [
+    "nspin": 1
+  ],
+
+  "electrodes": [
+    "fermi_level": -5.0,
+    "self_energy": "wbl",
+    "dos_s": 0.036
+  ],
+
+  "debug": [
+    "xyzfile": "coord"
+  ]
+}
