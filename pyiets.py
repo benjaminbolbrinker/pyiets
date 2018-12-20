@@ -3,11 +3,17 @@
 
 import os
 import sys
+import json
 import pyiets.io.snfio
 import pyiets.io.createInput
-import pyiets.io.parseInput
 import pyiets.runcalcs.calcmanager as calcmanager
 import pyiets.io.checkinput
+
+
+def read_input(inputfilename):
+    with open(inputfilename, 'r') as infile:
+        indata = json.load(infile)
+    return indata
 
 
 def pyiets_run(path):
@@ -15,12 +21,9 @@ def pyiets_run(path):
     Args:
         path (str): path to inputfiles
     """
-    defaults_parser = pyiets.io.parseInput.InputParser('default_settings.json')
-    options = defaults_parser.getSinglePointOptions()
-
+    options = read_input('input_defaults.json')
     os.chdir(path)
-    inparser = pyiets.io.parseInput.InputParser(options['input_file'])
-    options.update(inparser.getSinglePointOptions())
+    options.update(options['input_file'])
     pyiets.io.checkinput.check_options(options)
 
     snfparser = pyiets.io.snfio.SnfParser(snfoutname=options['snf_out'])
