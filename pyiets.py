@@ -18,6 +18,7 @@ def get_options(path):
 
 
 if __name__ == '__main__':
-    opt = get_options(sys.argv[1])
-    pyiets.sp.run(sys.argv[1], opt)
-    pyiets.artaios.run(sys.argv[1], opt)
+    workdir = sys.argv[1]
+    opt = get_options(workdir)
+    pyiets.sp.run(workdir, opt)
+    pyiets.artaios.run(workdir, opt)
