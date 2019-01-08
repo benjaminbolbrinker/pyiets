@@ -28,8 +28,8 @@ def run(path, options):
                                              options['snf_out'],
                                              delta=options['delta'])
 
-    if os.path.exists(options['restart_file']):
-        with open(options['restart_file'], 'r') as restartfile:
+    if os.path.exists(options['sp_restart_file']):
+        with open(options['sp_restart_file'], 'r') as restartfile:
             mode_folders = set([f.path for f in
                                 os.scandir(options['mode_folder'])
                                 if f.is_dir()]) \
@@ -44,5 +44,5 @@ def run(path, options):
                                            dissotionoutname,
                                            options['sp_control']['params'],
                                            options['mp'],
-                                           options['restart_file'])
+                                           options['sp_restart_file'])
     os.chdir(cwd)

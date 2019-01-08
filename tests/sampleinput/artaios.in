@@ -1,0 +1,34 @@
+$general
+ rbas
+ do_transport
+ qcprog tm
+ mosfile mos
+ ham_conv 27.21
+ print_green
+$end
+
+$partitioning
+ leftatoms 
+ centralatoms 1,2,3
+ rightatoms 
+$end
+
+$energy_range
+ start -10.0
+ end 0.0
+ steps 400
+$end
+
+$system
+ nspin 1
+$end
+
+$electrodes
+ fermi_level -5.0
+ self_energy wbl
+ dos_s 0.036
+$end
+
+$debug
+ xyzfile coord
+$end

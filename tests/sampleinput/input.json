@@ -9,5 +9,6 @@
 "snf_out": "snf.out",
 "restart_file": "pyiets.restart",
 "mode_folder": "dissortions",
-"mp": 2
+"mp": 6,
+"artaios": "/home/bolbrinker/Software/artaios"
 }
