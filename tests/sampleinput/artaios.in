@@ -2,21 +2,20 @@ $general
  rbas
  do_transport
  qcprog tm
- mosfile mos
- ham_conv 27.21
- print_green
+ mosfile ASE.TM.ridft.out
+ #print_green
 $end
 
 $partitioning
- leftatoms 
- centralatoms 1,2,3
- rightatoms 
+ leftatoms 1
+ centralatoms 2
+ rightatoms 3
 $end
 
 $energy_range
- start -10.0
- end 0.0
- steps 400
+ start -8.0
+ end -2.0
+ steps 10
 $end
 
 $system

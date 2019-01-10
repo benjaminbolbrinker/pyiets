@@ -1,8 +1,5 @@
 import io
 import os
-import glob
-import ase.io
-from ase.calculators.turbomole import Turbomole
 from contextlib import redirect_stdout
 
 import subprocess
@@ -32,12 +29,18 @@ Redirecting output to \'{}\'
     f = io.StringIO()
     with open(tmoutname, 'w') as f:
         with redirect_stdout(f):
-            pass
-            #  subprocess.Popen(os.path.join(options['artaios'],
-            #                                options['artaios_bin']) + ' ',
-            #                   options['artaios_in'] + ' ',
-            #                   '> ',
-            #                   options['artaios_out'])
+            #  pass
+            #  try:
+            subprocess.Popen(os.path.join(options['artaios'],
+                                          options['artaios_tm_bin']))
+            #  except TypeError as error:
+            #      print(error)
+            #  except PermissionError as error:
+            #      print(error)
+            #      print('Check permissions!')
+    #  subprocess.call(os.path.join(options['artaios'],
+    #                               options['artaios_bin']) + ' '
+    #                  + options['artaios_in'], shell=True)
 
     os.chdir(cwd)
 

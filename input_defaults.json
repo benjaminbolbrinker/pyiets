@@ -12,6 +12,7 @@
   "artaios_restart_file": "artaios.restart",
   "artaios": null,
   "artaios_bin": "bin/artaios",
+  "artaios_tm_bin": "bin/tm2unformcl",
   "artaios_in": "artaios.in",
   "artaios_out": "artaios.out",
 
