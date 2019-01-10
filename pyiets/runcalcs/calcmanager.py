@@ -24,7 +24,7 @@ def start_tm_single_points(folders, coord, params,
         lock = manager.Lock()
         params = [(coord, restartfilename, lock, folder, params)
                   for folder in folders]
-        pool.starmap(turbomole.run, params)
+        pool.map(turbomole.run, params)
 
 
 def get_greens(folders, mosfile, options):
@@ -60,6 +60,7 @@ def get_greens(folders, mosfile, options):
         manager = multiprocessing.Manager()
         files = [str(os.path.join(folder, options['greenmatrix_file']))
                  for folder in folders]
-        pool.imap(pyiets.io.artaios.readGreen, files)
+        greenmatrices = pool.imap(pyiets.io.artaios.readGreen, files)
         pool.close()
         pool.join()
+

@@ -1,9 +1,5 @@
 import re
-#  import numpy as np
-
-
-def readComplex(rawstr):
-    pass
+import numpy as np
 
 
 def readGreen(greenmatrixfile):
@@ -11,12 +7,14 @@ def readGreen(greenmatrixfile):
         rawinput = greenfile.readlines()[1:]
 
     line = rawinput[0]
-    #  floating_point = r'[-+]?(\d+([.,]\d*)?|[.,]\d+)([eE][-+]?\d+)?'
     floating_point = r'[-+]?\d+[.][Ee0-9+-]+'
-    #  print(line)
+    greenmatrix = []
     for line in rawinput:
-        ss = re.findall('[(] *' + floating_point + ', *' +
-                        floating_point + ' *[)]', line)
-
-        pass
-    #  print(rawinput)
+        arr = re.findall('[(] *' + floating_point + ', *' +
+                         floating_point + ' *[)]', line)
+        arr = [np.fromstring(rawcomplex.replace('(', '').replace(')', ''),
+                             sep=', ')
+               for rawcomplex in arr]
+        arr = [complex(*complexlist) for complexlist in arr]
+        greenmatrix.append(arr)
+    return np.array(greenmatrix)

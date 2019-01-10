@@ -6,7 +6,7 @@ from ase.calculators.turbomole import Turbomole
 from contextlib import redirect_stdout
 
 
-def run(coord, restartfilename, lock, folder, params):
+def run(params):
     """Run turbomole calculation in specified folder after cleaning directory.
     If successfull safly write foldername in file.
 
@@ -16,11 +16,18 @@ def run(coord, restartfilename, lock, folder, params):
         lock (multiprocessing.Manager.lock): lock for multiprocessing.
         params (dict): ASE params for turbomole.
     """
+def run(params):
+
+    coord = params[0]
+    restartfilename = params[1]
+    lock = params[2]
+    folder = params[3]
+    tmparams = params[4]
 
     cwd = os.getcwd()
     os.chdir(folder)
 
-    calc = Turbomole(**params)
+    calc = Turbomole(**tmparams)
 
     # Clean directory
     files = glob.glob('*')
