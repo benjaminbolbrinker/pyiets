@@ -43,7 +43,7 @@ def get_greens(folders, mosfile, options):
         lock = manager.Lock()
         params = [(folder, mosfile, options, lock)
                   for folder in folders]
-        pool.starmap(tm2unformcl.run, params)
+        pool.imap(tm2unformcl.run, params)
         pool.close()
         pool.join()
 
@@ -52,7 +52,7 @@ def get_greens(folders, mosfile, options):
         lock = manager.Lock()
         params = [(folder, mosfile, options, lock)
                   for folder in folders]
-        pool.map(artaios.run, params)
+        pool.imap(artaios.run, params)
         pool.close()
         pool.join()
 
@@ -60,6 +60,6 @@ def get_greens(folders, mosfile, options):
         manager = multiprocessing.Manager()
         files = [str(os.path.join(folder, options['greenmatrix_file']))
                  for folder in folders]
-        pool.map(pyiets.io.artaios.readGreen, files)
+        pool.imap(pyiets.io.artaios.readGreen, files)
         pool.close()
         pool.join()

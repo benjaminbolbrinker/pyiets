@@ -1,7 +1,4 @@
-import io
 import os
-from contextlib import redirect_stdout
-
 import subprocess
 
 
@@ -22,21 +19,29 @@ def run(params):
     lock = params[3]
 
     cwd = os.getcwd()
-    subprocess.call(['cp', os.path.realpath(options['artaios_in']), folder])
     os.chdir(folder)
-
     # Run and redirect output
-    tmoutname = 'artaios.out'
+    stdoutname = 'artaios.stdout'
+    stderrname = 'artaios.stderr'
     print('''
 Starting artaios in \'{}\'
-Redirecting output to \'{}\'
-'''.format(folder, tmoutname))
-    f = io.StringIO()
-    with open(tmoutname, 'w') as f:
-        with redirect_stdout(f):
-            subprocess.call(os.path.join(options['artaios'],
-                                        options['artaios_bin']) + ' '
-                            + options['artaios_in'], shell=True)
+Redirecting output to \'{}\' and \'{}\'
+'''.format(folder, stdoutname, stderrname))
+
+    # Run and redirect output
+    process = subprocess.Popen(os.path.join(options['artaios'],
+                               options['artaios_bin']) + ' '
+                               + options['artaios_in'],
+                               shell=True,
+                               stdout=subprocess.PIPE,
+                               stderr=subprocess.PIPE)
+    with open(stdoutname, 'wb') as f:
+        for line in process.stdout:
+            f.write(line)
+
+    with open(stderrname, 'wb') as f:
+        for line in process.stderr:
+            f.write(line)
 
     os.chdir(cwd)
 
@@ -45,4 +50,4 @@ Redirecting output to \'{}\'
     with open(options['artaios_restart_file'], 'a') as restart_file:
         restart_file.write(folder + ' ')
     lock.release()
-    #  return folder
+    return folder
