@@ -2,6 +2,7 @@ import multiprocessing
 
 import pyiets.runcalcs.turbomole as turbomole
 import pyiets.runcalcs.artaios as artaios
+import pyiets.runcalcs.tm2unformcl as tm2unformcl
 
 
 def start_tm_single_points(folders, coord, params,
@@ -35,6 +36,12 @@ def get_greens(folders, mosfile, options):
         nthreads (int): number of threads.
         restartfilename (str): name of restartfile.
     '''
+    with multiprocessing.Pool(processes=options['mp']) as pool:
+        manager = multiprocessing.Manager()
+        lock = manager.Lock()
+        params = [(folder, mosfile, options, lock)
+                  for folder in folders]
+        pool.starmap(tm2unformcl.run, params)
     with multiprocessing.Pool(processes=options['mp']) as pool:
         manager = multiprocessing.Manager()
         lock = manager.Lock()
