@@ -1,5 +1,7 @@
+import os
 import multiprocessing
 
+import pyiets.io.artaios
 import pyiets.runcalcs.turbomole as turbomole
 import pyiets.runcalcs.artaios as artaios
 import pyiets.runcalcs.tm2unformcl as tm2unformcl
@@ -42,9 +44,22 @@ def get_greens(folders, mosfile, options):
         params = [(folder, mosfile, options, lock)
                   for folder in folders]
         pool.starmap(tm2unformcl.run, params)
+        pool.close()
+        pool.join()
+
     with multiprocessing.Pool(processes=options['mp']) as pool:
         manager = multiprocessing.Manager()
         lock = manager.Lock()
         params = [(folder, mosfile, options, lock)
                   for folder in folders]
-        pool.starmap(artaios.run, params)
+        pool.map(artaios.run, params)
+        pool.close()
+        pool.join()
+
+    with multiprocessing.Pool(processes=options['mp']) as pool:
+        manager = multiprocessing.Manager()
+        files = [str(os.path.join(folder, options['greenmatrix_file']))
+                 for folder in folders]
+        pool.map(pyiets.io.artaios.readGreen, files)
+        pool.close()
+        pool.join()

@@ -8,6 +8,7 @@
   "snf_out": "snf.out",
   "sp_restart": false,
   "sp_restart_file": "sp.restart",
+
   "artaios_restart": false,
   "artaios_restart_file": "artaios.restart",
   "artaios": null,
@@ -15,6 +16,7 @@
   "artaios_tm_bin": "bin/tm2unformcl",
   "artaios_in": "artaios.in",
   "artaios_out": "artaios.out",
+  "greenmatrix_file": "greensmatrix.1",
 
   "mode_folder": "dissortions",
   "delta": 0.1,

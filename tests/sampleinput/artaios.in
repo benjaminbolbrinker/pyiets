@@ -3,7 +3,7 @@ $general
  do_transport
  qcprog tm
  mosfile ASE.TM.ridft.out
- #print_green
+ print_green
 $end
 
 $partitioning
