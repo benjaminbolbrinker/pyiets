@@ -14,9 +14,8 @@ def run(params):
     """
 
     folder = params[0]
-    mosfile = params[1]
-    options = params[2]
-    lock = params[3]
+    options = params[1]
+    lock = params[2]
 
     cwd = os.getcwd()
     os.chdir(folder)

@@ -13,7 +13,7 @@ def run(params):
         params (dict): ASE params for turbomole.
     """
     folder = params[0]
-    options = params[2]
+    options = params[1]
 
     cwd = os.getcwd()
     subprocess.call(['cp', os.path.realpath(options['artaios_in']), folder])

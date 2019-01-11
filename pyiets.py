@@ -43,4 +43,5 @@ if __name__ == '__main__':
     options = get_options(workdir)
     options['workdir'] = os.path.realpath(workdir)
     pyiets.sp.run(workdir, options)
-    pyiets.artaios.run(workdir, options)
+    artaios = pyiets.artaios.Artaios(workdir, options)
+    artaios.run()

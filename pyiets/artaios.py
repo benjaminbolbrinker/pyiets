@@ -19,42 +19,80 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 import os
+import re
+import multiprocessing
+
+import numpy as np
 import pyiets.runcalcs.calcmanager as calcmanager
 
 
-def run(path, options, readGreen=True):
-    """Read tm mos files and run artaios calculations
-    for every vibration mode. Calculation is controlled via 'input.json'
+class Artaios():
+    def __init__(self, workdir, options):
+        self.workdir = workdir
+        self.options = options
+        self.greenmatrices = None
 
-    Args:
-        path (str): path to inputfiles ('artaios.in' and 'input.json')
-                    and mode_folder containing previously
-                    calculated single points corresponding to different
-                    normal-modes.
-    """
-    outdict = {}
-    cwd = os.getcwd()
-    os.chdir(path)
-    mos_name = 'mos'
+        cwd = os.getcwd()
+        os.chdir(self.workdir)
 
-    if os.path.exists(options['artaios_restart_file']):
-        with open(options['artaios_restart_file'], 'r') as restartfile:
-            mode_folders = set([f.path for f in
-                                os.scandir(options['mode_folder'])
-                                if f.is_dir()]) \
-                            - set(restartfile.read().split())
-    else:
-            mode_folders = set([f.path for f in
-                                os.scandir(options['mode_folder'])
-                                if f.is_dir()])
+        if os.path.exists(self.options['artaios_restart_file']):
+            with open(
+                 self.options['artaios_restart_file'], 'r'
+            ) as restartfile:
+                self.mode_folders = set([os.path.realpath(f.path) for f in
+                                        os.scandir(self.options['mode_folder'])
+                                        if f.is_dir()]) \
+                                  - set(restartfile.read().split())
+        else:
+                self.mode_folders = set([os.path.realpath(f.path) for f in
+                                        os.scandir(self.options['mode_folder'])
+                                        if f.is_dir()])
+        os.chdir(cwd)
 
-    if options['sp_control']['qc_prog'] == 'turbomole':
-        calcmanager.start_artaios(mode_folders,
-                                  mos_name,
-                                  options)
-        if readGreen:
-            outdict['greenmatrices'] = calcmanager\
-                .get_greenmatrices(mode_folders, options)
+    def run(self):
+        """Read tm mos files and run artaios calculations
+        for every vibration mode. Calculation is controlled via 'input.json'
 
-    os.chdir(cwd)
-    return outdict
+        Args:
+            path (str): path to inputfiles ('artaios.in' and 'input.json')
+                        and mode_folder containing previously
+                        calculated single points corresponding to different
+                        normal-modes.
+        """
+        cwd = os.getcwd()
+        os.chdir(self.workdir)
+
+        if self.options['sp_control']['qc_prog'] == 'turbomole':
+            calcmanager.start_artaios(self.mode_folders,
+                                      self.options)
+
+        os.chdir(cwd)
+
+    def read_greenmatrices(self):
+        with multiprocessing.Pool(processes=self.options['mp']) as pool:
+            files = [str(os.path.join(folder,
+                                      self.options['greenmatrix_file']))
+                     for folder in self.mode_folders]
+            greenmatrices = pool.imap(self.read_greenmatrix, files)
+            pool.close()
+            pool.join()
+
+        return [matrix for matrix in greenmatrices]
+
+    def read_greenmatrix(self, greenmatrixfile):
+        with open(greenmatrixfile, 'r') as greenfile:
+            rawinput = greenfile.readlines()[1:]
+
+        line = rawinput[0]
+        floating_point = r'[-+]?\d+[.][Ee0-9+-]+'
+        greenmatrix = []
+        for line in rawinput:
+            arr = re.findall('[(] *' + floating_point + ', *' +
+                             floating_point + ' *[)]', line)
+            arr = [np.fromstring(rawcomplex
+                                 .replace('(', '')
+                                 .replace(')', ''), sep=', ').tolist()
+                   for rawcomplex in arr]
+            arr = [complex(*complexlist) for complexlist in arr]
+            greenmatrix.append(arr)
+        return greenmatrix

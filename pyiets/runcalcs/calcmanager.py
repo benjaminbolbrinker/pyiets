@@ -18,10 +18,8 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-import os
 import multiprocessing
 
-import pyiets.io.artaios
 import pyiets.runcalcs.turbomole as turbomole
 import pyiets.runcalcs.artaios as artaios
 import pyiets.runcalcs.tm2unformcl as tm2unformcl
@@ -47,7 +45,7 @@ def start_tm_single_points(folders, coord, params,
         pool.map(turbomole.run, params)
 
 
-def start_artaios(folders, mosfile, options):
+def start_artaios(folders, options):
     '''Start turbomole calculations asynchronously in specified folders.
 
     Args:
@@ -61,7 +59,7 @@ def start_artaios(folders, mosfile, options):
     with multiprocessing.Pool(processes=options['mp']) as pool:
         manager = multiprocessing.Manager()
         lock = manager.Lock()
-        params = [(folder, mosfile, options, lock)
+        params = [(folder, options)
                   for folder in folders]
         pool.imap(tm2unformcl.run, params)
         pool.close()
@@ -70,21 +68,8 @@ def start_artaios(folders, mosfile, options):
     with multiprocessing.Pool(processes=options['mp']) as pool:
         manager = multiprocessing.Manager()
         lock = manager.Lock()
-        params = [(folder, mosfile, options, lock)
+        params = [(folder, options, lock)
                   for folder in folders]
         pool.imap(artaios.run, params)
         pool.close()
         pool.join()
-
-
-def get_greenmatrices(folders, options):
-
-    with multiprocessing.Pool(processes=options['mp']) as pool:
-        manager = multiprocessing.Manager()
-        files = [str(os.path.join(folder, options['greenmatrix_file']))
-                 for folder in folders]
-        greenmatrices = pool.imap(pyiets.io.artaios.readGreen, files)
-        pool.close()
-        pool.join()
-
-    return greenmatrices
