@@ -25,6 +25,7 @@
 import os
 import sys
 import pyiets.sp
+import pyiets.preprocess
 import pyiets.artaios
 
 
@@ -42,6 +43,9 @@ if __name__ == '__main__':
     workdir = sys.argv[1]
     options = get_options(workdir)
     options['workdir'] = os.path.realpath(workdir)
+    preprocess = pyiets.preprocess.Preprocessor(workdir, options)
+    #  preprocess.parse_snf_output()
+
     pyiets.sp.run(workdir, options)
     artaios = pyiets.artaios.Artaios(workdir, options)
     artaios.run()
