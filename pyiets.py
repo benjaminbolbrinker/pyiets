@@ -27,6 +27,8 @@ import sys
 import pyiets.sp
 import pyiets.preprocess
 import pyiets.artaios
+import pyiets.read
+import pyiets.io.checkinput
 
 
 def get_options(path):
@@ -44,7 +46,10 @@ if __name__ == '__main__':
     options = get_options(workdir)
     options['workdir'] = os.path.realpath(workdir)
     preprocess = pyiets.preprocess.Preprocessor(workdir, options)
+    preprocess.writeDisortion()
 
-    pyiets.sp.run(workdir, options)
+    singlepoint = pyiets.sp.SinglePoint(workdir, options)
+    singlepoint.run()
     artaios = pyiets.artaios.Artaios(workdir, options)
     artaios.run()
+    print(artaios.read_greenmatrices())

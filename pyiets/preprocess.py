@@ -12,9 +12,11 @@ class Preprocessor():
             os.path.join(self.workdir, self.options['snf_out'])
         )
         self.snf_parser = snf_parser
-        self.dissotionoutname = snf_parser.get_molecule()\
+        dissotionoutname = snf_parser.get_molecule()\
             .to_ASE_atoms_obj().get_chemical_formula(mode='hill') + '.' + str(
             options['sp_control']['qc_prog'])
+        self.dissotionoutname = dissotionoutname
+        options['dissotionoutname'] = dissotionoutname
 
     def writeDisortion(self):
         cwd = os.getcwd()
@@ -23,7 +25,8 @@ class Preprocessor():
 
         modes = self.snf_parser.get_modes()
         os.mkdir(os.path.join(self.workdir, self.options['mode_folder']))
-        outdirpath = os.path.abspath(self.options['mode_folder'])
+        outdirpath = os.path.abspath(os.path.join(self.workdir,
+                                                  self.options['mode_folder']))
         for mode_idx, mode in enumerate(modes):
             mode_vecs = self.snf_parser.get_mode(mode_idx).vectors
             dissortions = [molecule.vectors - mode_vecs*self.options['delta'],
