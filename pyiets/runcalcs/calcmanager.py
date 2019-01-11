@@ -1,3 +1,23 @@
+# PyIETS
+
+# Postprocessing tool for calculating the IETS intensity and hence the
+# electron-phonon-interaction
+#
+# Copyright (C) 2019 Benjamin Bolbrinker, Michael Deffner, Carmen Herrmann
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
 import os
 import multiprocessing
 
@@ -27,7 +47,7 @@ def start_tm_single_points(folders, coord, params,
         pool.map(turbomole.run, params)
 
 
-def get_greens(folders, mosfile, options):
+def start_artaios(folders, mosfile, options):
     '''Start turbomole calculations asynchronously in specified folders.
 
     Args:
@@ -56,6 +76,9 @@ def get_greens(folders, mosfile, options):
         pool.close()
         pool.join()
 
+
+def get_greenmatrices(folders, options):
+
     with multiprocessing.Pool(processes=options['mp']) as pool:
         manager = multiprocessing.Manager()
         files = [str(os.path.join(folder, options['greenmatrix_file']))
@@ -64,3 +87,4 @@ def get_greens(folders, mosfile, options):
         pool.close()
         pool.join()
 
+    return greenmatrices

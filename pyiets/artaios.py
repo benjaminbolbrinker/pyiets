@@ -22,7 +22,7 @@ import os
 import pyiets.runcalcs.calcmanager as calcmanager
 
 
-def run(path, options):
+def run(path, options, readGreen=True):
     """Read tm mos files and run artaios calculations
     for every vibration mode. Calculation is controlled via 'input.json'
 
@@ -32,6 +32,7 @@ def run(path, options):
                     calculated single points corresponding to different
                     normal-modes.
     """
+    outdict = {}
     cwd = os.getcwd()
     os.chdir(path)
     mos_name = 'mos'
@@ -48,7 +49,12 @@ def run(path, options):
                                 if f.is_dir()])
 
     if options['sp_control']['qc_prog'] == 'turbomole':
-        calcmanager.get_greens(mode_folders,
-                               mos_name,
-                               options)
+        calcmanager.start_artaios(mode_folders,
+                                  mos_name,
+                                  options)
+        if readGreen:
+            outdict['greenmatrices'] = calcmanager\
+                .get_greenmatrices(mode_folders, options)
+
     os.chdir(cwd)
+    return outdict
