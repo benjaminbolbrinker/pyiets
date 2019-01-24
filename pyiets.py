@@ -46,10 +46,10 @@ if __name__ == '__main__':
     options = get_options(workdir)
     options['workdir'] = os.path.realpath(workdir)
     preprocess = pyiets.preprocess.Preprocessor(workdir, options)
-    preprocess.writeDisortion()
+    preprocess.writeDisortion(modes=options['modes'])
 
     singlepoint = pyiets.sp.SinglePoint(workdir, options)
     singlepoint.run()
     artaios = pyiets.artaios.Artaios(workdir, options)
     artaios.run()
-    print(artaios.read_greenmatrices())
+    #  print(artaios.read_greenmatrices())

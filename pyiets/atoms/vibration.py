@@ -24,11 +24,12 @@ import numpy as np
 
 class Mode:
     """Docstring for MyClass. """
-    def __init__(self, vectors=None, atoms=None, wavenumber=None):
+    def __init__(self, vectors=None, atoms=None, wavenumber=None, idx=None):
         """TODO: to be defined1. """
         self.vectors = np.array(vectors)
         self.atoms = atoms
         self.wavenumber = wavenumber
+        self.idx = idx
 
     def set_wavenumber(self, wn):
         """TODO: to be defined1. """
@@ -53,6 +54,10 @@ class Mode:
     def get_vectors(self):
         """TODO: to be defined1. """
         return self.vectors
+
+    def get_idx(self):
+        """TODO: to be defined1. """
+        return self.idx
 
     def print(self):
         """TODO: to be defined1. """

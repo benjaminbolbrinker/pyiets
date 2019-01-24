@@ -60,7 +60,7 @@ class SinglePoint():
                                      if f.is_dir()])
         os.chdir(cwd)
 
-    def run(self):
+    def run(self, mode='all'):
         """Read snf output file and run turbomole calculations
         for every vibration mode. Calculation is controlled via 'input.json'
 

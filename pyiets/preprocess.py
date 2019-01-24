@@ -18,17 +18,21 @@ class Preprocessor():
         self.dissotionoutname = dissotionoutname
         options['dissotionoutname'] = dissotionoutname
 
-    def writeDisortion(self):
+    def writeDisortion(self, modes='all'):
         cwd = os.getcwd()
         molecule = self.snf_parser.get_molecule()
         dissortion_folders = []
 
-        modes = self.snf_parser.get_modes()
+        if modes == 'all':
+            modes = self.snf_parser.get_modes()
+        else:
+            modes = [self.snf_parser.get_mode(mode_idx) for mode_idx in modes]
+
         os.mkdir(os.path.join(self.workdir, self.options['mode_folder']))
         outdirpath = os.path.abspath(os.path.join(self.workdir,
                                                   self.options['mode_folder']))
-        for mode_idx, mode in enumerate(modes):
-            mode_vecs = self.snf_parser.get_mode(mode_idx).vectors
+        for mode in modes:
+            mode_vecs = mode.vectors
             dissortions = [molecule.vectors - mode_vecs*self.options['delta'],
                            molecule.vectors + mode_vecs*self.options['delta']]
 
@@ -38,7 +42,7 @@ class Preprocessor():
 
             os.chdir(outdirpath)
             for idx, dissortion in enumerate(asedissortions):
-                modedir = 'mode' + str(mode_idx) + '_' + str(idx)
+                modedir = 'mode' + str(mode.get_idx()) + '_' + str(idx)
                 os.mkdir(modedir)
                 dissortion_folders.append(modedir)
                 os.chdir(modedir)

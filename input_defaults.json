@@ -19,6 +19,7 @@
   "greenmatrix_file": "greensmatrix.1",
 
   "mode_folder": "dissortions",
+  "modes": "all",
   "delta": 0.1,
   "mp": 1
 }

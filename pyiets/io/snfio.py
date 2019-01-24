@@ -107,7 +107,8 @@ class SnfParser:
         modevectors = np.array(modevectors).reshape(int(len(modes)/3), 3)
         mode = vib.Mode(vectors=modevectors,
                         atoms=self.molecule.atoms,
-                        wavenumber=vibenergy)
+                        wavenumber=vibenergy,
+                        idx=idx)
         return mode
 
     def get_modes(self):
