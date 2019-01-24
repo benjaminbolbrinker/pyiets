@@ -52,4 +52,5 @@ if __name__ == '__main__':
     singlepoint.run()
     artaios = pyiets.artaios.Artaios(workdir, options)
     artaios.run()
-    #  print(artaios.read_greenmatrices())
+    print(artaios.read_greenmatrices()[0])
+    print(artaios.read_greenmatrices()[1])

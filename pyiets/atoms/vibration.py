@@ -24,12 +24,14 @@ import numpy as np
 
 class Mode:
     """Docstring for MyClass. """
-    def __init__(self, vectors=None, atoms=None, wavenumber=None, idx=None):
+    def __init__(self, vectors=None, atoms=None, wavenumber=None, idx=None,
+                 dissortion_folders=None):
         """TODO: to be defined1. """
         self.vectors = np.array(vectors)
         self.atoms = atoms
         self.wavenumber = wavenumber
         self.idx = idx
+        self.dissortion_folders = dissortion_folders
 
     def set_wavenumber(self, wn):
         """TODO: to be defined1. """
