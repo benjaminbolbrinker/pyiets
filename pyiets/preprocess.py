@@ -21,7 +21,6 @@ class Preprocessor():
     def writeDisortion(self, modes='all'):
         cwd = os.getcwd()
         molecule = self.snf_parser.get_molecule()
-        dissortion_folders = []
 
         if modes == 'all':
             modes = self.snf_parser.get_modes()
@@ -41,6 +40,7 @@ class Preprocessor():
                               for dis in dissortions]
 
             os.chdir(outdirpath)
+            dissortion_folders = []
             for idx, dissortion in enumerate(asedissortions):
                 modedir = 'mode' + str(mode.get_idx()) + '_' + str(idx)
                 os.mkdir(modedir)
@@ -50,5 +50,6 @@ class Preprocessor():
                              dissortion,
                              format=self.options['sp_control']['qc_prog'])
                 os.chdir('../')
+            mode.set_folders(dissortion_folders)
 
         os.chdir(cwd)

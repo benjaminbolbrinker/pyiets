@@ -37,25 +37,37 @@ class Mode:
         """TODO: to be defined1. """
         self.wavenumber = wn
 
-    def set_atoms(self, stringarr):
-        """TODO: to be defined1. """
-        self.atoms = stringarr
-
-    def set_vectors(self, matrix_3bynatm):
-        """TODO: to be defined1. """
-        self.vectors = matrix_3bynatm
-
     def get_wavenumber(self):
         """TODO: to be defined1. """
         return self.wavenumber
+
+    def set_atoms(self, stringarr):
+        """TODO: to be defined1. """
+        self.atoms = stringarr
 
     def get_atoms(self):
         """TODO: to be defined1. """
         return self.atoms
 
+    def set_vectors(self, matrix_3bynatm):
+        """TODO: to be defined1. """
+        self.vectors = matrix_3bynatm
+
     def get_vectors(self):
         """TODO: to be defined1. """
         return self.vectors
+
+    def set_folders(self, folder_str_list):
+        """TODO: to be defined1. """
+        self.dissortion_folders = folder_str_list
+
+    def get_folders(self):
+        """TODO: to be defined1. """
+        return self.dissortion_folders
+
+    def set_idx(self, idx):
+        """TODO: to be defined1. """
+        self.idx = idx
 
     def get_idx(self):
         """TODO: to be defined1. """
