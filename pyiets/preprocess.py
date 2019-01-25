@@ -53,3 +53,4 @@ class Preprocessor():
             mode.set_folders(dissortion_folders)
 
         os.chdir(cwd)
+        return modes

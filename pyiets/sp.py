@@ -42,7 +42,7 @@ class SinglePoint():
         #                                           options['sp_control']['qc_prog'],
         #                                           options['snf_out'],
         #                                           delta=options['delta'])
-    def __init__(self, workdir, options):
+    def __init__(self, workdir, options, modes):
         self.workdir = workdir
         self.options = options
 
@@ -50,12 +50,12 @@ class SinglePoint():
         os.chdir(self.workdir)
         if os.path.exists(self.options['sp_restart_file']):
             with open(self.options['sp_restart_file'], 'r') as restartfile:
-                self.mode_folders = set([os.path.realpath(f.path) for f in
+                self.modes_to_calc = set([os.path.realpath(f.path) for f in
                                         os.scandir(self.options['mode_folder'])
                                         if f.is_dir()]) \
                                   - set(restartfile.read().split())
         else:
-            self.mode_folders = set([os.path.realpath(f.path) for f in
+            self.modes_to_calc = set([os.path.realpath(f.path) for f in
                                      os.scandir(self.options['mode_folder'])
                                      if f.is_dir()])
         os.chdir(cwd)
@@ -71,7 +71,7 @@ class SinglePoint():
         os.chdir(self.workdir)
         if self.options['sp_control']['qc_prog'] == 'turbomole':
             calcmanager\
-                .start_tm_single_points(self.mode_folders,
+                .start_tm_single_points(self.modes_to_calc,
                                         self.options['dissotionoutname'],
                                         self.options['sp_control']['params'],
                                         self.options['mp'],
