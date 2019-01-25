@@ -30,6 +30,16 @@ class Preprocessor():
         os.mkdir(os.path.join(self.workdir, self.options['mode_folder']))
         outdirpath = os.path.abspath(os.path.join(self.workdir,
                                                   self.options['mode_folder']))
+
+        os.chdir(outdirpath)
+        os.mkdir('sp')
+        os.chdir('sp')
+        ase.io.write(self.dissotionoutname,
+                     molecule.to_ASE_atoms_obj(),
+                     format=self.options['sp_control']['qc_prog'])
+
+        os.chdir('../../')
+
         for mode in modes:
             mode_vecs = mode.vectors
             dissortions = [molecule.vectors - mode_vecs*self.options['delta'],
@@ -53,4 +63,3 @@ class Preprocessor():
             mode.set_folders(dissortion_folders)
 
         os.chdir(cwd)
-        return modes
