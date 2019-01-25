@@ -42,7 +42,7 @@ class SinglePoint():
         #                                           options['sp_control']['qc_prog'],
         #                                           options['snf_out'],
         #                                           delta=options['delta'])
-    def __init__(self, workdir, options, modes):
+    def __init__(self, workdir, options):
         self.workdir = workdir
         self.options = options
 
@@ -51,8 +51,8 @@ class SinglePoint():
         if os.path.exists(self.options['sp_restart_file']):
             with open(self.options['sp_restart_file'], 'r') as restartfile:
                 self.modes_to_calc = set([os.path.realpath(f.path) for f in
-                                        os.scandir(self.options['mode_folder'])
-                                        if f.is_dir()]) \
+                                         os.scandir(self.options['mode_folder'])
+                                         if f.is_dir()]) \
                                   - set(restartfile.read().split())
         else:
             self.modes_to_calc = set([os.path.realpath(f.path) for f in

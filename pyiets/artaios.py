@@ -95,4 +95,6 @@ class Artaios():
                    for rawcomplex in arr]
             arr = [complex(*complexlist) for complexlist in arr]
             greenmatrix.append(arr)
-        return greenmatrix
+        folder, fn = os.path.split(greenmatrixfile)
+        return {'mode': os.path.basename(folder),
+                'greensmatrix': greenmatrix}
