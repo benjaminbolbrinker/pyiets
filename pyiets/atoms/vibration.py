@@ -33,6 +33,25 @@ class Mode:
         self.idx = idx
         self.dissortion_folders = dissortion_folders
 
+        self.troisi_greensmatrix = troisi_greensmatrix
+        self.iets = []
+
+    def set_troisi_greensmat(self, gm):
+        """TODO: to be defined1. """
+        self.troisi_greensmatrix = gm
+
+    def get_troisi_greensmat(self):
+        """TODO: to be defined1. """
+        return self.troisi_greensmatrix
+
+    def set_iets(self, iets):
+        """TODO: to be defined1. """
+        self.iets = iets
+
+    def get_iets(self):
+        """TODO: to be defined1. """
+        return self.iets
+
     def set_wavenumber(self, wn):
         """TODO: to be defined1. """
         self.wavenumber = wn

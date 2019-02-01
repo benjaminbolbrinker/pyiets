@@ -57,9 +57,13 @@ if __name__ == '__main__':
     greenmatrices_unsrt = [print(artaios.read_greenmatrices()[idx])
                            for idx in range(len(artaios.read_greenmatrices()))]
 
+    greenmatrices_unsrt = [artaios.read_greenmatrices()[idx]
+                           for idx in range(len(artaios.read_greenmatrices()))]
+
     assert ((len(greenmatrices_unsrt)-1)/2 ==
             (len(artaios.mode_folders)-1)/2 ==
             (len(singlepoint.modes_to_calc)-1)/2 == len(modes))
 
     troisi = Troisi(options=options, modes=modes,
-                    greenmat_dict=greenmatrices_unsrt)
+                    greenmat_dictarr=greenmatrices_unsrt)
+    troisi.calc_greensmatrix(0)
