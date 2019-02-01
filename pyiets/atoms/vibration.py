@@ -25,7 +25,7 @@ import numpy as np
 class Mode:
     """Docstring for MyClass. """
     def __init__(self, vectors=None, atoms=None, wavenumber=None, idx=None,
-                 dissortion_folders=None):
+                 dissortion_folders=None, troisi_greensmatrix=None):
         """TODO: to be defined1. """
         self.vectors = np.array(vectors)
         self.atoms = atoms
@@ -75,8 +75,9 @@ class Mode:
 
     def print(self):
         """TODO: to be defined1. """
-        print('Printing mode...')
+        print('Printing mode:', self.idx)
         print('Wavenumber:', self.wavenumber)
         assert len(self.atoms) == len(self.vectors)
         for idx, atom in enumerate(self.atoms):
             print(atom, self.vectors[idx])
+        print('Folders:', self.dissortion_folders)

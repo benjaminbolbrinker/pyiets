@@ -29,6 +29,7 @@ import pyiets.preprocess
 import pyiets.artaios
 import pyiets.read
 import pyiets.io.checkinput
+from pyiets.troisi import Troisi
 
 
 def get_options(path):
@@ -42,16 +43,23 @@ def get_options(path):
 
 
 if __name__ == '__main__':
-    workdir = sys.argv[1]
-    options = get_options(workdir)
-    options['workdir'] = os.path.realpath(workdir)
-    preprocess = pyiets.preprocess.Preprocessor(workdir, options)
-    preprocess.writeDisortion(modes=options['modes'])
+    WORKDIR = sys.argv[1]
+    options = get_options(WORKDIR)
+    options['workdir'] = os.path.realpath(WORKDIR)
+    preprocess = pyiets.preprocess.Preprocessor(WORKDIR, options)
+    modes = preprocess.writeDisortion(modes=options['modes'])
 
-    singlepoint = pyiets.sp.SinglePoint(workdir, options)
+    singlepoint = pyiets.sp.SinglePoint(WORKDIR, options)
     singlepoint.run()
-    artaios = pyiets.artaios.Artaios(workdir, options)
+    artaios = pyiets.artaios.Artaios(WORKDIR, options)
     artaios.run()
 
-    [print(artaios.read_greenmatrices()[idx])
-     for idx in range(len(artaios.read_greenmatrices()))]
+    greenmatrices_unsrt = [print(artaios.read_greenmatrices()[idx])
+                           for idx in range(len(artaios.read_greenmatrices()))]
+
+    assert ((len(greenmatrices_unsrt)-1)/2 ==
+            (len(artaios.mode_folders)-1)/2 ==
+            (len(singlepoint.modes_to_calc)-1)/2 == len(modes))
+
+    troisi = Troisi(options=options, modes=modes,
+                    greenmat_dict=greenmatrices_unsrt)
