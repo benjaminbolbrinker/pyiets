@@ -21,6 +21,7 @@
 import os
 import re
 import multiprocessing
+import copy
 
 import numpy as np
 import pyiets.runcalcs.calcmanager as calcmanager
@@ -70,10 +71,13 @@ class Artaios():
 
     def read_greenmatrices(self):
         with multiprocessing.Pool(processes=self.options['mp']) as pool:
-            files = [str(os.path.join(folder,
-                                      self.options['greenmatrix_file']))
-                     for folder in self.mode_folders]
-            greenmatrices = pool.imap(self.read_greenmatrix, files)
+            # files = [str(os.path.join(folder,
+                                      # self.options['greenmatrix_file']))
+                     # for folder in self.mode_folders]
+            # greenmatrices = pool.imap(self.read_greenmatrix, files)
+            greenmatrices = [self.read_greenmatrix(str(os.path.join(folder,
+                             self.options['greenmatrix_file'])))
+                             for folder in self.mode_folders]
             pool.close()
             pool.join()
 
@@ -81,20 +85,23 @@ class Artaios():
 
     def read_greenmatrix(self, greenmatrixfile):
         with open(greenmatrixfile, 'r') as greenfile:
+            dim = int(greenfile.readline())
+        with open(greenmatrixfile, 'r') as greenfile:
             rawinput = greenfile.readlines()[1:]
 
         line = rawinput[0]
         floating_point = r'[-+]?\d+[.][Ee0-9+-]+'
-        greenmatrix = []
-        for line in rawinput:
-            arr = re.findall('[(] *' + floating_point + ', *' +
+        greenmatrix = np.empty(shape=(dim,dim), dtype=np.complex128)
+        for idx, line in enumerate(rawinput):
+            arr = re.findall('[(] *' + floating_point + ' *, *' +
                              floating_point + ' *[)]', line)
             arr = [np.fromstring(rawcomplex
                                  .replace('(', '')
                                  .replace(')', ''), sep=', ').tolist()
                    for rawcomplex in arr]
-            arr = [complex(*complexlist) for complexlist in arr]
-            greenmatrix.append(arr)
+            arr = [complex(*a) for a in arr]
+            # print(arr, greenmatrixfile)
+            np.insert(greenmatrix, idx, arr, axis=0)
         folder, fn = os.path.split(greenmatrixfile)
         return {'mode': os.path.basename(folder),
                 'greensmatrix': greenmatrix}

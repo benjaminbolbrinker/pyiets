@@ -18,8 +18,11 @@ class Troisi:
         sp_gm = next(g for g in self.greenmat_dictarr
                      if g['mode'] == 'sp')
         d0 = self.options['delta']
+        print(np.array(gm_idx[1][-1]['greensmatrix']))
+        print(np.array(gm_idx[0][-1]['greensmatrix']))
         print(math.sqrt(2*d0)/(2*d0) *
-              (0.5*d0/cstep)*(np.array(gm_idx[1]['greensmatrix']) - np.array(gm_idx[0]['greensmatrix'])))
+              (0.5*d0/cstep)*(np.array(gm_idx[1][-1]['greensmatrix'])
+                              - np.array(gm_idx[0][-1]['greensmatrix'])))
         # troisi_greenmatrix = math.sqrt
         greensmatrix = None
         self.modes[mode_idx].set_troisi_greensmat(gm=greensmatrix)
