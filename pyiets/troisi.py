@@ -13,16 +13,16 @@ class Troisi:
         mode = self.modes[mode_idx]
         cstep = 1
         gm_idx = [[g for g in self.greenmat_dictarr
-                  if mode.get_folders()[idx] == g['mode']]
+                  if mode.get_folders()[idx] == g['mode']][0]
                   for idx in range(len(mode.get_folders()))]
         sp_gm = next(g for g in self.greenmat_dictarr
                      if g['mode'] == 'sp')
         d0 = self.options['delta']
-        print(np.array(gm_idx[1][-1]['greensmatrix']))
-        print(np.array(gm_idx[0][-1]['greensmatrix']))
+        # print(np.array(gm_idx[1]))
+        # print(np.array(gm_idx[0]))
         print(math.sqrt(2*d0)/(2*d0) *
-              (0.5*d0/cstep)*(np.array(gm_idx[1][-1]['greensmatrix'])
-                              - np.array(gm_idx[0][-1]['greensmatrix'])))
+              (0.5*d0/cstep)*(np.array(gm_idx[1]['greensmatrix'])
+                              - np.array(sp_gm['greensmatrix'])))
         # troisi_greenmatrix = math.sqrt
         greensmatrix = None
         self.modes[mode_idx].set_troisi_greensmat(gm=greensmatrix)
