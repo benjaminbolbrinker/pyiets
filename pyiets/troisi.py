@@ -18,17 +18,20 @@ class Troisi:
         sp_gm = next(g for g in self.greenmat_dictarr
                      if g['mode'] == 'sp')
         d0 = self.options['delta']
-        # print(np.array(gm_idx[1]))
-        # print(np.array(gm_idx[0]))
-        print(math.sqrt(2*d0)/(2*d0) *
-              (0.5*d0/cstep)*(np.array(gm_idx[1]['greensmatrix'])
+
+        troisi_greenmatrix = (math.sqrt(2*d0)/(2*d0) * (0.5*d0/cstep) *
+                              (np.array(gm_idx[1]['greensmatrix'])
                               - np.array(sp_gm['greensmatrix'])))
-        # troisi_greenmatrix = math.sqrt
+        print(troisi_greenmatrix)
         greensmatrix = None
         self.modes[mode_idx].set_troisi_greensmat(gm=greensmatrix)
 
-    def calc_greensmatrices():
-        pass
+    def calc_greensmatrices(self):
+        troisi_mat = []
+        for mode in self.modes:
+            self.calc_greensmatrix(mode.get_idx())
+            troisi_mat.append(mode.get_troisi_greensmat())
+        self.troisi_greenmatrices = troisi_mat
 
     def read_green_artatios_for_mode(self, idx):
         return self.modes[idx]
