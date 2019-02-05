@@ -20,8 +20,8 @@ def run(params):
     cwd = os.getcwd()
     os.chdir(folder)
     # Run and redirect output
-    stdoutname = 'artaios.stdout'
-    stderrname = 'artaios.stderr'
+    stdoutname = options['artaios_in'] + '.stdout'
+    stderrname = options['artaios_in'] + '.stderr'
     print('''
 Starting artaios in \'{}\'
 Redirecting output to \'{}\' and \'{}\'
@@ -44,7 +44,7 @@ Redirecting output to \'{}\' and \'{}\'
 
     os.chdir(cwd)
 
-    # Safefly write to restartfile
+    # Safely write to restartfile
     lock.acquire()
     with open(options['artaios_restart_file'], 'a') as restart_file:
         restart_file.write(folder + ' ')

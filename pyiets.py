@@ -66,4 +66,6 @@ if __name__ == '__main__':
 
     troisi = Troisi(options=options, modes=modes,
                     greenmat_dictarr=greenmatrices_unsrt)
-    troisi.calc_greensmatrix(0)
+
+    # troisi.calc_greensmatrix(2)
+    troisi.calc_greensmatrices()

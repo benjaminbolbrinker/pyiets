@@ -22,7 +22,6 @@ import os
 import re
 import multiprocessing
 
-import numpy as np
 import pyiets.runcalcs.calcmanager as calcmanager
 
 
