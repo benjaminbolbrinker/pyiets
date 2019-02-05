@@ -69,3 +69,5 @@ if __name__ == '__main__':
 
     # troisi.calc_greensmatrix(2)
     troisi.calc_greensmatrices()
+    print(troisi.troisi_greenmatrices)
+    troisi.calc_IET_spectrum()

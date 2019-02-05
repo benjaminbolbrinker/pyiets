@@ -1,3 +1,4 @@
+import os
 import math
 import numpy as np
 
@@ -8,6 +9,7 @@ class Troisi:
         self.modes = modes
         self.greenmat_dictarr = greenmat_dictarr
         self.troisi_greenmatrices = []
+        self.output_mode_folders = [None]*len(modes)
 
     def calc_greensmatrix(self, mode_idx):
         mode = self.modes[mode_idx]
@@ -22,9 +24,29 @@ class Troisi:
         troisi_greenmatrix = (math.sqrt(2*d0)/(2*d0) * (0.5*d0/cstep) *
                               (np.array(gm_idx[1]['greensmatrix'])
                               - np.array(sp_gm['greensmatrix'])))
-        print(troisi_greenmatrix)
-        greensmatrix = None
-        self.modes[mode_idx].set_troisi_greensmat(gm=greensmatrix)
+        self.modes[mode_idx].set_troisi_greensmat(gm=troisi_greenmatrix)
+
+    def _init_output(self):
+        cwd = os.getcwd()
+        os.chdir(self.options['workdir'])
+        os.mkdir(self.options['output_folder'])
+        for mode in self.modes:
+            self.output_mode_folders[mode.get_idx()] = (
+                    os.path.join(self.options['output_folder'],
+                                 self.options['output_mode_folders']
+                                 + mode.get_idx())
+                    )
+            os.mkdir(self.output_mode_folders[mode.get_idx()])
+
+        os.chdir(cwd)
+
+    def write_troisi_greensmatrix(self, filename, mode):
+        self._init_output()
+        with open(self.options['troisi_greenmatrix_file'], 'w') as t_greensfile:
+            pass
+
+    def _change_artaios_in_for_read():
+        pass
 
     def calc_greensmatrices(self):
         troisi_mat = []
@@ -34,8 +56,18 @@ class Troisi:
         self.troisi_greenmatrices = troisi_mat
 
     def read_green_artatios_for_mode(self, idx):
+        
         return self.modes[idx]
 
     def read_green_artatios(self):
         [self.read_green_artatios_for_mode(mode.idx)
          for mode in self.modes]
+
+    def calc_IET_spectrum(self):
+        pass
+
+    # def calc_IETS_intensity_for(self, mode_idx):
+        # pass
+
+    def print_IET_spectrum(self):
+        pass
