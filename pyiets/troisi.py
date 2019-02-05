@@ -4,6 +4,8 @@ from shutil import copyfile, move
 import numpy as np
 from tempfile import mkstemp
 
+import pyiets.artaios as artaios
+
 
 class Troisi:
     def __init__(self, options, modes, greenmat_dictarr):
@@ -74,15 +76,17 @@ class Troisi:
             troisi_mat.append(mode.get_troisi_greensmat())
         self.troisi_greenmatrices = troisi_mat
 
-    def read_green_artatios_for_mode(self, idx):
-        return self.modes[idx]
-
-    def read_green_artatios(self):
-        [self.read_green_artatios_for_mode(mode.idx)
-         for mode in self.modes]
-
     def calc_IET_spectrum(self):
         self.prepare_input_artaios()
+        art = artaios.Artaios(
+              os.path.join(self.options['workdir'],
+                           self.options['output_folder']), self.options)
+        folders = set([os.path.realpath(f.path) for f in
+                      os.scandir(os.path.join(
+                          self.options['workdir'],
+                          self.options['output_folder']))
+                      if f.is_dir()])
+        art.run(folders)
 
     # def calc_IETS_intensity_for(self, mode_idx):
         # pass

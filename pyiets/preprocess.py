@@ -18,7 +18,8 @@ class Preprocessor():
         self.dissotionoutname = dissotionoutname
         options['dissotionoutname'] = dissotionoutname
 
-    def writeDisortion(self, modes='all'):
+    def writeDisortion(self, options):
+        modes = options['modes']
         cwd = os.getcwd()
         molecule = self.snf_parser.get_molecule()
 

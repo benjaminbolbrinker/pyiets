@@ -30,6 +30,7 @@ import pyiets.artaios
 import pyiets.read
 import pyiets.io.checkinput
 from pyiets.troisi import Troisi
+from shutil import copyfile
 
 
 def get_options(path):
@@ -58,6 +59,13 @@ def run_artaios(artaiosobj):
             mode_folders = set([os.path.realpath(f.path) for f in
                                 os.scandir(options['mode_folder'])
                                 if f.is_dir()])
+
+    # Copy artaios input to each folder
+    for folder in mode_folders:
+        copyfile(os.path.join(options['workdir'],
+                              options['artaios_in']),
+                 os.path.join(folder, options['artaios_in']))
+
     os.chdir(cwd)
 
     artaiosobj.run(mode_folders)
@@ -68,7 +76,7 @@ if __name__ == '__main__':
     options = get_options(WORKDIR)
     options['workdir'] = os.path.realpath(WORKDIR)
     preprocess = pyiets.preprocess.Preprocessor(WORKDIR, options)
-    modes = preprocess.writeDisortion(modes=options['modes'])
+    modes = preprocess.writeDisortion(options)
 
     singlepoint = pyiets.sp.SinglePoint(WORKDIR, options)
     singlepoint.run()

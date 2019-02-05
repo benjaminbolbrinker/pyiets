@@ -16,7 +16,7 @@ def run(params):
     options = params[1]
 
     cwd = os.getcwd()
-    subprocess.call(['cp', os.path.realpath(options['artaios_in']), folder])
+    # subprocess.call(['cp', os.path.realpath(options['artaios_in']), folder])
     os.chdir(folder)
 
     stdoutname = 'artaios_tm.stdout'

@@ -56,6 +56,7 @@ def start_artaios(folders, options):
         nthreads (int): number of threads.
         restartfilename (str): name of restartfile.
     '''
+
     with multiprocessing.Pool(processes=options['mp']) as pool:
         manager = multiprocessing.Manager()
         lock = manager.Lock()
