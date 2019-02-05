@@ -51,7 +51,6 @@ class Troisi:
                     fp.write(line.replace('print_green', 'read_green'))
         os.remove(artaios_in)
         move(abs_path, artaios_in)
-        pass
 
     def write_troisi_greensmatrix(self, mode):
         with open(os.path.join(self.options['workdir'],
@@ -62,7 +61,6 @@ class Troisi:
                 for c in row:
                     fp.write('(' + str(c.real) + ',' + str(c.imag) + ')')
                 fp.write('\n')
-
 
     def prepare_input_artaios(self):
         self._init_output()
