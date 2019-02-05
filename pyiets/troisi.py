@@ -1,6 +1,8 @@
 import os
 import math
+from shutil import copyfile, move
 import numpy as np
+from tempfile import mkstemp
 
 
 class Troisi:
@@ -27,28 +29,45 @@ class Troisi:
         self.modes[mode_idx].set_troisi_greensmat(gm=troisi_greenmatrix)
 
     def _init_output(self):
-        cwd = os.getcwd()
-        os.chdir(self.options['workdir'])
-        os.mkdir(self.options['output_folder'])
         for mode in self.modes:
-            self.output_mode_folders[mode.get_idx()] = (
-                    os.path.join(self.options['output_folder'],
-                                 self.options['output_mode_folder_prefix']
-                                 + str(mode.get_idx()))
-                    )
-            os.mkdir(self.output_mode_folders[mode.get_idx()])
+            folder = os.path.join(self.options['workdir'],
+                                  self.options['output_folder'],
+                                  self.options['output_mode_folder_prefix']
+                                  + str(mode.get_idx()))
+            self.output_mode_folders[mode.get_idx()] = folder
+            os.makedirs(folder, exist_ok=True)
+            copyfile(os.path.join(self.options['workdir'],
+                     self.options['artaios_in']),
+                     os.path.join(folder, self.options['artaios_in']))
+            self._change_for_read(os.path.join(folder,
+                                               self.options['artaios_in']))
 
-        os.chdir(cwd)
+    def _change_for_read(self, artaios_in):
+        # Create temp file
+        fh, abs_path = mkstemp()
+        with os.fdopen(fh, 'w') as fp:
+            with open(artaios_in) as old_file:
+                for line in old_file:
+                    fp.write(line.replace('print_green', 'read_green'))
+        os.remove(artaios_in)
+        move(abs_path, artaios_in)
+        pass
 
     def write_troisi_greensmatrix(self, mode):
-        self._init_output()
         with open(os.path.join(self.options['workdir'],
                   self.output_mode_folders[mode.get_idx()],
                   self.options['troisi_greenmatrix_file']), 'w') as fp:
-            fp.write('')
+            gm = self.troisi_greenmatrices[mode.get_idx()]
+            for row in gm:
+                for c in row:
+                    fp.write('(' + str(c.real) + ',' + str(c.imag) + ')')
+                fp.write('\n')
 
-    def _change_artaios_in_for_read():
-        pass
+
+    def prepare_input_artaios(self):
+        self._init_output()
+        for mode in self.modes:
+            self.write_troisi_greensmatrix(mode)
 
     def calc_greensmatrices(self):
         troisi_mat = []
@@ -65,8 +84,7 @@ class Troisi:
          for mode in self.modes]
 
     def calc_IET_spectrum(self):
-        self.write_troisi_greensmatrix(self.modes[0])
-        pass
+        self.prepare_input_artaios()
 
     # def calc_IETS_intensity_for(self, mode_idx):
         # pass
