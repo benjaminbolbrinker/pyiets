@@ -54,9 +54,6 @@ if __name__ == '__main__':
     artaios = pyiets.artaios.Artaios(WORKDIR, options)
     artaios.run()
 
-    # greenmatrices_unsrt = [print(artaios.read_greenmatrices()[idx])
-                           # for idx in range(len(artaios.read_greenmatrices()))]
-
     greenmatrices_unsrt = [artaios.read_greenmatrices()[idx]
                            for idx in range(len(artaios.read_greenmatrices()))]
 

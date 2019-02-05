@@ -33,17 +33,19 @@ class Troisi:
         for mode in self.modes:
             self.output_mode_folders[mode.get_idx()] = (
                     os.path.join(self.options['output_folder'],
-                                 self.options['output_mode_folders']
-                                 + mode.get_idx())
+                                 self.options['output_mode_folder_prefix']
+                                 + str(mode.get_idx()))
                     )
             os.mkdir(self.output_mode_folders[mode.get_idx()])
 
         os.chdir(cwd)
 
-    def write_troisi_greensmatrix(self, filename, mode):
+    def write_troisi_greensmatrix(self, mode):
         self._init_output()
-        with open(self.options['troisi_greenmatrix_file'], 'w') as t_greensfile:
-            pass
+        with open(os.path.join(self.options['workdir'],
+                  self.output_mode_folders[mode.get_idx()],
+                  self.options['troisi_greenmatrix_file']), 'w') as fp:
+            fp.write('')
 
     def _change_artaios_in_for_read():
         pass
@@ -56,7 +58,6 @@ class Troisi:
         self.troisi_greenmatrices = troisi_mat
 
     def read_green_artatios_for_mode(self, idx):
-        
         return self.modes[idx]
 
     def read_green_artatios(self):
@@ -64,6 +65,7 @@ class Troisi:
          for mode in self.modes]
 
     def calc_IET_spectrum(self):
+        self.write_troisi_greensmatrix(self.modes[0])
         pass
 
     # def calc_IETS_intensity_for(self, mode_idx):
