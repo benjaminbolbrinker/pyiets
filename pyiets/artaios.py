@@ -30,25 +30,9 @@ class Artaios():
         self.workdir = workdir
         self.options = options
         self.greenmatrices = None
+        self.mode_folders = None
 
-        cwd = os.getcwd()
-        os.chdir(self.workdir)
-
-        if os.path.exists(self.options['artaios_restart_file']):
-            with open(
-                 self.options['artaios_restart_file'], 'r'
-            ) as restartfile:
-                self.mode_folders = set([os.path.realpath(f.path) for f in
-                                        os.scandir(self.options['mode_folder'])
-                                        if f.is_dir()]) \
-                                  - set(restartfile.read().split())
-        else:
-                self.mode_folders = set([os.path.realpath(f.path) for f in
-                                        os.scandir(self.options['mode_folder'])
-                                        if f.is_dir()])
-        os.chdir(cwd)
-
-    def run(self):
+    def run(self, mode_folders):
         """Read tm mos files and run artaios calculations
         for every vibration mode. Calculation is controlled via 'input.json'
 
@@ -60,9 +44,10 @@ class Artaios():
         """
         cwd = os.getcwd()
         os.chdir(self.workdir)
+        self.mode_folders = mode_folders
 
         if self.options['sp_control']['qc_prog'] == 'turbomole':
-            calcmanager.start_artaios(self.mode_folders,
+            calcmanager.start_artaios(mode_folders,
                                       self.options)
 
         os.chdir(cwd)

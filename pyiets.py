@@ -42,6 +42,27 @@ def get_options(path):
     return options
 
 
+def run_artaios(artaiosobj):
+    cwd = os.getcwd()
+    os.chdir(WORKDIR)
+
+    if os.path.exists(options['artaios_restart_file']):
+        with open(
+             options['artaios_restart_file'], 'r'
+        ) as restartfile:
+            mode_folders = set([os.path.realpath(f.path) for f in
+                                os.scandir(options['mode_folder'])
+                                if f.is_dir()]) \
+                              - set(restartfile.read().split())
+    else:
+            mode_folders = set([os.path.realpath(f.path) for f in
+                                os.scandir(options['mode_folder'])
+                                if f.is_dir()])
+    os.chdir(cwd)
+
+    artaiosobj.run(mode_folders)
+
+
 if __name__ == '__main__':
     WORKDIR = sys.argv[1]
     options = get_options(WORKDIR)
@@ -52,7 +73,8 @@ if __name__ == '__main__':
     singlepoint = pyiets.sp.SinglePoint(WORKDIR, options)
     singlepoint.run()
     artaios = pyiets.artaios.Artaios(WORKDIR, options)
-    artaios.run()
+
+    run_artaios(artaios)
 
     greenmatrices_unsrt = [artaios.read_greenmatrices()[idx]
                            for idx in range(len(artaios.read_greenmatrices()))]
