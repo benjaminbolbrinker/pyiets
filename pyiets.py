@@ -98,4 +98,4 @@ if __name__ == '__main__':
     troisi.calc_greensmatrices()
     print(troisi.troisi_greenmatrices)
     troisi.calc_IET_spectrum()
-    troisi.write_IET_spectrum('iets.dat')
+    troisi.write_IET_spectrum(os.path.join(WORKDIR, 'iets.dat'))

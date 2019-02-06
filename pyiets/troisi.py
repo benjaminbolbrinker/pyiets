@@ -14,6 +14,7 @@ class Troisi:
         self.greenmat_dictarr = greenmat_dictarr
         self.troisi_greenmatrices = []
         self.output_mode_folders = [None]*len(modes)
+        self.iets_dict_list = None
 
     def calc_greensmatrix(self, mode_idx):
         mode = self.modes[mode_idx]
@@ -106,14 +107,27 @@ class Troisi:
                    + str(mode.get_idx())
                    for mode in self.modes]
         art.run(folders)
+        iets_dict_list = []
         for idx, mode in enumerate(self.modes):
-            art.read_transmission_for(os.path.join(folders[idx],
-                                      self.options['artaios_stdout']))
-        iets_dict = {}
-        return iets_dict
-
-    # def calc_IETS_intensity_for(self, mode_idx):
-        # pass
+            iets_dict_list.append({
+                'mode': self.modes[idx],
+                'transmission': art.read_transmission_for(
+                    os.path.join(folders[idx], self.options['artaios_stdout'])
+                    )
+                })
+        self.iets_dict_list = iets_dict_list
+        return iets_dict_list
 
     def write_IET_spectrum(self, filename):
-        pass
+        if self.iets_dict_list is not None:
+            with open(filename, 'w') as fp:
+                print('TEST', filename)
+                for d in self.iets_dict_list:
+                    fp.write('Mode' + str(d['mode'].get_idx()) + '\n')
+                    fp.write('Wavenumber: '
+                             + str(d['mode'].get_wavenumber()) + 'cm-1\n')
+                    fp.write('-'*30 + '\n')
+                    for e_t_pair in d['transmission']:
+                        fp.write(' '.join(map(str, e_t_pair)) + '\n')
+                    fp.write('-'*30 + '\n')
+                    fp.write('-'*30 + '\n')
