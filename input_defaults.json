@@ -16,6 +16,8 @@
   "artaios_tm_bin": "bin/tm2unformcl",
   "artaios_in": "artaios.in",
   "artaios_out": "artaios.out",
+  "artaios_stdout": "artaios.in.stdout",
+  "artaios_stderr": "artaios.in.stderr",
   "greenmatrix_file": "greensmatrix.1",
   "troisi_greenmatrix_file": "greensmatrix",
   "output_folder": "output",

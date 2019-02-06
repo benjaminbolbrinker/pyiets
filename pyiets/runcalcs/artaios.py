@@ -20,8 +20,8 @@ def run(params):
     cwd = os.getcwd()
     os.chdir(folder)
     # Run and redirect output
-    stdoutname = options['artaios_in'] + '.stdout'
-    stderrname = options['artaios_in'] + '.stderr'
+    stdoutname = options['artaios_stdout']
+    stderrname = options['artaios_stderr']
     print('''
 Starting artaios in \'{}\'
 Redirecting output to \'{}\' and \'{}\'

@@ -30,7 +30,7 @@ class Troisi:
                               - np.array(sp_gm['greensmatrix'])))
         self.modes[mode_idx].set_troisi_greensmat(gm=troisi_greenmatrix)
 
-    def _init_output(self):
+    def _init_output(self, path_to_sp):
         for mode in self.modes:
             folder = os.path.join(self.options['workdir'],
                                   self.options['output_folder'],
@@ -38,9 +38,19 @@ class Troisi:
                                   + str(mode.get_idx()))
             self.output_mode_folders[mode.get_idx()] = folder
             os.makedirs(folder, exist_ok=True)
-            copyfile(os.path.join(self.options['workdir'],
-                     self.options['artaios_in']),
-                     os.path.join(folder, self.options['artaios_in']))
+
+            # copyfile(os.path.join(self.options['workdir'],
+            # self.options['artaios_in']),
+            # os.path.join(folder, self.options['artaios_in']))
+            sp_files = []
+            for f in os.listdir(path_to_sp):
+                if (os.path.isfile(os.path.join(path_to_sp, f))
+                   and f != self.options['greenmatrix_file']
+                   and f != self.options['artaios_stdout']
+                   and f != self.options['artaios_stderr']):
+                    sp_files.append(f)
+            for f in sp_files:
+                copyfile(os.path.join(path_to_sp, f), os.path.join(folder, f))
             self._change_for_read(os.path.join(folder,
                                                self.options['artaios_in']))
 
@@ -50,7 +60,7 @@ class Troisi:
         with os.fdopen(fh, 'w') as fp:
             with open(artaios_in) as old_file:
                 for line in old_file:
-                    fp.write(line.replace('print_green', 'print_green'))
+                    fp.write(line.replace('print_green', 'read_green'))
         os.remove(artaios_in)
         move(abs_path, artaios_in)
 
@@ -67,7 +77,8 @@ class Troisi:
                 fp.write('\n')
 
     def prepare_input_artaios(self):
-        self._init_output()
+        self._init_output(os.path.join(self.options['workdir'],
+                                       self.options['mode_folder'], 'sp'))
         for mode in self.modes:
             self.write_troisi_greensmatrix(mode)
 
