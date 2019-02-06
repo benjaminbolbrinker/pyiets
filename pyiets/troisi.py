@@ -21,13 +21,13 @@ class Troisi:
         gm_idx = [[g for g in self.greenmat_dictarr
                   if mode.get_folders()[idx] == g['mode']][0]
                   for idx in range(len(mode.get_folders()))]
-        sp_gm = next(g for g in self.greenmat_dictarr
-                     if g['mode'] == 'sp')
+        # sp_gm = next(g for g in self.greenmat_dictarr
+        # if g['mode'] == 'sp')
         d0 = self.options['delta']
 
         troisi_greenmatrix = (math.sqrt(2*d0)/(2*d0) * (0.5*d0/cstep) *
                               (np.array(gm_idx[1]['greensmatrix'])
-                              - np.array(sp_gm['greensmatrix'])))
+                              - np.array(gm_idx[0]['greensmatrix'])))
         self.modes[mode_idx].set_troisi_greensmat(gm=troisi_greenmatrix)
 
     def _init_output(self, path_to_sp):
@@ -101,9 +101,11 @@ class Troisi:
                           self.options['output_folder']))
                       if f.is_dir()])
         art.run(folders)
+        # for mode in self.modes:
+        # art.read_transmission_for()
 
     # def calc_IETS_intensity_for(self, mode_idx):
         # pass
 
-    def print_IET_spectrum(self):
+    def write_IET_spectrum(self, filename):
         pass

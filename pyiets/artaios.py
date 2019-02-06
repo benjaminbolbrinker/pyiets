@@ -93,3 +93,6 @@ class Artaios():
         folder, fn = os.path.split(greenmatrixfile)
         return {'mode': os.path.basename(folder),
                 'greensmatrix': greenmatrix}
+
+    def read_transmission_for(self, greenmatrix_file):
+        pass
