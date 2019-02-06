@@ -30,6 +30,8 @@ class Molecule:
         """TODO: to be defined1. """
         self.atoms = atoms
         self.vectors = np.array(vectors)
+        for idx, at in enumerate(self.atoms):
+            self.atoms[idx] = self.atoms[idx][0] + self.atoms[idx][1:].lower()
 
     def to_ASE_atoms_obj(self):
         """TODO: to be defined1. """

@@ -69,7 +69,7 @@ class SnfParser:
             if 'root no.' in line:
                 mode_idx_list.append(
                         [i for i in re.findall(r'(\d*)', line) if i])
-        return mode_idx_list[-1][-1]
+        return int(mode_idx_list[-1][-1])
 
     def get_molecule(self):
         """TODO: to be defined1. """
@@ -94,29 +94,36 @@ class SnfParser:
 
     def get_mode(self, idx):
         """TODO: to be defined1. """
-        counter = 0
-        for line in self.snfoutfile:
-            if 'root no.' in line:
-                lidx0 = counter
-                break
-            counter += 1
+        for idx, line in enumerate(self.snfoutfile):
+            if re.search(r'root no..*(' + str(idx) + r').*\n', line):
+                print(self.snfoutfile[idx + 2]) 
+                pass
+            break
+        # counter = 0
+        # for line in self.snfoutfile:
+            # if 'root no.' in line:
+                # lidx0 = counter
+                # break
+            # counter += 1
 
-        vibenergy = np.fromstring(self.snfoutfile[lidx0+2],
-                                  dtype=np.float, sep=' ')[idx]
+        # vibenergy = np.fromstring(self.snfoutfile[lidx0+2],
+                                  # dtype=np.float, sep=' ')[idx]
 
-        raw_modes_str = [re.findall(r'\-?\d+\.\d+',
-                                    self.snfoutfile[lidx0+line_idx+4])
-                         for line_idx in range(3*self.natoms)]
-        modes = list(map(lambda x: [float(st) for st in x], raw_modes_str))
-        print(self.nmodes)
-        modevectors = list(map(list, zip(*modes)))[idx]
-        assert len(modevectors) % 3 == 0
-        modevectors = np.array(modevectors).reshape(int(len(modes)/3), 3)
-        mode = vib.Mode(vectors=modevectors,
-                        atoms=self.molecule.atoms,
-                        wavenumber=vibenergy,
-                        idx=idx)
-        return mode
+        # raw_modes_str = [re.findall(r'\-?\d+\.\d+',
+                                    # self.snfoutfile[lidx0+line_idx+4])
+                         # for line_idx in range(3*self.natoms)]
+        # modes = list(map(lambda x: [float(st) for st in x], raw_modes_str))
+        # print(self.natoms)
+        # modevectors = list(map(list, zip(*modes)))[idx]
+        # assert len(modevectors) % 3 == 0
+        # modevectors = np.array(modevectors).reshape(int(len(modes)/3), 3)
+        # mode = vib.Mode(vectors=modevectors,
+                        # atoms=self.molecule.atoms,
+                        # wavenumber=vibenergy,
+                        # idx=idx)
+        # return mode
+
+        
 
     def get_modes(self):
         """TODO: to be defined1. """
