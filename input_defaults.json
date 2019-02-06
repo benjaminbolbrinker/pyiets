@@ -17,7 +17,7 @@
   "artaios_in": "artaios.in",
   "artaios_out": "artaios.out",
   "greenmatrix_file": "greensmatrix.1",
-  "troisi_greenmatrix_file": "troisigreensmatrix.1",
+  "troisi_greenmatrix_file": "greensmatrix",
   "output_folder": "output",
   "output_mode_folder_prefix": "mode",
 

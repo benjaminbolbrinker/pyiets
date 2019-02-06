@@ -50,7 +50,7 @@ class Troisi:
         with os.fdopen(fh, 'w') as fp:
             with open(artaios_in) as old_file:
                 for line in old_file:
-                    fp.write(line.replace('print_green', 'read_green'))
+                    fp.write(line.replace('print_green', 'print_green'))
         os.remove(artaios_in)
         move(abs_path, artaios_in)
 
@@ -59,9 +59,11 @@ class Troisi:
                   self.output_mode_folders[mode.get_idx()],
                   self.options['troisi_greenmatrix_file']), 'w') as fp:
             gm = self.troisi_greenmatrices[mode.get_idx()]
+            assert len(gm) == len(gm[0])
+            fp.write(str(len(gm)) + '\n')
             for row in gm:
                 for c in row:
-                    fp.write('(' + str(c.real) + ',' + str(c.imag) + ')')
+                    fp.write(' ( ' + str(c.real) + ' , ' + str(c.imag) + ' ) ')
                 fp.write('\n')
 
     def prepare_input_artaios(self):
@@ -75,6 +77,7 @@ class Troisi:
             self.calc_greensmatrix(mode.get_idx())
             troisi_mat.append(mode.get_troisi_greensmat())
         self.troisi_greenmatrices = troisi_mat
+        return troisi_mat
 
     def calc_IET_spectrum(self):
         self.prepare_input_artaios()
