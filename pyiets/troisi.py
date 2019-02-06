@@ -96,13 +96,21 @@ class Troisi:
               os.path.join(self.options['workdir'],
                            self.options['output_folder']), self.options)
         # folders = set([os.path.realpath(f.path) for f in
-                      # os.scandir(os.path.join(
-                          # self.options['workdir'],
-                          # self.options['output_folder']))
-                      # if f.is_dir()])
+        # os.scandir(os.path.join(
+        # self.options['workdir'],
+        # self.options['output_folder']))
+        # if f.is_dir()])
+        folders = [os.path.join(self.options['workdir'],
+                                self.options['output_folder'],
+                                self.options['output_mode_folder_prefix'])
+                   + str(mode.get_idx())
+                   for mode in self.modes]
         art.run(folders)
         for idx, mode in enumerate(self.modes):
-            art.read_transmission_for()
+            art.read_transmission_for(os.path.join(folders[idx],
+                                      self.options['artaios_stdout']))
+        iets_dict = {}
+        return iets_dict
 
     # def calc_IETS_intensity_for(self, mode_idx):
         # pass

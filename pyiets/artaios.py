@@ -98,23 +98,25 @@ class Artaios():
         with open(artaios_out, 'r') as fp:
             rawinput = fp.readlines()
         float_re = r'[-+]?\d+[.][Ee0-9+-]+'
-        re = (r'energy;\s*transmission:\s*(' +
-              float_re + r')\s*(' +
-              float_re + r')')
+        regex = (r'energy;\s*transmission:\s*(' +
+                 float_re + r')\s*(' +
+                 float_re + r')')
+        transmission_list = []
         for idx, line in enumerate(rawinput):
             arr = [[float(a[0]), float(a[1])]
-                   for a in re.findall(r'', line)]
-            print(arr)
+                   for a in re.findall(regex, line)]
+            [transmission_list.append(a) for a in arr if a]
+        return transmission_list
 
     def read_transmission(self):
         with multiprocessing.Pool(processes=self.options['mp']) as pool:
-            # files = [str(os.path.join(folder,
-            # self.options['greenmatrix_file']))
+            files = [str(os.path.join(folder,
+                     self.options['greenmatrix_file']))
+                     for folder in self.mode_folders]
+            transmission = pool.imap(self.read_transmission_for, files)
+            # transmission = [self.read_transmission(str(os.path.join(folder,
+            # self.options['greenmatrix_file'])))
             # for folder in self.mode_folders]
-            # greenmatrices = pool.imap(self.read_greenmatrix, files)
-            transmission = [self.read_transmission(str(os.path.join(folder,
-                            self.options['greenmatrix_file'])))
-                            for folder in self.mode_folders]
             pool.close()
             pool.join()
 
