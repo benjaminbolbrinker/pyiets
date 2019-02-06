@@ -123,11 +123,14 @@ class Troisi:
             with open(filename, 'w') as fp:
                 print('TEST', filename)
                 for d in self.iets_dict_list:
-                    fp.write('Mode' + str(d['mode'].get_idx()) + '\n')
-                    fp.write('Wavenumber: '
-                             + str(d['mode'].get_wavenumber()) + 'cm-1\n')
-                    fp.write('-'*30 + '\n')
+                    # fp.write('Mode' + str(d['mode'].get_idx()) + '\n')
+                    # fp.write('Wavenumber: '
+                    # + str(d['mode'].get_wavenumber()) + 'cm-1\n')
+                    # fp.write('-'*30 + '\n')
                     for e_t_pair in d['transmission']:
-                        fp.write(' '.join(map(str, e_t_pair)) + '\n')
-                    fp.write('-'*30 + '\n')
-                    fp.write('-'*30 + '\n')
+                        fp.write(str(d['mode'].get_idx()) + ' ' +
+                                 str(d['mode'].get_wavenumber()) + ' ' +
+                                 ' '.join(map(str, e_t_pair)) + '\n')
+                    # fp.write('-'*30 + '\n')
+                    # fp.write('-'*30 + '\n')
+                    # fp.write('\n')
