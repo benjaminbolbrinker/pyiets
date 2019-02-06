@@ -56,14 +56,20 @@ class SnfParser:
 
     def _get_nmodes(self):
         """TODO: to be defined1. """
-        counter = 0
+        # counter = 0
+        # for line in self.snfoutfile:
+        # if 'root no.' in line:
+        # lidx = counter
+        # break
+        # counter += 1
+        # return len(np.fromstring(self.snfoutfile[lidx+2],
+        # dtype=np.float, sep=' '))
+        mode_idx_list = []
         for line in self.snfoutfile:
             if 'root no.' in line:
-                lidx = counter
-                break
-            counter += 1
-        return len(np.fromstring(self.snfoutfile[lidx+2],
-                                 dtype=np.float, sep=' '))
+                mode_idx_list.append(
+                        [i for i in re.findall(r'(\d*)', line) if i])
+        return mode_idx_list[-1][-1]
 
     def get_molecule(self):
         """TODO: to be defined1. """
@@ -102,6 +108,7 @@ class SnfParser:
                                     self.snfoutfile[lidx0+line_idx+4])
                          for line_idx in range(3*self.natoms)]
         modes = list(map(lambda x: [float(st) for st in x], raw_modes_str))
+        print(self.nmodes)
         modevectors = list(map(list, zip(*modes)))[idx]
         assert len(modevectors) % 3 == 0
         modevectors = np.array(modevectors).reshape(int(len(modes)/3), 3)

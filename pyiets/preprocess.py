@@ -12,8 +12,7 @@ class Preprocessor():
             os.path.join(self.workdir, self.options['snf_out'])
         )
         self.snf_parser = snf_parser
-        dissotionoutname = snf_parser.get_molecule()\
-            .to_ASE_atoms_obj().get_chemical_formula(mode='hill') + '.' + str(
+        dissotionoutname = 'molecule.' + str(
             options['sp_control']['qc_prog'])
         self.dissotionoutname = dissotionoutname
         options['dissotionoutname'] = dissotionoutname
