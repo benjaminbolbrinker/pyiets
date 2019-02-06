@@ -121,7 +121,6 @@ class Troisi:
     def write_IET_spectrum(self, filename):
         if self.iets_dict_list is not None:
             with open(filename, 'w') as fp:
-                print('TEST', filename)
                 for d in self.iets_dict_list:
                     # fp.write('Mode' + str(d['mode'].get_idx()) + '\n')
                     # fp.write('Wavenumber: '

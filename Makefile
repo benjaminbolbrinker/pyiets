@@ -1,5 +1,7 @@
+fold=./tests/sampleinput_michael
+
 test:
-	make clean && ./pyiets.py tests/sampleinput
+	make clean && ./pyiets.py ${fold}
 
 clean: 
-	rm -rf ./tests/sampleinput/*dissortions* ./tests/sampleinput/*.restart ./tests/sampleinput/output
+	rm -rf ${fold}/*dissortions* ${fold}/*.restart ${fold}/output
