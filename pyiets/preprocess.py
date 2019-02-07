@@ -33,12 +33,12 @@ class Preprocessor():
                                                   self.options['mode_folder']))
 
         returnarr = []
+
         spname = 'sp'
         returnarr.append(os.path.realpath(spname))
         os.chdir(outdirpath)
         os.mkdir(spname)
         os.chdir(spname)
-        molecule.print()
         ase.io.write(self.dissotionoutname,
                      molecule.to_ASE_atoms_obj(),
                      format=self.options['sp_control']['qc_prog'])
