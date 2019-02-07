@@ -28,20 +28,6 @@ import pyiets.runcalcs.calcmanager as calcmanager
 
 
 class SinglePoint():
-        #  cwd = os.getcwd()
-        #  os.chdir(path)
-        #
-        #  snfparser = pyiets.io.snfio.SnfParser(snfoutname=options['snf_out'])
-        #  dissotionoutname = snfparser.get_molecule().to_ASE_atoms_obj() \
-        #      .get_chemical_formula(mode='hill') + '.' + str(
-        #          options['sp_control']['qc_prog'])
-
-        #  if not os.path.exists(options['mode_folder']):
-        #      pyiets.io.createInput.writeDisortion(dissotionoutname,
-        #                                           options['mode_folder'],
-        #                                           options['sp_control']['qc_prog'],
-        #                                           options['snf_out'],
-        #                                           delta=options['delta'])
     def __init__(self, workdir, options):
         self.workdir = workdir
         self.options = options

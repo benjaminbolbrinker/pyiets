@@ -36,9 +36,6 @@ def start_tm_single_points(folders, options):
         nthreads (int): number of threads.
         restartfilename (str): name of restartfile.
     '''
-    coord = options['dissotionoutname']
-    restartfilename = options['sp_restart_file']
-    params = options['sp_control']['params']
     with multiprocessing.Pool(processes=options['mp']) as pool:
         manager = multiprocessing.Manager()
         lock = manager.Lock()
