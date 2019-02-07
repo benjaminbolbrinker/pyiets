@@ -16,7 +16,6 @@ def run(params):
         lock (multiprocessing.Manager.lock): lock for multiprocessing.
         params (dict): ASE params for turbomole.
     """
-def run(params):
 
     coord = params[0]
     restartfilename = params[1]

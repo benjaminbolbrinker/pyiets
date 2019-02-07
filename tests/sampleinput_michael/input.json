@@ -4,11 +4,11 @@
       "qc_prog": "turbomole",
       "params": {
         "use resolution of identity": true,
-        "define_str": "\n\na coord\n*\nno\nb all dz\n*\neht\n\n\n\nri\non\n\n*"
+        "define_str": "\n\na coord\n*\nno\nb all def2-SV(P)\n*\neht\n\n\n\nri\non\n\n*"
         }
     },
 "snf_out": "snf.out",
 "modes": "all",
-"mp": 11,
+"mp": 7,
 "artaios": "/home/bolbrinker/Software/artaios"
 }
