@@ -75,14 +75,22 @@ if __name__ == '__main__':
     WORKDIR = sys.argv[1]
     options = get_options(WORKDIR)
     options['workdir'] = os.path.realpath(WORKDIR)
+    print('Parsing Input...')
     preprocess = pyiets.preprocess.Preprocessor(WORKDIR, options)
+    print('Done...')
+    print('Building input structures')
     modes = preprocess.writeDisortion(options)
+    print('Done...')
 
     singlepoint = pyiets.sp.SinglePoint(WORKDIR, options)
+    print('Running singel point calculations')
     singlepoint.run()
+    print('Done...')
     artaios = pyiets.artaios.Artaios(WORKDIR, options)
 
+    print('Running transport calculations')
     run_artaios(artaios)
+    print('Done...')
 
     greenmatrices_unsrt = [artaios.read_greenmatrices()[idx]
                            for idx in range(len(artaios.read_greenmatrices()))]
@@ -94,8 +102,11 @@ if __name__ == '__main__':
     troisi = Troisi(options=options, modes=modes,
                     greenmat_dictarr=greenmatrices_unsrt)
 
-    # troisi.calc_greensmatrix(2)
+    print('Calculating greensmatrices')
     troisi.calc_greensmatrices()
-    print(troisi.troisi_greenmatrices)
+    print('Done...')
+    print('Calculating iets spectrum')
     troisi.calc_IET_spectrum()
+    print('Printing to file')
     troisi.write_IET_spectrum(os.path.join(WORKDIR, 'iets.dat'))
+    print('Done...')
