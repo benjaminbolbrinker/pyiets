@@ -80,7 +80,8 @@ if __name__ == '__main__':
 
     print('Running single point calculations...')
     singlepoint = pyiets.sp.SinglePoint(WORKDIR, options)
-    singlepoint.run()
+    mode_folders = choose_mode_folders(options['sp_restart_file'])
+    singlepoint.run(mode_folders)
     print('Done\n')
 
     print('Running transport calculations...')
@@ -98,7 +99,7 @@ if __name__ == '__main__':
 
     assert ((len(greenmatrices_unsrt)-1)/2 ==
             (len(artaios.mode_folders)-1)/2 ==
-            (len(singlepoint.modes_to_calc)-1)/2 == len(modes))
+            (len(singlepoint.mode_folders)-1)/2 == len(modes))
 
     print('Calculating Troisi-Greensmatrices...')
     troisi = Troisi(options=options, modes=modes,

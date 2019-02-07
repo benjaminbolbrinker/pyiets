@@ -46,32 +46,19 @@ class SinglePoint():
         self.workdir = workdir
         self.options = options
 
-        cwd = os.getcwd()
-        os.chdir(self.workdir)
-        if os.path.exists(self.options['sp_restart_file']):
-            with open(self.options['sp_restart_file'], 'r') as restartfile:
-                self.modes_to_calc = set([os.path.realpath(f.path) for f in
-                                         os.scandir(self.options['mode_folder'])
-                                         if f.is_dir()]) \
-                                  - set(restartfile.read().split())
-        else:
-            self.modes_to_calc = set([os.path.realpath(f.path) for f in
-                                     os.scandir(self.options['mode_folder'])
-                                     if f.is_dir()])
-        os.chdir(cwd)
-
-    def run(self, mode='all'):
+    def run(self, folders):
         """Read snf output file and run turbomole calculations
         for every vibration mode. Calculation is controlled via 'input.json'
 
         Args:
             path (str): path to inputfiles ('snf.out' and 'input.json')
         """
+        self.mode_folders = folders
         cwd = os.getcwd()
         os.chdir(self.workdir)
         if self.options['sp_control']['qc_prog'] == 'turbomole':
             calcmanager\
-                .start_tm_single_points(self.modes_to_calc,
+                .start_tm_single_points(folders,
                                         self.options['dissotionoutname'],
                                         self.options['sp_control']['params'],
                                         self.options['mp'],
