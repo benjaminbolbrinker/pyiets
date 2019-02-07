@@ -8,7 +8,7 @@
         }
     },
 "snf_out": "snf.out",
-"modes": "all",
-"mp": 7,
+"modes": [47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58],
+"mp": 13,
 "artaios": "/home/bolbrinker/Software/artaios"
 }
