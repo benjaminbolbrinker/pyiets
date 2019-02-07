@@ -20,6 +20,7 @@
 
 
 import re
+import os
 import numpy as np
 from ase import io
 
@@ -29,9 +30,10 @@ import pyiets.atoms.molecule as mol
 
 class SnfParser:
     """Docstring for MyClass. """
-    def __init__(self, snfoutname='snf.out'):
+    def __init__(self, options):
         """TODO: to be defined1. """
-        self.snfoutname = snfoutname
+        self.options = options
+        self.snfoutname = os.path.join(options['workdir'], options['snf_out'])
         with open(self.snfoutname, 'r') as fp:
             self.snfoutfile = fp.readlines()
         self.natoms = self._get_natoms()
@@ -130,8 +132,12 @@ class SnfParser:
     def get_modes(self):
         """TODO: to be defined1. """
         modes = []
-        for idx in range(self.nmodes):
-            modes.append(self.get_mode(idx))
+        if self.options['modes'] == 'all':
+            for mode_idx in range(self.nmodes):
+                modes.append(self.get_mode(mode_idx))
+        else:
+            for mode_idx in self.options['modes']:
+                modes.append(self.get_mode(int(mode_idx)))
         assert len(modes) == self.nmodes
         return modes
 

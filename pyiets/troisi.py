@@ -17,6 +17,7 @@ class Troisi:
         self.iets_dict_list = None
 
     def calc_greensmatrix(self, mode_idx):
+        print(mode_idx, self.modes)
         mode = self.modes[mode_idx]
         cstep = 1
         gm_idx = [[g for g in self.greenmat_dictarr

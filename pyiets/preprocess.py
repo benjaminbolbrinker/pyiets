@@ -8,9 +8,7 @@ class Preprocessor():
     def __init__(self, workdir, options):
         self.workdir = workdir
         self.options = options
-        snf_parser = pyiets.io.snfio.SnfParser(
-            os.path.join(self.workdir, self.options['snf_out'])
-        )
+        snf_parser = pyiets.io.snfio.SnfParser(options)
         self.snf_parser = snf_parser
         dissotionoutname = snf_parser.get_molecule()\
             .to_ASE_atoms_obj().get_chemical_formula(mode='hill') + '.' + str(
@@ -18,8 +16,17 @@ class Preprocessor():
         self.dissotionoutname = dissotionoutname
         options['dissotionoutname'] = dissotionoutname
 
-    def writeDisortion(self, options):
-        modes = options['modes']
+    def preprocess(self):
+        if self.options['sp_restart']:
+            return self._get_modes_from_previous_calc()
+        else:
+            return self._writeDisortion()
+
+    def _get_modes_from_previous_calc(self):
+        pass
+
+    def _writeDisortion(self):
+        modes = self.options['modes']
         cwd = os.getcwd()
         molecule = self.snf_parser.get_molecule()
 

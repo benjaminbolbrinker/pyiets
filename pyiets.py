@@ -70,12 +70,10 @@ if __name__ == '__main__':
     options = get_options(WORKDIR)
     options['workdir'] = os.path.realpath(WORKDIR)
 
-    print('Parsing Input...')
+    print('Parsing Input and building structures...')
     preprocess = pyiets.preprocess.Preprocessor(WORKDIR, options)
-    print('Done\n')
 
-    print('Building input structures...')
-    modes = preprocess.writeDisortion(options)
+    modes = preprocess.preprocess()
     print('Done\n')
 
     print('Running single point calculations...')
