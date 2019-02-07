@@ -2,8 +2,7 @@ $general
  rbas
  do_transport 
  qcprog tm 
- mosfile ridft.out
- ham_conv 27.21 
+ mosfile ASE.TM.ridft.out
  print_green
 $end 
 

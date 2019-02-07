@@ -113,3 +113,5 @@ if __name__ == '__main__':
     print('Printing to file...')
     troisi.write_IET_spectrum(os.path.join(WORKDIR, 'iets.dat'))
     print('Done\n')
+
+    print('pyIETS terminated normally')
