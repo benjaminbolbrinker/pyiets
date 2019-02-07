@@ -57,10 +57,5 @@ class SinglePoint():
         cwd = os.getcwd()
         os.chdir(self.workdir)
         if self.options['sp_control']['qc_prog'] == 'turbomole':
-            calcmanager\
-                .start_tm_single_points(folders,
-                                        self.options['dissotionoutname'],
-                                        self.options['sp_control']['params'],
-                                        self.options['mp'],
-                                        self.options['sp_restart_file'])
+            calcmanager.start_tm_single_points(folders, self.options)
         os.chdir(cwd)

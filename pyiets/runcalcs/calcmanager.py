@@ -25,8 +25,7 @@ import pyiets.runcalcs.artaios as artaios
 import pyiets.runcalcs.tm2unformcl as tm2unformcl
 
 
-def start_tm_single_points(folders, coord, params,
-                           nthreads, restartfilename):
+def start_tm_single_points(folders, options):
     '''Start turbomole calculations asynchronously in specified folders.
 
     Args:
@@ -37,10 +36,13 @@ def start_tm_single_points(folders, coord, params,
         nthreads (int): number of threads.
         restartfilename (str): name of restartfile.
     '''
-    with multiprocessing.Pool(processes=nthreads) as pool:
+    coord = options['dissotionoutname']
+    restartfilename = options['sp_restart_file']
+    params = options['sp_control']['params']
+    with multiprocessing.Pool(processes=options['mp']) as pool:
         manager = multiprocessing.Manager()
         lock = manager.Lock()
-        params = [(coord, restartfilename, lock, folder, params)
+        params = [(folder, options, lock)
                   for folder in folders]
         pool.map(turbomole.run, params)
 

@@ -16,12 +16,12 @@ def run(params):
         lock (multiprocessing.Manager.lock): lock for multiprocessing.
         params (dict): ASE params for turbomole.
     """
-
-    coord = params[0]
-    restartfilename = params[1]
+    folder = params[0]
+    options = params[1]
     lock = params[2]
-    folder = params[3]
-    tmparams = params[4]
+    coord = options['dissotionoutname']
+    restartfilename = options['sp_restart_file']
+    tmparams = options['sp_control']['params']
 
     cwd = os.getcwd()
     os.chdir(folder)
