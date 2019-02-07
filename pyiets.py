@@ -43,7 +43,7 @@ def get_options(path):
     return options
 
 
-def run_artaios(artaiosobj):
+def choose_mode_folders():
     cwd = os.getcwd()
     os.chdir(WORKDIR)
 
@@ -60,15 +60,9 @@ def run_artaios(artaiosobj):
                                 os.scandir(options['mode_folder'])
                                 if f.is_dir()])
 
-    # Copy artaios input to each folder
-    for folder in mode_folders:
-        copyfile(os.path.join(options['workdir'],
-                              options['artaios_in']),
-                 os.path.join(folder, options['artaios_in']))
-
     os.chdir(cwd)
-
-    artaiosobj.run(mode_folders)
+    os.chdir(cwd)
+    return mode_folders
 
 
 if __name__ == '__main__':
@@ -77,20 +71,28 @@ if __name__ == '__main__':
     options['workdir'] = os.path.realpath(WORKDIR)
     print('Parsing Input...')
     preprocess = pyiets.preprocess.Preprocessor(WORKDIR, options)
-    print('Done...')
-    print('Building input structures')
+    print('Done')
+    print('Building input structures...')
     modes = preprocess.writeDisortion(options)
-    print('Done...')
+    print('Done')
 
     singlepoint = pyiets.sp.SinglePoint(WORKDIR, options)
-    print('Running singel point calculations')
+    print('Running singel point calculations...')
     singlepoint.run()
-    print('Done...')
+    print('Done')
     artaios = pyiets.artaios.Artaios(WORKDIR, options)
 
-    print('Running transport calculations')
-    run_artaios(artaios)
-    print('Done...')
+    print('Running transport calculations...')
+    mode_folders = choose_mode_folders()
+
+    # Copy artaios input to each folder
+    for folder in mode_folders:
+        copyfile(os.path.join(options['workdir'],
+                              options['artaios_in']),
+                 os.path.join(folder, options['artaios_in']))
+
+    artaios.run(mode_folders)
+    print('Done')
 
     greenmatrices_unsrt = [artaios.read_greenmatrices()[idx]
                            for idx in range(len(artaios.read_greenmatrices()))]
@@ -102,11 +104,11 @@ if __name__ == '__main__':
     troisi = Troisi(options=options, modes=modes,
                     greenmat_dictarr=greenmatrices_unsrt)
 
-    print('Calculating greensmatrices')
+    print('Calculating greensmatrices...')
     troisi.calc_greensmatrices()
-    print('Done...')
-    print('Calculating iets spectrum')
+    print('Done')
+    print('Calculating iets spectrum...')
     troisi.calc_IET_spectrum()
-    print('Printing to file')
+    print('Printing to file...')
     troisi.write_IET_spectrum(os.path.join(WORKDIR, 'iets.dat'))
-    print('Done...')
+    print('Done')
