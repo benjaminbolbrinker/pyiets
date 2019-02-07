@@ -1,12 +1,19 @@
-fold=./tests/sampleinput_michael
-h2O=./tests/sampleinput
+C10H4Au6S2=./tests/sampleinput_michael
+H2O=./tests/sampleinput
 
 
-test:
-	make clean && ./pyiets.py ${fold}
+test_all: test_H2O test_C10H4Au6S2
 
-testh2O:
-	make clean && ./pyiets.py ${h2O}
+test_C10H4Au6S2: clean_C10H4Au6S2
+	./pyiets.py ${C10H4Au6S2}
 
-clean: 
-	rm -rf ${fold}/*dissortions* ${fold}/*.restart ${fold}/output ${h2O}/*dissortions* ${h2O}/*.restart ${h2O}/output
+test_H2O: clean_H2O clean_C10H4Au6S2
+	./pyiets.py ${H2O}
+
+clean: clean_C10H4Au6S2 clean_H2O
+
+clean_C10H4Au6S2: 
+	rm -rf ${C10H4Au6S2}/*dissortions* ${C10H4Au6S2}/*.restart ${C10H4Au6S2}/output 
+
+clean_H2O:
+	rm -rf ${H2O}/*dissortions* ${H2O}/*.restart ${H2O}/output 
