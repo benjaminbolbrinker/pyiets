@@ -67,7 +67,7 @@ if __name__ == '__main__':
             options['artaios_restart_file'], options)
     artaios = pyiets.artaios.Artaios(
             mode_folders, options,
-            restartsaveloc=os.path.join(options['WORKDIR'],
+            restartsaveloc=os.path.join(options['workdir'],
                                         options['mode_folder']))
 
     # Copy artaios input to each folder

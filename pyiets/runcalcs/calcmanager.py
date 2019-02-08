@@ -44,7 +44,7 @@ def start_tm_single_points(folders, options):
         pool.map(turbomole.run, params)
 
 
-def start_artaios(folders, options):
+def start_artaios(folders, options, restarfileloc=None):
     '''Start turbomole calculations asynchronously in specified folders.
 
     Args:
@@ -68,7 +68,7 @@ def start_artaios(folders, options):
     with multiprocessing.Pool(processes=options['mp']) as pool:
         manager = multiprocessing.Manager()
         lock = manager.Lock()
-        params = [(folder, options, lock)
+        params = [(folder, options, restarfileloc, lock)
                   for folder in folders]
         pool.imap(artaios.run, params)
         pool.close()

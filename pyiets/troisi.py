@@ -98,7 +98,8 @@ class Troisi:
                                 self.options['output_mode_folder_prefix'])
                    + str(mode.get_idx())
                    for mode in self.modes]
-        art = artaios.Artaios(folders, self.options)
+        art = artaios.Artaios(folders, self.options,
+                              restartsaveloc=self.options['output_folder'])
         art.run()
         iets_dict_list = []
         for idx, mode in enumerate(self.modes):

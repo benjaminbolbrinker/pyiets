@@ -26,9 +26,10 @@ import pyiets.runcalcs.calcmanager as calcmanager
 
 
 class Artaios():
-    def __init__(self, mode_folders, options):
+    def __init__(self, mode_folders, options, restartsaveloc=None):
         self.options = options
         self.mode_folders = mode_folders
+        self.restartsaveloc = restartsaveloc
         self.greenmatrices = None
 
     def run(self):
@@ -46,7 +47,7 @@ class Artaios():
 
         if self.options['sp_control']['qc_prog'] == 'turbomole':
             calcmanager.start_artaios(self.mode_folders,
-                                      self.options)
+                                      self.options, self.restartsaveloc)
 
         os.chdir(cwd)
 

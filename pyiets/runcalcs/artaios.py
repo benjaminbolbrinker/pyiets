@@ -15,7 +15,8 @@ def run(params):
 
     folder = params[0]
     options = params[1]
-    lock = params[2]
+    restartfileloc = params[2]
+    lock = params[3]
 
     cwd = os.getcwd()
     os.chdir(folder)
@@ -46,7 +47,13 @@ Redirecting output to \'{}\' and \'{}\'
 
     # Safely write to restartfile
     lock.acquire()
-    with open(options['artaios_restart_file'], 'a') as restart_file:
+    if restartfileloc is not None:
+        restartfile = os.path.join(restartfileloc,
+                                   options['artaios_restart_file'])
+    else:
+        restartfile = options['artaios_restart_file']
+
+    with open(restartfile, 'a') as restart_file:
         restart_file.write(folder + ' ')
     lock.release()
     return folder
