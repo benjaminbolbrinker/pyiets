@@ -8,6 +8,7 @@
   "snf_out": "snf.out",
   "sp_restart": false,
   "sp_restart_file": "sp.restart",
+  "sp_name": "sp",
 
   "artaios_restart": false,
   "artaios_restart_file": "artaios.restart",
@@ -24,7 +25,7 @@
   "output_mode_folder_prefix": "mode",
   "iets_output_file": "iets.dat",
 
-  "mode_folder": "dissortions",
+  "mode_folder": "distortions",
   "modes": "all",
   "delta": 0.1,
   "mp": 6

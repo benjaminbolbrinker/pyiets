@@ -18,7 +18,6 @@ class Preprocessor():
 
     def preprocess(self):
         modes = self.options['modes']
-
         if modes == 'all':
             modes = self.snf_parser.get_modes()
         else:
@@ -26,14 +25,32 @@ class Preprocessor():
                      for mode_idx in modes]
 
         if self.options['sp_restart']:
-            return self._get_modes_from_previous_calc()
+            return self._prepareDistortions(modes)
         else:
-            return self._writeDisortion(modes)
+            return self._writeDistortions(modes)
 
-    def _get_modes_from_previous_calc(self):
-        pass
+    def _prepareDistortions(self, modes):
+        molecule = self.snf_parser.get_molecule()
+        for mode in modes:
+            mode_vecs = mode.vectors
+            dissortions = [molecule.vectors - mode_vecs*self.options['delta'],
+                           molecule.vectors + mode_vecs*self.options['delta']]
 
-    def _writeDisortion(self, modes):
+            asedissortions = [Molecule(molecule.atoms, vectors=dis)
+                              .to_ASE_atoms_obj()
+                              for dis in dissortions]
+            dissortion_folders = []
+            for idx, dissortion in enumerate(asedissortions):
+                modedir = 'mode' + str(mode.get_idx()) + '_' + str(idx)
+                dissortion_folders.append(modedir)
+                ase.io.write(self.dissotionoutname,
+                             dissortion,
+                             format=self.options['sp_control']['qc_prog'])
+                os.chdir('../')
+            mode.set_folders(dissortion_folders)
+        return modes
+
+    def _writeDistortions(self, modes):
         cwd = os.getcwd()
         molecule = self.snf_parser.get_molecule()
 
@@ -42,8 +59,7 @@ class Preprocessor():
                                                   self.options['mode_folder']))
 
         returnarr = []
-
-        spname = 'sp'
+        spname = self.options['sp_name']
         returnarr.append(os.path.realpath(spname))
         os.chdir(outdirpath)
         os.mkdir(spname)

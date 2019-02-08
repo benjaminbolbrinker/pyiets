@@ -13,7 +13,7 @@ test_H2O:
 clean: clean_C10H4Au6S2 clean_H2O
 
 clean_C10H4Au6S2: 
-	rm -rf ${C10H4Au6S2}/*dissortions* ${C10H4Au6S2}/*.restart ${C10H4Au6S2}/output 
+	rm -rf ${C10H4Au6S2}/*distortions* ${C10H4Au6S2}/*.restart ${C10H4Au6S2}/output 
 
 clean_H2O:
-	rm -rf ${H2O}/*dissortions* ${H2O}/*.restart ${H2O}/output 
+	rm -rf ${H2O}/*distortions* ${H2O}/*.restart ${H2O}/output 
