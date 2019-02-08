@@ -5,20 +5,23 @@ import numpy as np
 from tempfile import mkstemp
 
 import pyiets.artaios as artaios
+import pyiets.atoms.vibration as vib
 
 
 class Troisi:
     def __init__(self, options, modes, greenmat_dictarr):
         self.options = options
-        self.modes = modes
+        self.modes = vib.Modes(modes)
         self.greenmat_dictarr = greenmat_dictarr
         self.troisi_greenmatrices = []
         self.output_mode_folders = [None]*len(modes)
         self.iets_dict_list = None
 
     def calc_greensmatrix(self, mode_idx):
-        print(mode_idx, self.modes)
-        mode = self.modes[mode_idx]
+        # print(mode_idx, self.modes)
+        # mode = self.modes[mode_idx]
+        mode = self.modes.find_by(mode_idx)
+
         cstep = 1
         gm_idx = [[g for g in self.greenmat_dictarr
                   if mode.get_folders()[idx] == g['mode']][0]
@@ -30,15 +33,15 @@ class Troisi:
         troisi_greenmatrix = (math.sqrt(2*d0)/(2*d0) * (0.5*d0/cstep) *
                               (np.array(gm_idx[1]['greensmatrix'])
                               - np.array(gm_idx[0]['greensmatrix'])))
-        self.modes[mode_idx].set_troisi_greensmat(gm=troisi_greenmatrix)
+        mode.set_troisi_greensmat(gm=troisi_greenmatrix)
 
     def _init_output(self, path_to_sp):
-        for mode in self.modes:
+        for idx, mode in enumerate(self.modes):
             folder = os.path.join(self.options['workdir'],
                                   self.options['output_folder'],
                                   self.options['output_mode_folder_prefix']
                                   + str(mode.get_idx()))
-            self.output_mode_folders[mode.get_idx()] = folder
+            self.output_mode_folders[idx] = folder
             os.makedirs(folder, exist_ok=True)
 
             # copyfile(os.path.join(self.options['workdir'],
@@ -66,11 +69,11 @@ class Troisi:
         os.remove(artaios_in)
         move(abs_path, artaios_in)
 
-    def write_troisi_greensmatrix(self, mode):
+    def write_troisi_greensmatrix(self, mode, folder_idx):
         with open(os.path.join(self.options['workdir'],
-                  self.output_mode_folders[mode.get_idx()],
+                  self.output_mode_folders[folder_idx],
                   self.options['troisi_greenmatrix_file']), 'w') as fp:
-            gm = self.troisi_greenmatrices[mode.get_idx()]
+            gm = self.troisi_greenmatrices[folder_idx]
             assert len(gm) == len(gm[0])
             fp.write(str(len(gm)) + '\n')
             for row in gm:
@@ -81,12 +84,12 @@ class Troisi:
     def prepare_input_artaios(self):
         self._init_output(os.path.join(self.options['workdir'],
                                        self.options['mode_folder'], 'sp'))
-        for mode in self.modes:
-            self.write_troisi_greensmatrix(mode)
+        for idx, mode in enumerate(self.modes):
+            self.write_troisi_greensmatrix(mode, idx)
 
     def calc_greensmatrices(self):
         troisi_mat = []
-        for mode in self.modes:
+        for mode in self.modes.modes:
             self.calc_greensmatrix(mode.get_idx())
             troisi_mat.append(mode.get_troisi_greensmat())
         self.troisi_greenmatrices = troisi_mat

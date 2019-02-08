@@ -33,7 +33,8 @@ class Preprocessor():
         if modes == 'all':
             modes = self.snf_parser.get_modes()
         else:
-            modes = [self.snf_parser.get_mode(mode_idx) for mode_idx in modes]
+            modes = [self.snf_parser.get_mode(int(mode_idx))
+                     for mode_idx in modes]
 
         os.mkdir(os.path.join(self.workdir, self.options['mode_folder']))
         outdirpath = os.path.abspath(os.path.join(self.workdir,
