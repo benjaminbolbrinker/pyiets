@@ -22,6 +22,7 @@
   "troisi_greenmatrix_file": "greensmatrix",
   "output_folder": "output",
   "output_mode_folder_prefix": "mode",
+  "iets_output_file": "iets.dat",
 
   "mode_folder": "dissortions",
   "modes": "all",

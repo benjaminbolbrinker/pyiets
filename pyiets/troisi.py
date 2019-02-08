@@ -18,8 +18,6 @@ class Troisi:
         self.iets_dict_list = None
 
     def calc_greensmatrix(self, mode_idx):
-        # print(mode_idx, self.modes)
-        # mode = self.modes[mode_idx]
         mode = self.modes.find_by(mode_idx)
 
         cstep = 1
@@ -100,11 +98,6 @@ class Troisi:
         art = artaios.Artaios(
               os.path.join(self.options['workdir'],
                            self.options['output_folder']), self.options)
-        # folders = set([os.path.realpath(f.path) for f in
-        # os.scandir(os.path.join(
-        # self.options['workdir'],
-        # self.options['output_folder']))
-        # if f.is_dir()])
         folders = [os.path.join(self.options['workdir'],
                                 self.options['output_folder'],
                                 self.options['output_mode_folder_prefix'])

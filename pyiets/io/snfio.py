@@ -73,6 +73,22 @@ class SnfParser:
                         [i for i in re.findall(r'(\d*)', line) if i])
         return int(mode_idx_list[-1][-1])
 
+    def _get_distortion(self):
+        regex = (r'\s*distortion\s\[bohr\]\s*:\s*([+-]?\d*.\d*)\s*')
+        cstep_search = None
+        for line in self.snfoutfile:
+            cstep_search = re.search(regex, line)
+            if cstep_search:
+                break
+        if cstep_search:
+            cstep = float(cstep_search.group(1))
+        else:
+            cstep = 0.01
+            print('Disstortion not found in {}'
+                  .format(self.options['snf_out']))
+            print('Setting cstep to 0.010 Bohr (default)')
+        return cstep
+
     def get_molecule(self):
         """TODO: to be defined1. """
         counter = 0

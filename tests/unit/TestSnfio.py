@@ -20,6 +20,8 @@ class TestStringMethods(unittest.TestCase):
 
 if __name__ == '__main__':
     # unittest.main()
-    parser = SnfParser()
+    options = {'workdir': '.', 'snf_out': 'snf.out'}
+    parser = SnfParser(options)
     # parser.get_mode(6)
-    parser.get_modes()
+    # parser.get_modes()
+    print(parser._get_distortion())

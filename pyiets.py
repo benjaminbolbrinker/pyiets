@@ -29,6 +29,7 @@ import pyiets.preprocess
 import pyiets.artaios
 import pyiets.read
 import pyiets.io.checkinput
+import pyiets.restart as restart
 from pyiets.troisi import Troisi
 from shutil import copyfile
 
@@ -41,28 +42,6 @@ def get_options(path):
     pyiets.io.checkinput.check_options(options)
     os.chdir(cwd)
     return options
-
-
-def choose_mode_folders(restartfile):
-    cwd = os.getcwd()
-    os.chdir(WORKDIR)
-
-    if os.path.exists(restartfile):
-        with open(
-             restartfile, 'r'
-        ) as restartfile:
-            mode_folders = set([os.path.realpath(f.path) for f in
-                                os.scandir(options['mode_folder'])
-                                if f.is_dir()]) \
-                              - set(restartfile.read().split())
-    else:
-            mode_folders = set([os.path.realpath(f.path) for f in
-                                os.scandir(options['mode_folder'])
-                                if f.is_dir()])
-
-    os.chdir(cwd)
-    os.chdir(cwd)
-    return mode_folders
 
 
 if __name__ == '__main__':
@@ -78,13 +57,15 @@ if __name__ == '__main__':
 
     print('Running single point calculations...')
     singlepoint = pyiets.sp.SinglePoint(WORKDIR, options)
-    mode_folders = choose_mode_folders(options['sp_restart_file'])
+    mode_folders = restart.choose_mode_folders(options['sp_restart_file'],
+                                               options)
     singlepoint.run(mode_folders)
     print('Done\n')
 
     print('Running transport calculations...')
     artaios = pyiets.artaios.Artaios(WORKDIR, options)
-    mode_folders = choose_mode_folders(options['artaios_restart_file'])
+    mode_folders = restart.choose_mode_folders(options['artaios_restart_file'],
+                                               options)
     # Copy artaios input to each folder
     for folder in mode_folders:
         copyfile(os.path.join(options['workdir'],
@@ -110,7 +91,8 @@ if __name__ == '__main__':
     print('Done\n')
 
     print('Printing to file...')
-    troisi.write_IET_spectrum(os.path.join(WORKDIR, 'iets.dat'))
+    troisi.write_IET_spectrum(os.path.join(WORKDIR,
+                              options['iets_output_file']))
     print('Done\n')
 
     print('pyIETS terminated normally')
