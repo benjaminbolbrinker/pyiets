@@ -66,7 +66,7 @@ if __name__ == '__main__':
     print('Done\n')
 
     print('Running transport calculations...')
-    mode_folders, _ = restart.choose_mode_folders(
+    mode_folders, done = restart.choose_mode_folders(
             options['artaios_restart_file'], options)
     artaios = pyiets.artaios.Artaios(
             mode_folders, options,
