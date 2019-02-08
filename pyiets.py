@@ -56,14 +56,14 @@ if __name__ == '__main__':
     print('Done\n')
 
     print('Running single point calculations...')
-    singlepoint = pyiets.sp.SinglePoint(WORKDIR, options)
+    singlepoint = pyiets.sp.SinglePoint(options)
     mode_folders = restart.choose_mode_folders(options['sp_restart_file'],
                                                options)
     singlepoint.run(mode_folders)
     print('Done\n')
 
     print('Running transport calculations...')
-    artaios = pyiets.artaios.Artaios(WORKDIR, options)
+    artaios = pyiets.artaios.Artaios(options)
     mode_folders = restart.choose_mode_folders(options['artaios_restart_file'],
                                                options)
     # Copy artaios input to each folder

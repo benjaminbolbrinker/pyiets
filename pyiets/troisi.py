@@ -24,8 +24,6 @@ class Troisi:
         gm_idx = [[g for g in self.greenmat_dictarr
                   if mode.get_folders()[idx] == g['mode']][0]
                   for idx in range(len(mode.get_folders()))]
-        # sp_gm = next(g for g in self.greenmat_dictarr
-        # if g['mode'] == 'sp')
         d0 = self.options['delta']
 
         troisi_greenmatrix = (math.sqrt(2*d0)/(2*d0) * (0.5*d0/cstep) *
@@ -95,9 +93,7 @@ class Troisi:
 
     def calc_IET_spectrum(self):
         self.prepare_input_artaios()
-        art = artaios.Artaios(
-              os.path.join(self.options['workdir'],
-                           self.options['output_folder']), self.options)
+        art = artaios.Artaios(self.options)
         folders = [os.path.join(self.options['workdir'],
                                 self.options['output_folder'],
                                 self.options['output_mode_folder_prefix'])

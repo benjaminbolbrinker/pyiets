@@ -43,9 +43,6 @@ class Preprocessor():
             for idx, dissortion in enumerate(asedissortions):
                 modedir = 'mode' + str(mode.get_idx()) + '_' + str(idx)
                 dissortion_folders.append(modedir)
-                ase.io.write(self.dissotionoutname,
-                             dissortion,
-                             format=self.options['sp_control']['qc_prog'])
                 os.chdir('../')
             mode.set_folders(dissortion_folders)
         return modes

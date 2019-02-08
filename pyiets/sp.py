@@ -28,8 +28,7 @@ import pyiets.runcalcs.calcmanager as calcmanager
 
 
 class SinglePoint():
-    def __init__(self, workdir, options):
-        self.workdir = workdir
+    def __init__(self, options):
         self.options = options
 
     def run(self, folders):
@@ -41,7 +40,7 @@ class SinglePoint():
         """
         self.mode_folders = folders
         cwd = os.getcwd()
-        os.chdir(self.workdir)
+        os.chdir(self.options['workdir'])
         if self.options['sp_control']['qc_prog'] == 'turbomole':
             calcmanager.start_tm_single_points(folders, self.options)
         os.chdir(cwd)
