@@ -56,10 +56,13 @@ if __name__ == '__main__':
     print('Done\n')
 
     print('Running single point calculations...')
-    singlepoint = pyiets.sp.SinglePoint(options)
     mode_folders, done = restart.choose_mode_folders(
             options['sp_restart_file'], options)
-    singlepoint.run(mode_folders)
+    singlepoint = pyiets.sp.SinglePoint(
+        mode_folders, options,
+        restartsaveloc=os.path.join(options['workdir'],
+                                    options['mode_folder']))
+    singlepoint.run()
     print('Done\n')
 
     print('Running transport calculations...')

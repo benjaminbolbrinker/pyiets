@@ -28,19 +28,21 @@ import pyiets.runcalcs.calcmanager as calcmanager
 
 
 class SinglePoint():
-    def __init__(self, options):
+    def __init__(self, mode_folders, options, restartsaveloc=None):
         self.options = options
+        self.mode_folders = mode_folders
+        self.restartsaveloc = restartsaveloc
 
-    def run(self, folders):
+    def run(self):
         """Read snf output file and run turbomole calculations
         for every vibration mode. Calculation is controlled via 'input.json'
 
         Args:
             path (str): path to inputfiles ('snf.out' and 'input.json')
         """
-        self.mode_folders = folders
         cwd = os.getcwd()
         os.chdir(self.options['workdir'])
         if self.options['sp_control']['qc_prog'] == 'turbomole':
-            calcmanager.start_tm_single_points(folders, self.options)
+            calcmanager.start_tm_single_points(self.mode_folders, self.options,
+                                               self.restartsaveloc)
         os.chdir(cwd)
