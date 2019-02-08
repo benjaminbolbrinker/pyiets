@@ -93,13 +93,13 @@ class Troisi:
 
     def calc_IET_spectrum(self):
         self.prepare_input_artaios()
-        art = artaios.Artaios(self.options)
         folders = [os.path.join(self.options['workdir'],
                                 self.options['output_folder'],
                                 self.options['output_mode_folder_prefix'])
                    + str(mode.get_idx())
                    for mode in self.modes]
-        art.run(folders)
+        art = artaios.Artaios(folders, self.options)
+        art.run()
         iets_dict_list = []
         for idx, mode in enumerate(self.modes):
             iets_dict_list.append({

@@ -63,22 +63,23 @@ if __name__ == '__main__':
     print('Done\n')
 
     print('Running transport calculations...')
-    artaios = pyiets.artaios.Artaios(options)
     mode_folders = restart.choose_mode_folders(options['artaios_restart_file'],
                                                options)
+    artaios = pyiets.artaios.Artaios(mode_folders, options)
     # Copy artaios input to each folder
     for folder in mode_folders:
         copyfile(os.path.join(options['workdir'],
                               options['artaios_in']),
                  os.path.join(folder, options['artaios_in']))
-    artaios.run(mode_folders)
+    artaios.run()
     greenmatrices_unsrt = [artaios.read_greenmatrices()[idx]
                            for idx in range(len(artaios.read_greenmatrices()))]
     print('Done\n')
 
-    assert ((len(greenmatrices_unsrt)-1)/2 ==
-            (len(artaios.mode_folders)-1)/2 ==
-            (len(singlepoint.mode_folders)-1)/2 == len(modes))
+    [mode.print() for mode in modes]
+    # assert ((len(greenmatrices_unsrt)-1)/2 ==
+            # (len(artaios.mode_folders)-1)/2 ==
+            # (len(singlepoint.mode_folders)-1)/2 == len(modes))
     print('Calculating Troisi-Greensmatrices...')
     troisi = Troisi(options=options, modes=modes,
                     greenmat_dictarr=greenmatrices_unsrt)

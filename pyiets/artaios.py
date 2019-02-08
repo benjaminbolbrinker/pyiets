@@ -26,12 +26,12 @@ import pyiets.runcalcs.calcmanager as calcmanager
 
 
 class Artaios():
-    def __init__(self, options):
+    def __init__(self, mode_folders, options):
         self.options = options
         self.greenmatrices = None
-        self.mode_folders = None
+        self.mode_folders = mode_folders
 
-    def run(self, mode_folders):
+    def run(self):
         """Read tm mos files and run artaios calculations
         for every vibration mode. Calculation is controlled via 'input.json'
 
@@ -43,10 +43,9 @@ class Artaios():
         """
         cwd = os.getcwd()
         os.chdir(self.options['workdir'])
-        self.mode_folders = mode_folders
 
         if self.options['sp_control']['qc_prog'] == 'turbomole':
-            calcmanager.start_artaios(mode_folders,
+            calcmanager.start_artaios(self.mode_folders,
                                       self.options)
 
         os.chdir(cwd)
