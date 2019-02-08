@@ -1,7 +1,7 @@
 import os
 
 
-def choose_mode_folders(mode, restartfile, options):
+def choose_mode_folders(restartfile, options):
     cwd = os.getcwd()
     os.chdir(options['workdir'])
 
