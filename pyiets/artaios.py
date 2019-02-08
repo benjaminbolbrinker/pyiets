@@ -28,8 +28,8 @@ import pyiets.runcalcs.calcmanager as calcmanager
 class Artaios():
     def __init__(self, mode_folders, options):
         self.options = options
-        self.greenmatrices = None
         self.mode_folders = mode_folders
+        self.greenmatrices = None
 
     def run(self):
         """Read tm mos files and run artaios calculations
@@ -50,15 +50,14 @@ class Artaios():
 
         os.chdir(cwd)
 
-    def read_greenmatrices(self):
+    def read_greenmatrices(self, files):
         with multiprocessing.Pool(processes=self.options['mp']) as pool:
             # files = [str(os.path.join(folder,
             # self.options['greenmatrix_file']))
             # for folder in self.mode_folders]
             # greenmatrices = pool.imap(self.read_greenmatrix, files)
-            greenmatrices = [self.read_greenmatrix(str(os.path.join(folder,
-                             self.options['greenmatrix_file'])))
-                             for folder in self.mode_folders]
+            greenmatrices = [self.read_greenmatrix(f)
+                             for f in files]
             pool.close()
             pool.join()
 
@@ -67,6 +66,7 @@ class Artaios():
     def read_greenmatrix(self, greenmatrixfile):
         # with open(greenmatrixfile, 'r') as greenfile:
             # dim = int(greenfile.readline())
+
         with open(greenmatrixfile, 'r') as greenfile:
             rawinput = greenfile.readlines()[1:]
 

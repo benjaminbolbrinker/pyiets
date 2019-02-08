@@ -9,14 +9,15 @@ def choose_mode_folders(restartfile, options):
         with open(
              restartfile, 'r'
         ) as restartfile:
+            already_done = set(restartfile.read().split())
             mode_folders = set([os.path.realpath(f.path) for f in
                                 os.scandir(options['mode_folder'])
-                                if f.is_dir()]) \
-                              - set(restartfile.read().split())
+                                if f.is_dir()]) - already_done
     else:
+            already_done = set([])
             mode_folders = set([os.path.realpath(f.path) for f in
                                 os.scandir(options['mode_folder'])
                                 if f.is_dir()])
 
     os.chdir(cwd)
-    return mode_folders
+    return (mode_folders, already_done)

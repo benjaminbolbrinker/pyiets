@@ -57,26 +57,29 @@ if __name__ == '__main__':
 
     print('Running single point calculations...')
     singlepoint = pyiets.sp.SinglePoint(options)
-    mode_folders = restart.choose_mode_folders(options['sp_restart_file'],
-                                               options)
+    mode_folders, _ = restart.choose_mode_folders(options['sp_restart_file'],
+                                                  options)
     singlepoint.run(mode_folders)
     print('Done\n')
 
     print('Running transport calculations...')
-    mode_folders = restart.choose_mode_folders(options['artaios_restart_file'],
-                                               options)
+    mode_folders, done = restart.choose_mode_folders(
+            options['artaios_restart_file'], options)
     artaios = pyiets.artaios.Artaios(mode_folders, options)
+
     # Copy artaios input to each folder
     for folder in mode_folders:
         copyfile(os.path.join(options['workdir'],
                               options['artaios_in']),
                  os.path.join(folder, options['artaios_in']))
     artaios.run()
-    greenmatrices_unsrt = [artaios.read_greenmatrices()[idx]
-                           for idx in range(len(artaios.read_greenmatrices()))]
+    g_files = [os.path.join(m, options['greenmatrix_file'])
+               for m in mode_folders.union(done)
+               if options['output_folder'] not in m]
+    greenmatrices_unsrt = [artaios.read_greenmatrices(g_files)[idx]
+                           for idx in range(len(artaios.read_greenmatrices(
+                               g_files)))]
     print('Done\n')
-
-    [mode.print() for mode in modes]
     # assert ((len(greenmatrices_unsrt)-1)/2 ==
             # (len(artaios.mode_folders)-1)/2 ==
             # (len(singlepoint.mode_folders)-1)/2 == len(modes))
@@ -91,7 +94,7 @@ if __name__ == '__main__':
     print('Done\n')
 
     print('Printing to file...')
-    troisi.write_IET_spectrum(os.path.join(WORKDIR,
+    troisi.write_IET_spectrum(os.path.join(options['workdir'],
                               options['iets_output_file']))
     print('Done\n')
 
