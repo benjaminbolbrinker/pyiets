@@ -20,7 +20,7 @@ class Troisi:
         mode = next((mode for mode in self.modes
                     if mode.get_idx() == mode_idx), None)
 
-        cstep = 1
+        cstep = self.options['cstep']
         gm_idx = [[g for g in self.greenmat_dictarr
                   if mode.get_folders()[idx] == g['mode']][0]
                   for idx in range(len(mode.get_folders()))]

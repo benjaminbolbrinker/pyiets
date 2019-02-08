@@ -57,15 +57,18 @@ if __name__ == '__main__':
 
     print('Running single point calculations...')
     singlepoint = pyiets.sp.SinglePoint(options)
-    mode_folders, _ = restart.choose_mode_folders(options['sp_restart_file'],
-                                                  options)
+    mode_folders, done = restart.choose_mode_folders(
+            options['sp_restart_file'], options)
     singlepoint.run(mode_folders)
     print('Done\n')
 
     print('Running transport calculations...')
-    mode_folders, done = restart.choose_mode_folders(
+    mode_folders, _ = restart.choose_mode_folders(
             options['artaios_restart_file'], options)
-    artaios = pyiets.artaios.Artaios(mode_folders, options)
+    artaios = pyiets.artaios.Artaios(
+            mode_folders, options,
+            restartsaveloc=os.path.join(options['WORKDIR'],
+                                        options['mode_folder']))
 
     # Copy artaios input to each folder
     for folder in mode_folders:
@@ -74,15 +77,12 @@ if __name__ == '__main__':
                  os.path.join(folder, options['artaios_in']))
     artaios.run()
     g_files = [os.path.join(m, options['greenmatrix_file'])
-               for m in mode_folders.union(done)
-               if options['output_folder'] not in m]
+               for m in mode_folders.union(done)]
     greenmatrices_unsrt = [artaios.read_greenmatrices(g_files)[idx]
                            for idx in range(len(artaios.read_greenmatrices(
                                g_files)))]
     print('Done\n')
-    # assert ((len(greenmatrices_unsrt)-1)/2 ==
-            # (len(artaios.mode_folders)-1)/2 ==
-            # (len(singlepoint.mode_folders)-1)/2 == len(modes))
+
     print('Calculating Troisi-Greensmatrices...')
     troisi = Troisi(options=options, modes=modes,
                     greenmat_dictarr=greenmatrices_unsrt)

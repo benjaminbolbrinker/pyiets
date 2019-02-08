@@ -39,6 +39,7 @@ class SnfParser:
         self.natoms = self._get_natoms()
         self.nmodes = self._get_nmodes()
         self.molecule = self.get_molecule()
+        self.options['cstep'] = self._get_distortion()
 
     def _get_natoms(self):
         """TODO: to be defined1. """

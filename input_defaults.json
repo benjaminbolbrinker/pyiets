@@ -28,5 +28,6 @@
   "mode_folder": "distortions",
   "modes": "all",
   "delta": 0.1,
+  "cstep": 0.01,
   "mp": 6
 }
