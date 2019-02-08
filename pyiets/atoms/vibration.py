@@ -22,30 +22,6 @@
 import numpy as np
 
 
-class Modes():
-    def __init__(self, modes):
-        self.modes = modes
-
-    def __iter__(self):
-        return iter(self.modes)
-
-    def __getitem__(self, key):
-        return self.modes[key]
-
-    def append(self, mode):
-        self.mode
-
-    def find_by(self, idx):
-        mode = None
-        for m in self.modes:
-            if m.get_idx() is idx:
-                mode = m
-
-        if mode is None:
-            raise Exception('Mode {} not found!'.format(idx))
-        return mode
-
-
 class Mode:
     """Docstring for MyClass. """
     def __init__(self, vectors=None, atoms=None, wavenumber=None, idx=None,

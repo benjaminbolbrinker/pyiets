@@ -5,20 +5,20 @@ import numpy as np
 from tempfile import mkstemp
 
 import pyiets.artaios as artaios
-import pyiets.atoms.vibration as vib
 
 
 class Troisi:
     def __init__(self, options, modes, greenmat_dictarr):
         self.options = options
-        self.modes = vib.Modes(modes)
+        self.modes = modes
         self.greenmat_dictarr = greenmat_dictarr
         self.troisi_greenmatrices = []
         self.output_mode_folders = [None]*len(modes)
         self.iets_dict_list = None
 
     def calc_greensmatrix(self, mode_idx):
-        mode = self.modes.find_by(mode_idx)
+        mode = next((mode for mode in self.modes
+                    if mode.get_idx() == mode_idx), None)
 
         cstep = 1
         gm_idx = [[g for g in self.greenmat_dictarr
@@ -87,7 +87,7 @@ class Troisi:
 
     def calc_greensmatrices(self):
         troisi_mat = []
-        for mode in self.modes.modes:
+        for mode in self.modes:
             self.calc_greensmatrix(mode.get_idx())
             troisi_mat.append(mode.get_troisi_greensmat())
         self.troisi_greenmatrices = troisi_mat

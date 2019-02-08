@@ -79,7 +79,7 @@ if __name__ == '__main__':
     assert ((len(greenmatrices_unsrt)-1)/2 ==
             (len(artaios.mode_folders)-1)/2 ==
             (len(singlepoint.mode_folders)-1)/2 == len(modes))
-
+    print(os.getcwd())
     print('Calculating Troisi-Greensmatrices...')
     troisi = Troisi(options=options, modes=modes,
                     greenmat_dictarr=greenmatrices_unsrt)
