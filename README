@@ -8,6 +8,10 @@ point calculations are performed - one for each distorted molecule -
 using Turbomole[4]. Greensmatrices are calculated using the code ARTAIOS[5]
 for each distorted molecule.
 
+Installation
+------------
+
+
 Getting started
 -------
 Run this program by ...
@@ -20,6 +24,14 @@ Examples are provided in `tests/`. Type
     $ make test_all
 
 to test the correct installation of this module.
+
+
+Please cite this work as
+------
+    [1] B. Bolbrinker, M. Deffner, M. Zoellner, and C. Herrmann.
+    pyIETS — a code for calculating inelastic tunneling spectra, available from
+    https://github.com/
+
 
 References
 -----
@@ -41,9 +53,3 @@ References
     electronic structure calculations, available from
     https://www.chemie.uni-hamburg.de/ac/herrmann/software/index.html
     (2008-2017)
-
-
-Please cite this work as:
-    [n] B. Bolbrinker, M. Deffner, M. Zoellner, and C. Herrmann.
-    pyIETS — a code for calculating inelastic tunneling spectra, available from
-    https://github.com/
