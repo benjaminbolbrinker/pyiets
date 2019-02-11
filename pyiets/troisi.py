@@ -9,7 +9,40 @@ import pyiets.restart as restart
 
 
 class Troisi:
+    '''
+
+    If the class has public attributes, they may be documented here
+    in an ``Attributes`` section and follow the same formatting as a
+    function's ``Args`` section. Alternatively, attributes may be documented
+    inline with the attribute's declaration (see __init__ method below).
+
+    Properties created with the ``@property`` decorator should be documented
+    in the property's getter method.
+
+    Attributes
+    ----------
+    attr1 : str
+        Description of `attr1`.
+    attr2 : :obj:`int`, optional
+        Description of `attr2`.
+
+    '''
     def __init__(self, options, modes, greenmat_dictarr):
+        """ Constructor of SinglePoint class
+        Note
+        ----
+        Relevant parameters are...
+
+        Parameters
+        ----------
+        mode_folders : :obj:`list` of :obj:`str`
+            List of folders to start single point calculation in.
+        options : :obj:`dict`
+            Dict containing the relevant parameters.
+        restartsaveloc : :obj:`str`, optional
+            Path to restartfile.
+
+        """
         self.options = options
         self.modes = modes
         self.greenmat_dictarr = greenmat_dictarr
@@ -18,6 +51,25 @@ class Troisi:
         self.iets_dict_list = None
 
     def calc_greensmatrix(self, mode_idx):
+        """Class methods are similar to regular functions.
+
+        Note
+        ----
+        Do not include the `self` parameter in the ``Parameters`` section.
+
+        Parameters
+        ----------
+        param1
+            The first parameter.
+        param2
+            The second parameter.
+
+        Returns
+        -------
+        bool
+            True if successful, False otherwise.
+
+        """
         mode = next((mode for mode in self.modes
                     if mode.get_idx() == mode_idx), None)
 
@@ -33,6 +85,25 @@ class Troisi:
         mode.set_troisi_greensmat(gm=troisi_greenmatrix)
 
     def _init_output(self, path_to_sp):
+        """Class methods are similar to regular functions.
+
+        Note
+        ----
+        Do not include the `self` parameter in the ``Parameters`` section.
+
+        Parameters
+        ----------
+        param1
+            The first parameter.
+        param2
+            The second parameter.
+
+        Returns
+        -------
+        bool
+            True if successful, False otherwise.
+
+        """
         for idx, mode in enumerate(self.modes):
             folder = os.path.join(self.options['workdir'],
                                   self.options['output_folder'],
@@ -57,6 +128,25 @@ class Troisi:
                                                self.options['artaios_in']))
 
     def _change_for_read(self, artaios_in):
+        """Class methods are similar to regular functions.
+
+        Note
+        ----
+        Do not include the `self` parameter in the ``Parameters`` section.
+
+        Parameters
+        ----------
+        param1
+            The first parameter.
+        param2
+            The second parameter.
+
+        Returns
+        -------
+        bool
+            True if successful, False otherwise.
+
+        """
         # Create temp file
         fh, abs_path = mkstemp()
         with os.fdopen(fh, 'w') as fp:
@@ -67,6 +157,25 @@ class Troisi:
         move(abs_path, artaios_in)
 
     def write_troisi_greensmatrix(self, mode, folder_idx):
+        """Class methods are similar to regular functions.
+
+        Note
+        ----
+        Do not include the `self` parameter in the ``Parameters`` section.
+
+        Parameters
+        ----------
+        param1
+            The first parameter.
+        param2
+            The second parameter.
+
+        Returns
+        -------
+        bool
+            True if successful, False otherwise.
+
+        """
         with open(os.path.join(self.options['workdir'],
                   self.output_mode_folders[folder_idx],
                   self.options['troisi_greenmatrix_file']), 'w') as fp:
@@ -79,12 +188,50 @@ class Troisi:
                 fp.write('\n')
 
     def prepare_input_artaios(self):
+        """Class methods are similar to regular functions.
+
+        Note
+        ----
+        Do not include the `self` parameter in the ``Parameters`` section.
+
+        Parameters
+        ----------
+        param1
+            The first parameter.
+        param2
+            The second parameter.
+
+        Returns
+        -------
+        bool
+            True if successful, False otherwise.
+
+        """
         self._init_output(os.path.join(self.options['workdir'],
                                        self.options['mode_folder'], 'sp'))
         for idx, mode in enumerate(self.modes):
             self.write_troisi_greensmatrix(mode, idx)
 
     def calc_greensmatrices(self):
+        """Class methods are similar to regular functions.
+
+        Note
+        ----
+        Do not include the `self` parameter in the ``Parameters`` section.
+
+        Parameters
+        ----------
+        param1
+            The first parameter.
+        param2
+            The second parameter.
+
+        Returns
+        -------
+        bool
+            True if successful, False otherwise.
+
+        """
         troisi_mat = []
         for mode in self.modes:
             self.calc_greensmatrix(mode.get_idx())
@@ -93,6 +240,25 @@ class Troisi:
         return troisi_mat
 
     def calc_IET_spectrum(self):
+        """Class methods are similar to regular functions.
+
+        Note
+        ----
+        Do not include the `self` parameter in the ``Parameters`` section.
+
+        Parameters
+        ----------
+        param1
+            The first parameter.
+        param2
+            The second parameter.
+
+        Returns
+        -------
+        bool
+            True if successful, False otherwise.
+
+        """
         self.prepare_input_artaios()
         folders, done = restart.choose_mode_folders(
                 os.path.join(self.options['workdir'],
@@ -117,6 +283,25 @@ class Troisi:
         return iets_dict_list
 
     def write_IET_spectrum(self, filename):
+        """Class methods are similar to regular functions.
+
+        Note
+        ----
+        Do not include the `self` parameter in the ``Parameters`` section.
+
+        Parameters
+        ----------
+        param1
+            The first parameter.
+        param2
+            The second parameter.
+
+        Returns
+        -------
+        bool
+            True if successful, False otherwise.
+
+        """
         if self.iets_dict_list is not None:
             with open(filename, 'w') as fp:
                 for d in self.iets_dict_list:

@@ -20,25 +20,49 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 import os
-#  import pyiets.io.snfio
-#  import pyiets.io.createInput
 import pyiets.runcalcs.calcmanager as calcmanager
-#  import pyiets.io.checkinput
-#  import pyiets.read
 
 
 class SinglePoint():
+    '''Wrapper class to select quantum chemistry program.
+
+    Options dictionary defines parameters how program should behave.
+    Each function requires different key-value pairs to be set.
+    A single point calculation is started in each folder provided.
+    Restartability may also be provided by setting a restartfile,
+    which saved folders which already have been calculated as plain
+    string separated by spaces.
+
+    '''
+
     def __init__(self, mode_folders, options, restartsaveloc=None):
+        """ Constructor of SinglePoint class
+        Note
+        ----
+        Relevant parameters are...
+
+        Parameters
+        ----------
+        mode_folders : :obj:`list` of :obj:`str`
+            List of folders to start single point calculation in.
+        options : :obj:`dict`
+            Dict containing the relevant parameters.
+        restartsaveloc : :obj:`str`, optional
+            Path to restartfile.
+
+        """
         self.options = options
         self.mode_folders = mode_folders
         self.restartsaveloc = restartsaveloc
 
     def run(self):
-        """Read snf output file and run turbomole calculations
-        for every vibration mode. Calculation is controlled via 'input.json'
+        """Run single calculations in every folder provided in
+        contructor.
 
-        Args:
-            path (str): path to inputfiles ('snf.out' and 'input.json')
+        Note
+        ----
+        Relevant parameters
+
         """
         cwd = os.getcwd()
         os.chdir(self.options['workdir'])
