@@ -1,4 +1,5 @@
 pyIETS — A code for calculating inelastic tunneling spectra
+======
 
 This program calculates inelastic tunneling spectra of
 molecules between molecular junctions using the ansatz from Troisi[1].
