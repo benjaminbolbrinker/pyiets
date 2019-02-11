@@ -8,6 +8,8 @@ pep8 = "*"
 
 [packages]
 ase = "*"
+numpydoc = "*"
+sphinx-rtd-theme = "*"
 
 [requires]
 python_version = "3.5"

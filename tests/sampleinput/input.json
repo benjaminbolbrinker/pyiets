@@ -7,9 +7,9 @@
         "define_str": "\n\na coord\n*\nno\nb all TZ\n*\neht\n\n\n\nri\non\n\n*"
         }
     },
-"sp_restart": true,
+"sp_restart": false,
 "snf_out": "snf.out",
-"modes": [0, 1, 2],
+"modes": "all",
 "mp": 7,
 "artaios": "/home/bolbrinker/Software/artaios"
 }

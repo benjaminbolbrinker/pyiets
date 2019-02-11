@@ -8,3 +8,7 @@ mos
 *.out
 .vscode
 iets.dat
+tests/sampleinput/distortions/
+tests/sampleinput/output/
+tests/sampleinput_michael/distortions/
+

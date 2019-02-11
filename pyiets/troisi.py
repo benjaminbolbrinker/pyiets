@@ -9,7 +9,8 @@ import pyiets.restart as restart
 
 
 class Troisi:
-    '''
+    ''' Class for calculating the IETS intensity from previous single
+    point and transport calculations.
 
     If the class has public attributes, they may be documented here
     in an ``Attributes`` section and follow the same formatting as a
@@ -18,13 +19,6 @@ class Troisi:
 
     Properties created with the ``@property`` decorator should be documented
     in the property's getter method.
-
-    Attributes
-    ----------
-    attr1 : str
-        Description of `attr1`.
-    attr2 : :obj:`int`, optional
-        Description of `attr2`.
 
     '''
     def __init__(self, options, modes, greenmat_dictarr):
