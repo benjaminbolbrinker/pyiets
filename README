@@ -1,22 +1,26 @@
 pyIETS — A code for calculating inelastic tunneling spectra
 ======
 
-This program calculates inelastic tunneling spectra of
-molecules between molecular junctions using the ansatz from Troisi[1].
-It reads vibrational modes from the output of the program SNF [2] which
-is part of the MoViPac package [3]. For each mode two static single-
-point calculations are performed - one for each distorted molecule -
-using Turbomole[4]. Greensmatrices are calculated using the code ARTAIOS[5]
-for each distorted molecule.
+This program calculates inelastic tunneling spectra of molecules between molecular junctions using the ansatz from Troisi[1].
+It reads vibrational modes from the output of the program SNF [2] which is part of the MoViPac package [3]. For each mode two 
+static singlepoint calculations are performed - one for each distorted molecule - using Turbomole[4]. Greensmatrices are calculated 
+using the code ARTAIOS[5] for each distorted molecule.
 
 Installation
 ------------
 
+Prerequisites
+^^^^^^^^^^^^^
 
-Getting started
--------
+
+
+Quickstart
+----------
 Run this program by ...
 
+Documentaion
+------------
+For full documentations see https://doc.com
 
 Example
 -------
