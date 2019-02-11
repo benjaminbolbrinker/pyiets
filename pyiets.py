@@ -81,7 +81,9 @@ from shutil import copyfile
 
 
 def get_options(path):
-    options = pyiets.read.infile('input_defaults.json')
+    ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
+    options = pyiets.read.infile(os.path.join(ROOT_DIR,
+                                              'input_defaults.json'))
     cwd = os.getcwd()
     os.chdir(path)
     options.update(pyiets.read.infile(options['input_file']))
