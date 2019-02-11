@@ -21,7 +21,6 @@ def run(params):
     restartfileloc = params[2]
     lock = params[3]
     coord = options['dissotionoutname']
-    restartfilename = options['sp_restart_file']
     tmparams = options['sp_control']['params']
 
     cwd = os.getcwd()
@@ -57,12 +56,12 @@ Redirecting output to \'{}\'
     if restartfileloc is not None:
         restartfile = os.path.join(restartfileloc,
                                    options['sp_restart_file'])
-    else:
-        restartfile = options['sp_restart_file']
+        lock.acquire()
+        with open(restartfile, 'a') as restart_file:
+            restart_file.write(folder + ' ')
+        lock.release()
+    # else:
+        # restartfile = options['sp_restart_file']
 
     # Safefly write to restartfile
-    lock.acquire()
-    with open(restartfile, 'a') as restart_file:
-        restart_file.write(folder + ' ')
-    lock.release()
     return folder

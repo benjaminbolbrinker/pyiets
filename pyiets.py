@@ -103,7 +103,15 @@ if __name__ == '__main__':
 
     print('Running single point calculations...')
     mode_folders, done = restart.choose_mode_folders(
-            options['sp_restart_file'], options)
+            os.path.join(options['workdir'],
+                         options['mode_folder'],
+                         options['sp_restart_file']),
+            options)
+    # print(os.path.join(options['sp_restart_file'],
+                       # options['mode_folder'],
+                       # options['sp_restart_file']))
+    # print(mode_folders)
+    # print(done)
     singlepoint = pyiets.sp.SinglePoint(
         mode_folders, options,
         restartsaveloc=os.path.join(options['workdir'],
