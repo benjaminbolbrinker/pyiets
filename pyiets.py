@@ -121,7 +121,10 @@ if __name__ == '__main__':
 
     print('Running transport calculations...')
     mode_folders, done = restart.choose_mode_folders(
-            options['artaios_restart_file'], options)
+            os.path.join(options['workdir'],
+                         options['mode_folder'],
+                         options['artaios_restart_file']),
+            options)
     artaios = pyiets.artaios.Artaios(
             mode_folders, options,
             restartsaveloc=os.path.join(options['workdir'],
