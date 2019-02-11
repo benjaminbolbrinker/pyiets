@@ -1,9 +1,9 @@
 import os
 
 
-def choose_mode_folders(restartfile, options):
+def choose_mode_folders(restartfile, path):
     cwd = os.getcwd()
-    os.chdir(options['workdir'])
+    os.chdir(path)
 
     if os.path.exists(restartfile):
         with open(
@@ -11,12 +11,12 @@ def choose_mode_folders(restartfile, options):
         ) as restartfile:
             already_done = set(restartfile.read().split())
             mode_folders = set([os.path.realpath(f.path) for f in
-                                os.scandir(options['mode_folder'])
+                                os.scandir(path)
                                 if f.is_dir()]) - already_done
     else:
             already_done = set([])
             mode_folders = set([os.path.realpath(f.path) for f in
-                                os.scandir(options['mode_folder'])
+                                os.scandir(path)
                                 if f.is_dir()])
 
     os.chdir(cwd)

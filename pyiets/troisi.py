@@ -5,6 +5,7 @@ import numpy as np
 from tempfile import mkstemp
 
 import pyiets.artaios as artaios
+import pyiets.restart as restart
 
 
 class Troisi:
@@ -93,7 +94,14 @@ class Troisi:
 
     def calc_IET_spectrum(self):
         self.prepare_input_artaios()
-        art = artaios.Artaios(self.output_mode_folders, self.options,
+        folders, done = restart.choose_mode_folders(
+                os.path.join(self.options['workdir'],
+                             self.options['output_folder'],
+                             self.options['artaios_restart_file']),
+                os.path.join(self.options['workdir'],
+                             self.options['output_folder'])
+                )
+        art = artaios.Artaios(folders, self.options,
                               restartsaveloc=self.options['output_folder'])
         art.run()
         iets_dict_list = []

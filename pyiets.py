@@ -106,7 +106,8 @@ if __name__ == '__main__':
             os.path.join(options['workdir'],
                          options['mode_folder'],
                          options['sp_restart_file']),
-            options)
+            os.path.join(options['workdir'],
+                         options['mode_folder']))
     # print(os.path.join(options['sp_restart_file'],
                        # options['mode_folder'],
                        # options['sp_restart_file']))
@@ -124,7 +125,8 @@ if __name__ == '__main__':
             os.path.join(options['workdir'],
                          options['mode_folder'],
                          options['artaios_restart_file']),
-            options)
+            os.path.join(options['workdir'],
+                         options['mode_folder']))
     artaios = pyiets.artaios.Artaios(
             mode_folders, options,
             restartsaveloc=os.path.join(options['workdir'],
