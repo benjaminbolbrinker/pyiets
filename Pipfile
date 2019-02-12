@@ -4,12 +4,11 @@ url = "https://pypi.org/simple"
 verify_ssl = true
 
 [dev-packages]
-pep8 = "*"
 
 [packages]
 ase = "*"
-numpydoc = "*"
-sphinx-rtd-theme = "*"
+numpy = "*"
+e1839a8 = {editable = true,path = "."}
 
 [requires]
 python_version = "3.5"
