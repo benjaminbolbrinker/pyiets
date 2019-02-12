@@ -46,6 +46,7 @@ Note: the :code:`print_green` parameter has to be provided explicitly!
 :code:`snf.out`
 ^^^^^^^^^^^^^^^
 
-.. _ASE-turbomole: https://wiki.fysik.dtu.dk/ase/ase/calculators/turbomole.html
-
 This file has to be created by a prior SNF calculations to calculate vibrational normal modes.
+
+
+.. _ASE-turbomole: https://wiki.fysik.dtu.dk/ase/ase/calculators/turbomole.html
