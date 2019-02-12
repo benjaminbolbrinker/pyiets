@@ -1,7 +1,7 @@
 {
   "sp_control": 
   {
-    "qc_prog": null,
+    "qc_prog": "turbomole",
     "params": null
   },
   "input_file": "input.json",

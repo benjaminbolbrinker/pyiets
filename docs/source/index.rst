@@ -20,6 +20,7 @@ Cite this work as
 
    installation
    intro
+   documentation
 
 
    
