@@ -26,6 +26,7 @@ Cite this work as
 References
 -----
 .. bibliography:: bibfile.bib
+   :style: unsrt
 
 
 
