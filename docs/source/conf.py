@@ -44,6 +44,7 @@ extensions = [
     'sphinx.ext.viewcode',
     'sphinx.ext.githubpages',
     'numpydoc',
+    'sphinxcontrib.bibtex',
 ]
 
 numpydoc_show_class_members = False
