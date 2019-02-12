@@ -9,7 +9,7 @@ This program calculates inelastic tunneling spectra of molecules between molecul
 
 Cite this work as
 ------
-    [1] B. Bolbrinker, M. Deffner, M. Zoellner, and C. Herrmann.
+    B. Bolbrinker, M. Deffner, M. Zoellner, and C. Herrmann.
     pyIETS — a code for calculating inelastic tunneling spectra, available from
     https://github.com/
 
@@ -18,8 +18,11 @@ Cite this work as
    :maxdepth: 2
    :caption: Contents:
 
-   intro
    installation
+   intro
+
+
+   
 
 
 
