@@ -6,9 +6,12 @@ verify_ssl = true
 [dev-packages]
 
 [packages]
-ase = "*"
 numpy = "*"
-e1839a8 = {editable = true,path = "."}
+ase = "*"
+sphinx = "*"
+sphinxcontrib-bibtex = "*"
+numpydoc = "*"
+sphinx-rtd-theme = "*"
 
 [requires]
 python_version = "3.5"
