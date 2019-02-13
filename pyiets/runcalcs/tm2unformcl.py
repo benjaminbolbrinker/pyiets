@@ -3,15 +3,17 @@ import subprocess
 
 
 def run(params):
-    """Run turbomole calculation in specified folder after cleaning directory.
-    If successfull safly write foldername in file.
+    """Run artaios preprocess script in specified folder.
 
-    Args:
-        coord (str): name of turbomole coord file in folder.
-        restartfilename (str): name of restartfile.
-        lock (multiprocessing.Manager.lock): lock for multiprocessing.
-        params (dict): ASE params for turbomole.
+    Parameters
+    ----------
+        params : :obj:`list`
+            folder : obj`str`
+                name of folder to perform calculation in.
+            options : :obj`dict`
+                Options.
     """
+
     folder = params[0]
     options = params[1]
 

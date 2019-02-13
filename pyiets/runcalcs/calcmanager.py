@@ -28,13 +28,18 @@ import pyiets.runcalcs.tm2unformcl as tm2unformcl
 def start_tm_single_points(folders, options, restarfileloc=None):
     '''Start turbomole calculations asynchronously in specified folders.
 
-    Args:
-        folders (list): containing foldernames (str)
-        coord (str): name of turbomole coord file (has to be present in each
-                     folder).
-        params (dict): ASE params for turbomole.
-        nthreads (int): number of threads.
-        restartfilename (str): name of restartfile.
+    Parameters
+    ----------
+        folders : :obj:`list`
+            containing foldernames (str)
+        coord : :obj:`str`
+            name of turbomole coord file (has to be present in each folder).
+        params : :obj:`dict`
+            ASE params for turbomole.
+        nthreads : int
+            number of threads.
+        restartfilename : :obj:`str`, optional
+            name of restartfile.
     '''
     with multiprocessing.Pool(processes=options['mp']) as pool:
         manager = multiprocessing.Manager()
@@ -45,15 +50,20 @@ def start_tm_single_points(folders, options, restarfileloc=None):
 
 
 def start_artaios(folders, options, restarfileloc=None):
-    '''Start turbomole calculations asynchronously in specified folders.
+    '''Start artaios calculations asynchronously in specified folders.
 
-    Args:
-        folders (list): containing foldernames (str)
-        coord (str): name of turbomole coord file (has to be present in each
-                     folder).
-        params (dict): ASE params for turbomole.
-        nthreads (int): number of threads.
-        restartfilename (str): name of restartfile.
+    Parameters
+    ----------
+        folders : :obj:`list`
+            containing foldernames (str)
+        coord : :obj:`str`
+            name of turbomole coord file (has to be present in each folder).
+        params : :obj:`dict`
+            ASE params for turbomole.
+        nthreads : int
+            number of threads.
+        restartfilename : :obj:`str`, optional
+            name of restartfile.
     '''
 
     with multiprocessing.Pool(processes=options['mp']) as pool:

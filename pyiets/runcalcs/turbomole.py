@@ -7,19 +7,28 @@ from contextlib import redirect_stdout
 
 
 def run(params):
-    """Run turbomole calculation in specified folder after cleaning directory.
-    If successfull safly write foldername in file.
+    """Run Turbomole calculation in specified folder.
+    Removes all files before starting calculation.
+    If successful safly write foldername in file. (Therefore
+    lock has to be provided)
 
-    Args:
-        coord (str): name of turbomole coord file in folder.
-        restartfilename (str): name of restartfile.
-        lock (multiprocessing.Manager.lock): lock for multiprocessing.
-        params (dict): ASE params for turbomole.
+    Parameters
+    ----------
+        params : :obj:`list`
+            folder : obj`str`
+                name of folder to perform calculation in.
+            options : :obj`dict`
+                Options.
+            restartfilename : :obj:`str`
+                path to restartfile.
+            lock : :obj:`multiprocessing.Manager.lock`
+                lock for multiprocessing.
     """
     folder = params[0]
     options = params[1]
     restartfileloc = params[2]
     lock = params[3]
+
     coord = options['dissotionoutname']
     tmparams = options['sp_control']['params']
 
