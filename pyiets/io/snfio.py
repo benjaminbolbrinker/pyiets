@@ -29,9 +29,22 @@ import pyiets.atoms.molecule as mol
 
 
 class SnfParser:
-    """Docstring for MyClass. """
+    """Class for parsing options['snf_out'] file.
+
+    """
     def __init__(self, options):
-        """TODO: to be defined1. """
+        """ Creates parser object.
+
+        Note
+        ----
+        Relevant parameters are...
+
+        Parameters
+        ----------
+        options : :obj:`dict`
+            dict to set behaviour.
+
+        """
         self.options = options
         self.snfoutname = os.path.join(options['workdir'], options['snf_out'])
         with open(self.snfoutname, 'r') as fp:
@@ -42,7 +55,6 @@ class SnfParser:
         self.options['cstep'] = self._get_distortion()
 
     def _get_natoms(self):
-        """TODO: to be defined1. """
         natomline = [line for line in self.snfoutfile
                      if 'Number of atoms' in line]
         if len(set(natomline)) in [1]:
@@ -58,15 +70,6 @@ class SnfParser:
                             .format(self.snfoutname))
 
     def _get_nmodes(self):
-        """TODO: to be defined1. """
-        # counter = 0
-        # for line in self.snfoutfile:
-        # if 'root no.' in line:
-        # lidx = counter
-        # break
-        # counter += 1
-        # return len(np.fromstring(self.snfoutfile[lidx+2],
-        # dtype=np.float, sep=' '))
         mode_idx_list = []
         for line in self.snfoutfile:
             if 'root no.' in line:
@@ -75,6 +78,14 @@ class SnfParser:
         return int(mode_idx_list[-1][-1])
 
     def _get_distortion(self):
+        """ Get disstortion length. Defaults to 0.01 Bohr.
+
+        Returns
+        -------
+        float
+            Distortion length in Bohr.
+
+        """
         regex = (r'\s*distortion\s\[bohr\]\s*:\s*([+-]?\d*.\d*)\s*')
         cstep_search = None
         for line in self.snfoutfile:
@@ -91,7 +102,19 @@ class SnfParser:
         return cstep
 
     def get_molecule(self):
-        """TODO: to be defined1. """
+        """ Get molecule specified in options['snf_out'].
+
+        Parameters
+        ----------
+        mode_idx : :obj:`int`
+            index of mode.
+
+        Returns
+        -------
+        :obj:`list` of :obj:`pyiets.atoms.atoms.Molecule`
+            Molecule object
+
+        """
         counter = 0
         for line in self.snfoutfile:
             if 'Molecule of snf run' in line:
@@ -112,6 +135,19 @@ class SnfParser:
         return molec
 
     def _get_mode_vectors(self, mode_idx):
+        """ Get vector of the (mode_idx + 1)-th mode in options['snf_out'].
+
+        Parameters
+        ----------
+        mode_idx : :obj:`int`
+            index of mode.
+
+        Returns
+        -------
+        :obj:`tuple`
+            Contains wavenumber and raw coordinate vectors of mode.
+
+        """
         begin_idx = None
         for idx, line in enumerate(self.snfoutfile):
             if re.search(r'root no\..*?\s('
@@ -137,7 +173,19 @@ class SnfParser:
         return wavenum, block
 
     def get_mode(self, mode_idx):
-        """TODO: to be defined1. """
+        """ Get (mode_idx + 1)-th mode in options['snf_out'].
+
+        Parameters
+        ----------
+        mode_idx : :obj:`int`
+            index of mode.
+
+        Returns
+        -------
+        :obj:`pyiets.atoms.vibration.Mode`
+            Mode object
+
+        """
         wavenum, mode_vectors = self._get_mode_vectors(mode_idx)
         mode_vectors = np.array(mode_vectors).reshape(self.natoms, 3)
         mode = vib.Mode(vectors=mode_vectors,
@@ -147,7 +195,18 @@ class SnfParser:
         return mode
 
     def get_modes(self):
-        """TODO: to be defined1. """
+        """ Get all modes written in option['snf_out'].
+
+        Note
+        ----
+        Indexing begins with 0!
+
+        Returns
+        -------
+        :obj:`list` of :obj:`pyiets.atoms.vibration.Mode`
+            Mode object
+
+        """
         modes = []
         if self.options['modes'] == 'all':
             for mode_idx in range(self.nmodes):
@@ -160,7 +219,6 @@ class SnfParser:
 
 
 def exportMolecule(snfoutname, outformat):
-    """TODO: to be defined1. """
     snfparser = SnfParser(snfoutname=snfoutname)
     molecule = snfparser.get_molecule()
     asemolecule = molecule.to_ASE_atoms_obj()

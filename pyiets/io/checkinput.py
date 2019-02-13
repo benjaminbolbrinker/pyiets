@@ -27,21 +27,50 @@ supported_qc_progs = {
 
 
 def _missingInputErrorMessage(parameter, filename):
-    '''Print error message'''
+    '''Print error message
+
+    Parameters
+    ----------
+        parameter : :obj:`str`
+            parameter which is missing.
+        filename : :obj:`str`
+            filename where error occured.
+
+    '''
     print('Missing input \'{}\' in {}'.format(parameter, filename),
           file=sys.stderr)
     raise SystemExit
 
 
 def _wrongInputErrorMessage(parameter, value, filename):
-    '''Print error message'''
+    '''Print error message
+
+    Parameters
+    ----------
+        parameter : :obj:`str`
+            parameter which is missing.
+        value :
+            wrong value.
+        filename : :obj:`str`
+            filename where error occured.
+
+    '''
     print('Wrong input \'{}: {}\' in {}'.format(parameter, value, filename),
           file=sys.stderr)
     raise SystemExit
 
 
 def _notsupportedInputMessage(parameter, filename):
-    '''Print error message'''
+    '''Print error message
+
+    Parameters
+    ----------
+        parameter : :obj:`str`
+            parameter which is missing.
+        filename : :obj:`str`
+            filename where error occured.
+
+    '''
     print('Input \'{}\' in {} is NOT supported!'.format(parameter, filename),
           file=sys.stderr)
     raise SystemExit
@@ -49,10 +78,17 @@ def _notsupportedInputMessage(parameter, filename):
 
 def check_options(options):
     '''Check for validity
-    Args:
-        options (dict): contains the input options for pyiets.
-    Raises:
-        SystemExit: if invalt key value ist found in options
+
+    Parameters
+    ----------
+        options : :obj:`dict`
+            contains the input options for pyiets.
+
+    Raises
+    ------
+        SystemExit
+            if invalt key value ist found in options
+
     '''
     if not options['sp_control']['qc_prog']:
         _missingInputErrorMessage('qc_prog', options['input_file'])
