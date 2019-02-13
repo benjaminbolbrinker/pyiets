@@ -1,7 +1,7 @@
 Getting started
 ===============
 
-Make sure Turbomole_ :cite:`turbomole2010development`, ARTAIOS_ :cite:`deffner2009artaios` and pyIETS are properly (see :ref:`installation-label`).
+Make sure Turbomole_ :cite:`turbomole2010development`, ARTAIOS_ :cite:`deffner2009artaios` and pyIETS are properly :ref:`installed <installation-label>`.
 
 For this program to function three inputfiles have to be provided:
 
