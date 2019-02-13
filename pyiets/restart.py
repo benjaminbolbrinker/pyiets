@@ -2,26 +2,25 @@ import os
 
 
 def choose_mode_folders(restartfile, path):
-    """Example function with types documented in the docs
+    """Chooses folders which have not been calculated yet.
 
-    `PEP 484`_ type annotations are supported. If attribute, parameter, and
-    return types are annotated according to `PEP 484`_, they do not need to be
-    included in the docstring:
+    Restartability is accomplished by reading from file which
+    contains folders which have been calculated previously.
 
     Parameters
     ----------
-    param1 : int
-        The first parameter.
-    param2 : str
-        The second parameter.
+    restartfile : :obj:`str`
+        Path to restartfile.
+    path : :obj:`str`
+        Path to folder containing mode_folders.
 
     Returns
     -------
-    bool
-        True if successful, False otherwise.
-
-    .. _PEP 484:
-        https://www.python.org/dev/peps/pep-0484/
+    tuple
+        mode_folders: :obj:`set` of :obj:`str`
+            Absolute paths to folders which have to be calculated.
+        already_done :obj:`set` of :obj:`str`
+            Absolute paths to folders which have to be calculated.
 
     """
     cwd = os.getcwd()

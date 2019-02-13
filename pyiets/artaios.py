@@ -27,20 +27,34 @@ import pyiets.runcalcs.calcmanager as calcmanager
 
 class Artaios():
     def __init__(self, mode_folders, options, restartsaveloc=None):
+        """Class for starting artaios transport calculations in mode_folders.
+
+        Note
+        ----
+        Relevant options are...
+
+        Parameters
+        ----------
+        mode_folders : :obj:`list` of :obj:`str`
+            contains paths to folders with inputfiles ('artaios.in'
+            and 'input.json') and previously successfully
+            finished single point calculations corresponding
+            to different normal-modes.
+        """
         self.options = options
         self.mode_folders = mode_folders
         self.restartsaveloc = restartsaveloc
         self.greenmatrices = None
 
     def run(self):
-        """Read tm mos files and run artaios calculations
-        for every vibration mode. Calculation is controlled via 'input.json'
+        """Read turbomole mos-files and run artaios calculations
+        for every vibration mode. Mos-filename has to be specisfied in
+        options['artaios_in'] file. Calculation is controlled via 'input.json'
 
-        Args:
-            path (str): path to inputfiles ('artaios.in' and 'input.json')
-                        and mode_folder containing previously
-                        calculated single points corresponding to different
-                        normal-modes.
+        Note
+        ----
+        Relevant options are...
+
         """
         cwd = os.getcwd()
         os.chdir(self.options['workdir'])
@@ -52,6 +66,18 @@ class Artaios():
         os.chdir(cwd)
 
     def read_greenmatrices(self, files):
+        """Call after self.run(). Read greeanmatrices from files.
+
+        Note
+        ----
+        Relevant options are...
+
+        Parameters
+        ----------
+        files : :obj:`list` of :obj:`str`
+            contains absoulte paths specifying the greensmatrix files from
+            artaios-output to be read.
+        """
         with multiprocessing.Pool(processes=self.options['mp']) as pool:
             # files = [str(os.path.join(folder,
             # self.options['greenmatrix_file']))
@@ -65,9 +91,18 @@ class Artaios():
         return [matrix for matrix in greenmatrices]
 
     def read_greenmatrix(self, greenmatrixfile):
-        # with open(greenmatrixfile, 'r') as greenfile:
-            # dim = int(greenfile.readline())
+        """Call after self.run(). Read greeanmatrix from files.
 
+        Note
+        ----
+        Relevant options are...
+
+        Parameters
+        ----------
+        greenmatrixfile : :obj:`str`
+            contains absoulte path specifying the greensmatrix file from
+            artaios-output to be read.
+        """
         with open(greenmatrixfile, 'r') as greenfile:
             rawinput = greenfile.readlines()[1:]
 
@@ -94,6 +129,19 @@ class Artaios():
                 'greensmatrix': greenmatrix}
 
     def read_transmission_for(self, artaios_out):
+        """Call after self.run(). Read transmission from artaios
+        std-output.
+
+        Note
+        ----
+        Relevant options are...
+
+        Parameters
+        ----------
+        artaios_out : :obj:`str`
+            contains absoulte path specifying a file containing
+            artaios-std-output to be read.
+        """
         with open(artaios_out, 'r') as fp:
             rawinput = fp.readlines()
         float_re = r'[-+]?\d+[.][Ee0-9+-]+'
@@ -108,14 +156,18 @@ class Artaios():
         return transmission_list
 
     def read_transmission(self):
+        """Call after self.run(). Read all transmission from artaios
+        std-output for all self.mode_folders
+
+        Note
+        ----
+        Relevant options are...
+        """
         with multiprocessing.Pool(processes=self.options['mp']) as pool:
             files = [str(os.path.join(folder,
                      self.options['greenmatrix_file']))
                      for folder in self.mode_folders]
             transmission = pool.imap(self.read_transmission_for, files)
-            # transmission = [self.read_transmission(str(os.path.join(folder,
-            # self.options['greenmatrix_file'])))
-            # for folder in self.mode_folders]
             pool.close()
             pool.join()
 

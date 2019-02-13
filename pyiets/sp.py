@@ -37,6 +37,7 @@ class SinglePoint():
 
     def __init__(self, mode_folders, options, restartsaveloc=None):
         """ Constructor of SinglePoint class
+
         Note
         ----
         Relevant parameters are...
