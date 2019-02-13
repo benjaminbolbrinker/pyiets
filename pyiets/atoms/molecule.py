@@ -25,21 +25,40 @@ from ase.units import Bohr
 
 
 class Molecule:
-    """Docstring for MyClass. """
+    """Small wrapper class to ASE-Atoms object.
+
+    """
     def __init__(self, atoms=None, vectors=None):
-        """TODO: to be defined1. """
+        """Creates molecule from atoms and vectors.
+
+        Parameters
+        ----------
+        atoms : :obj:`list` of :obj:`str`, optional
+            List declaring the atom names.
+        vectors : :obj:`list` of :obj:`float`, optional
+            List declaring vectors of atoms
+
+        """
         self.atoms = atoms
         self.vectors = np.array(vectors)
         for idx, at in enumerate(self.atoms):
             self.atoms[idx] = self.atoms[idx][0] + self.atoms[idx][1:].lower()
 
     def to_ASE_atoms_obj(self):
-        """TODO: to be defined1. """
+        """Converts this class to ASE class.
+
+        Returns
+        -------
+        :obj:`ASE-Atoms`
+
+        """
         return Atoms(''.join(self.atoms),
                      [[idx*Bohr for idx in vec] for vec in self.vectors])
 
     def print(self):
-        """TODO: to be defined1. """
+        """Print atoms with corresping vectors
+
+        """
         print('Printing molecule')
         assert len(self.atoms) == len(self.vectors)
         for idx, atom in enumerate(self.atoms):
