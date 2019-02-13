@@ -11,30 +11,21 @@ import pyiets.restart as restart
 class Troisi:
     ''' Class for calculating the IETS intensity from previous single
     point and transport calculations.
-
-    If the class has public attributes, they may be documented here
-    in an ``Attributes`` section and follow the same formatting as a
-    function's ``Args`` section. Alternatively, attributes may be documented
-    inline with the attribute's declaration (see __init__ method below).
-
-    Properties created with the ``@property`` decorator should be documented
-    in the property's getter method.
-
     '''
     def __init__(self, options, modes, greenmat_dictarr):
-        """ Constructor of SinglePoint class
+        """ Constructor of SinglePoint class.
         Note
         ----
         Relevant parameters are...
 
         Parameters
         ----------
-        mode_folders : :obj:`list` of :obj:`str`
-            List of folders to start single point calculation in.
         options : :obj:`dict`
             Dict containing the relevant parameters.
-        restartsaveloc : :obj:`str`, optional
-            Path to restartfile.
+        modes : :obj:`list` of :obj:`pyiets.atoms.vibration.Mode`
+            List of folders to start single point calculation in.
+        greenmat_dictarr : :obj:`dict` of :obj:`str` and :obj:`list` of float
+            Dict containing modefolder names and corresponding greenmatrix
 
         """
         self.options = options
@@ -45,23 +36,18 @@ class Troisi:
         self.iets_dict_list = None
 
     def calc_greensmatrix(self, mode_idx):
-        """Class methods are similar to regular functions.
+        """Calculate the greensfunction of the (mode_idx + 1)-th mode
+        in options['snf_out'].
 
         Note
         ----
-        Do not include the `self` parameter in the ``Parameters`` section.
+        Relevant parameters are...
 
         Parameters
         ----------
-        param1
-            The first parameter.
-        param2
-            The second parameter.
-
-        Returns
-        -------
-        bool
-            True if successful, False otherwise.
+        mode_idx : int
+            Number specifying the index of the mode to calculate in
+            options['snf_out']. Note that the indexing starts from 0.
 
         """
         mode = next((mode for mode in self.modes
@@ -79,23 +65,17 @@ class Troisi:
         mode.set_troisi_greensmat(gm=troisi_greenmatrix)
 
     def _init_output(self, path_to_sp):
-        """Class methods are similar to regular functions.
+        """Initialises input for reading artaios calculation.
+        in options['snf_out'].
 
         Note
         ----
-        Do not include the `self` parameter in the ``Parameters`` section.
+        Relevant parameters are...
 
         Parameters
         ----------
-        param1
-            The first parameter.
-        param2
-            The second parameter.
-
-        Returns
-        -------
-        bool
-            True if successful, False otherwise.
+        path_to_sp : :obj:`str`
+            Path to previous single point calculation.
 
         """
         for idx, mode in enumerate(self.modes):
@@ -106,9 +86,6 @@ class Troisi:
             self.output_mode_folders[idx] = folder
             os.makedirs(folder, exist_ok=True)
 
-            # copyfile(os.path.join(self.options['workdir'],
-            # self.options['artaios_in']),
-            # os.path.join(folder, self.options['artaios_in']))
             sp_files = []
             for f in os.listdir(path_to_sp):
                 if (os.path.isfile(os.path.join(path_to_sp, f))
@@ -122,23 +99,16 @@ class Troisi:
                                                self.options['artaios_in']))
 
     def _change_for_read(self, artaios_in):
-        """Class methods are similar to regular functions.
+        """Changes artaios_in file to read greenmatrix instead of print.
 
         Note
         ----
-        Do not include the `self` parameter in the ``Parameters`` section.
+        Relevant parameters are...
 
         Parameters
         ----------
-        param1
-            The first parameter.
-        param2
-            The second parameter.
-
-        Returns
-        -------
-        bool
-            True if successful, False otherwise.
+        path_to_sp : :obj:`str`
+            Path to artatios.in file.
 
         """
         # Create temp file
@@ -151,23 +121,18 @@ class Troisi:
         move(abs_path, artaios_in)
 
     def write_troisi_greensmatrix(self, mode, folder_idx):
-        """Class methods are similar to regular functions.
+        """Writes troisi greensfunction to file.
 
         Note
         ----
-        Do not include the `self` parameter in the ``Parameters`` section.
+        Relevant parameters are...
 
         Parameters
         ----------
-        param1
-            The first parameter.
-        param2
-            The second parameter.
-
-        Returns
-        -------
-        bool
-            True if successful, False otherwise.
+        mode : :obj:`pyiets.atoms.vibration.Mode`
+            Mode to write greensfunction for.
+        folder_idx : int
+            Index of folder
 
         """
         with open(os.path.join(self.options['workdir'],
@@ -234,23 +199,16 @@ class Troisi:
         return troisi_mat
 
     def calc_IET_spectrum(self):
-        """Class methods are similar to regular functions.
+        """Calculates IETS.
 
         Note
         ----
-        Do not include the `self` parameter in the ``Parameters`` section.
-
-        Parameters
-        ----------
-        param1
-            The first parameter.
-        param2
-            The second parameter.
+        Relevant parameters are...
 
         Returns
         -------
-        bool
-            True if successful, False otherwise.
+        :obj:`list` of :obj:`dict`
+            dict containing data.
 
         """
         self.prepare_input_artaios()
@@ -277,36 +235,22 @@ class Troisi:
         return iets_dict_list
 
     def write_IET_spectrum(self, filename):
-        """Class methods are similar to regular functions.
+        """Writes IETS.
 
         Note
         ----
-        Do not include the `self` parameter in the ``Parameters`` section.
+        Relevant parameters are...
 
         Parameters
         ----------
-        param1
-            The first parameter.
-        param2
-            The second parameter.
-
-        Returns
-        -------
-        bool
-            True if successful, False otherwise.
+        filename : :obj:`str`
+            path of file to write.
 
         """
         if self.iets_dict_list is not None:
             with open(filename, 'w') as fp:
                 for d in self.iets_dict_list:
-                    # fp.write('Mode' + str(d['mode'].get_idx()) + '\n')
-                    # fp.write('Wavenumber: '
-                    # + str(d['mode'].get_wavenumber()) + 'cm-1\n')
-                    # fp.write('-'*30 + '\n')
                     for e_t_pair in d['transmission']:
                         fp.write(str(d['mode'].get_idx()) + ' ' +
                                  str(d['mode'].get_wavenumber()) + ' ' +
                                  ' '.join(map(str, e_t_pair)) + '\n')
-                    # fp.write('-'*30 + '\n')
-                    # fp.write('-'*30 + '\n')
-                    # fp.write('\n')
