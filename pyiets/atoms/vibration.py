@@ -23,10 +23,29 @@ import numpy as np
 
 
 class Mode:
-    """Docstring for MyClass. """
+    """Small class to process information of vibrational modes.
+
+    """
     def __init__(self, vectors=None, atoms=None, wavenumber=None, idx=None,
                  dissortion_folders=None, troisi_greensmatrix=None):
-        """TODO: to be defined1. """
+        """Creates vibrational mode.
+
+        Parameters
+        ----------
+        vectors : :obj:`list` of :obj:`float`, optional
+            List declaring vectors of atoms
+        atoms : :obj:`list` of :obj:`str`, optional
+            List declaring the atom names.
+        wavenumber : float
+            Wavenumber of mode.
+        idx : int
+            Index of mode.
+        dissortion_folders : :obj:`list` of :obj:`str`
+            folders containing dissorted vibration.
+        troisi_greensmatrix : :obj:`list` of floats
+            greensmatrix from Troisi ansatz
+
+        """
         self.vectors = np.array(vectors)
         self.atoms = atoms
         self.wavenumber = wavenumber
@@ -37,63 +56,157 @@ class Mode:
         self.iets = []
 
     def set_troisi_greensmat(self, gm):
-        """TODO: to be defined1. """
+        """Set Greensfunction from Troisi ansatz.
+
+        Parameters
+        -------
+        gm : :obj:`list` of floats
+
+        """
         self.troisi_greensmatrix = gm
 
     def get_troisi_greensmat(self):
-        """TODO: to be defined1. """
+        """Get Greensfunction from Troisi ansatz.
+
+        Returns
+        -------
+        :obj:`list` of floats
+
+        """
         return self.troisi_greensmatrix
 
     def set_iets(self, iets):
-        """TODO: to be defined1. """
+        """Set IETS from Troisi ansatz.
+
+        Parameters
+        -------
+        iets : :obj:`dict`
+
+        """
         self.iets = iets
 
     def get_iets(self):
-        """TODO: to be defined1. """
+        """Get IETS from Troisi ansatz.
+
+        Returns
+        -------
+        :obj:`dict`
+
+        """
         return self.iets
 
     def set_wavenumber(self, wn):
-        """TODO: to be defined1. """
+        """Set wavenumber of modes.
+
+        Parameters
+        -------
+        wn : float
+            wavenumber in cm-1
+
+        """
         self.wavenumber = wn
 
     def get_wavenumber(self):
-        """TODO: to be defined1. """
+        """Get wavenumber of modes.
+
+        Returns
+        -------
+        float
+            wavenumber in cm-1
+
+        """
         return self.wavenumber
 
     def set_atoms(self, stringarr):
-        """TODO: to be defined1. """
+        """Set atoms
+
+        Parameters
+        -------
+        stringarr : :obj:`list` of strings
+            contains atom names.
+
+        """
         self.atoms = stringarr
 
     def get_atoms(self):
-        """TODO: to be defined1. """
+        """Get atoms
+
+        Returns
+        -------
+        :obj:`list` of strings
+            contains atom names.
+
+        """
         return self.atoms
 
     def set_vectors(self, matrix_3bynatm):
-        """TODO: to be defined1. """
+        """Set atom vectors
+
+        Parameters
+        -------
+        matrix_3bynatm : :obj:`list` of strings
+            contains atom vectors.
+
+        """
         self.vectors = matrix_3bynatm
 
     def get_vectors(self):
-        """TODO: to be defined1. """
+        """Get atom vectors
+
+        Returns
+        -------
+        :obj:`list` of floats
+            contains atom vectors.
+
+        """
         return self.vectors
 
     def set_folders(self, folder_str_list):
-        """TODO: to be defined1. """
+        """Set mode folders
+
+        Parameters
+        -------
+        folder_str_list : :obj:`list` of strings
+            paths to mode folders
+
+        """
         self.dissortion_folders = folder_str_list
 
     def get_folders(self):
-        """TODO: to be defined1. """
+        """Get mode folders
+
+        Returns
+        -------
+        :obj:`list` of strings
+            paths to mode folders
+
+        """
         return self.dissortion_folders
 
     def set_idx(self, idx):
-        """TODO: to be defined1. """
+        """Set mode index.
+
+        Parameters
+        -------
+        idx : int
+
+        """
         self.idx = idx
 
     def get_idx(self):
-        """TODO: to be defined1. """
+        """Get mode index
+
+        Returns
+        -------
+        int
+
+        """
         return self.idx
 
     def print(self):
-        """TODO: to be defined1. """
+        """Print mode.
+
+        """
         print('Printing mode:', self.idx)
         print('Wavenumber:', self.wavenumber)
         assert len(self.atoms) == len(self.vectors)
