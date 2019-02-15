@@ -16,7 +16,14 @@ class Troisi:
         """ Constructor of SinglePoint class.
         Note
         ----
-        Relevant parameters are...
+        Set at least options['greenmatrix'], options['outfolder'],
+                     options['greenmatrix_file'], options['artaios_stdout'],
+                     options['artaios_stderr'], options'[artaios_in'],
+                     options['artaios'], options['aratios_bin'],
+                     options['workdir'], options['output_folder'],
+                     options['output_mode_folder_prefix'],
+                     options['troisi_greenmatrix_file']
+
 
         Parameters
         ----------
@@ -41,7 +48,7 @@ class Troisi:
 
         Note
         ----
-        Relevant parameters are...
+        Set at least options['greenmatrix']
 
         Parameters
         ----------
@@ -70,7 +77,12 @@ class Troisi:
 
         Note
         ----
-        Relevant parameters are...
+        Set at least options['greenmatrix'], options['outfolder'],
+                     options['greenmatrix_file'], options['artaios_stdout'],
+                     options['artaios_stderr'], options'[artaios_in'],
+                     options['artaios'], options['aratios_bin'],
+                     options['workdir'], options['output_folder'],
+                     options['output_mode_folder_prefix']
 
         Parameters
         ----------
@@ -101,10 +113,6 @@ class Troisi:
     def _change_for_read(self, artaios_in):
         """Changes artaios_in file to read greenmatrix instead of print.
 
-        Note
-        ----
-        Relevant parameters are...
-
         Parameters
         ----------
         path_to_sp : :obj:`str`
@@ -125,7 +133,7 @@ class Troisi:
 
         Note
         ----
-        Relevant parameters are...
+        Set at least options['troisi_greenmatrix_file']
 
         Parameters
         ----------
@@ -147,23 +155,11 @@ class Troisi:
                 fp.write('\n')
 
     def prepare_input_artaios(self):
-        """Class methods are similar to regular functions.
+        """Prepares input fore upcoming transport calculation.
 
         Note
         ----
-        Do not include the `self` parameter in the ``Parameters`` section.
-
-        Parameters
-        ----------
-        param1
-            The first parameter.
-        param2
-            The second parameter.
-
-        Returns
-        -------
-        bool
-            True if successful, False otherwise.
+        Set at least options['workdir'], options['mode_folder']
 
         """
         self._init_output(os.path.join(self.options['workdir'],
@@ -172,23 +168,12 @@ class Troisi:
             self.write_troisi_greensmatrix(mode, idx)
 
     def calc_greensmatrices(self):
-        """Class methods are similar to regular functions.
-
-        Note
-        ----
-        Do not include the `self` parameter in the ``Parameters`` section.
-
-        Parameters
-        ----------
-        param1
-            The first parameter.
-        param2
-            The second parameter.
+        """Calculates Troisi Greensmatrix.
 
         Returns
         -------
-        bool
-            True if successful, False otherwise.
+        :obj:`list`
+            Troisi Greensmatrix.
 
         """
         troisi_mat = []
@@ -203,12 +188,18 @@ class Troisi:
 
         Note
         ----
-        Relevant parameters are...
+        Set at least options['greenmatrix'], options['outfolder'],
+                     options['greenmatrix_file'], options['artaios_stdout'],
+                     options['artaios_stderr'], options'[artaios_in'],
+                     options['artaios'], options['aratios_bin'],
+                     options['workdir'], options['output_folder'],
+                     options['output_mode_folder_prefix'],
+                     options['troisi_greenmatrix_file']
 
         Returns
         -------
-        :obj:`list` of :obj:`dict`
-            dict containing data.
+        :obj:`dict`
+            Dict containing information about the iets spectrum.
 
         """
         self.prepare_input_artaios()
@@ -236,10 +227,6 @@ class Troisi:
 
     def write_IET_spectrum(self, filename):
         """Writes IETS.
-
-        Note
-        ----
-        Relevant parameters are...
 
         Parameters
         ----------
