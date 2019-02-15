@@ -143,6 +143,11 @@ class Artaios():
         Note
         ----
         Set at least options['greenmatrixfile']
+
+        Returns
+        -------
+        :obj:`list`
+            containing the transmissions.
         """
         with multiprocessing.Pool(processes=self.options['mp']) as pool:
             files = [str(os.path.join(folder,

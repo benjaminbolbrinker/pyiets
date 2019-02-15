@@ -1,6 +1,6 @@
-C10H4Au6S2=./tests/sampleinput_michael
-H2O_dscf=./tests/sampleinput_dscf
-H2O_ridft=./tests/sampleinput_ridft
+C10H4Au6S2=./tests/C10H4Au6S2_ridft
+H2O_dscf=./tests/H2O_dscf
+H2O_ridft=./tests/H2O_ridft
 
 cwd:=$(abspath .)
 
