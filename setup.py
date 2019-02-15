@@ -28,7 +28,7 @@ import setuptools
 # long_description = fh.read()
 
 setuptools.setup(
-    name='pyIETS - a tool for calculating IET-spectra',
+    name='pyiets',
     version='0.0.1',
     author='Benjamin Bolbrinker, Michael Deffner, Martin Zoellner, Carmen Herrmann',
     author_email='benjamin.bolbrinker@chemie.uni.hamburg.de',
@@ -36,11 +36,19 @@ setuptools.setup(
     packages=['pyiets'],
     scripts=['pyiets.py'],
     # long_description=long_description,
-    long_description_content_type="text/markdown",
+    long_description_content_type='text/markdown',
     url='https://github.com/',
     classifiers=[
-        "Programming Language :: Python :: 3",
-        "License :: OSI Approved :: GPLv3",
-        "Operating System :: Ubuntu 18.04"
+        'Programming Language :: Python :: 3',
+        'License :: OSI Approved :: GPLv3',
+        'Operating System :: Ubuntu 18.04'
+    ],
+    install_requires=[
+        'ase',
+        'numpy',
+        'sphinx',
+        'sphinxcontrib-bibtex',
+        'numpydoc',
+        'sphinx-rtd-theme',
     ],
 )
