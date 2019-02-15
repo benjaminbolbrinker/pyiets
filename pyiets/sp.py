@@ -40,7 +40,9 @@ class SinglePoint():
 
         Note
         ----
-        Relevant parameters are...
+        Set at least options['sp_control'], options['sp_control']['params'],
+                     options['qc_prog'], options['workdir'],
+                     options['dissotionoutname'], options['sp_restart']
 
         Parameters
         ----------
@@ -62,7 +64,9 @@ class SinglePoint():
 
         Note
         ----
-        Relevant parameters
+        Set at least options['sp_control'], options['sp_control']['params'],
+                     options['qc_prog'], options['workdir'],
+                     options['dissotionoutname'], options['sp_restart']
 
         """
         cwd = os.getcwd()

@@ -31,7 +31,11 @@ class Artaios():
 
         Note
         ----
-        Relevant options are...
+        Set at least options['workdir'], options['sp_control'],
+                     options['qc_prog'], options['greenmatrixfile'],
+                     options['artaios'], options['artaios_bin'],
+                     options['artaios_in'], options[artaios_restart_file'],
+                     options['artaios_stdout'], options['artaios_stderr']
 
         Parameters
         ----------
@@ -53,7 +57,11 @@ class Artaios():
 
         Note
         ----
-        Relevant options are...
+        Set at least options['workdir'], options['sp_control'],
+                     options['qc_prog'], options['artaios'],
+                     options['artaios_bin'], options['artaios_in'],
+                     options[artaios_restart_file'], options['artaios_stdout'],
+                     options['artaios_stderr']
 
         """
         cwd = os.getcwd()
@@ -68,10 +76,6 @@ class Artaios():
     def read_greenmatrices(self, files):
         """Call after self.run(). Read greeanmatrices from files.
 
-        Note
-        ----
-        Relevant options are...
-
         Parameters
         ----------
         files : :obj:`list` of :obj:`str`
@@ -79,10 +83,6 @@ class Artaios():
             artaios-output to be read.
         """
         with multiprocessing.Pool(processes=self.options['mp']) as pool:
-            # files = [str(os.path.join(folder,
-            # self.options['greenmatrix_file']))
-            # for folder in self.mode_folders]
-            # greenmatrices = pool.imap(self.read_greenmatrix, files)
             greenmatrices = [self.read_greenmatrix(f)
                              for f in files]
             pool.close()
@@ -92,10 +92,6 @@ class Artaios():
 
     def read_greenmatrix(self, greenmatrixfile):
         """Call after self.run(). Read greeanmatrix from files.
-
-        Note
-        ----
-        Relevant options are...
 
         Parameters
         ----------
@@ -107,22 +103,11 @@ class Artaios():
             rawinput = greenfile.readlines()[1:]
 
         line = rawinput[0]
-        # floating_point = r'[-+]?\d+[.][Ee0-9+-]+'
-        # greenmatrix = np.empty(shape=(dim, dim), dtype=np.complex)
         greenmatrix = []
         for idx, line in enumerate(rawinput):
-            # arr = re.findall('[(] *' + floating_point + ' *, *' +
-            # floating_point + ' *[)]', line)
-            # arr = [np.fromstring(rawcomplex
-            # .replace('(', '')
-            # .replace(')', ''), sep=', ').tolist()
-            # for rawcomplex in arr]
             arr = [[float(a[0]), float(a[1])]
                    for a in re.findall(r'\(\s*(.*?)\s*,\s*(.*?)\s*\)', line)]
             arr = [complex(*a) for a in arr]
-            # print(arr)
-            # print(arr, greenmatrixfile)
-            # np.insert(greenmatrix, idx, arr, axis=1)
             greenmatrix.append(arr)
         folder, fn = os.path.split(greenmatrixfile)
         return {'mode': os.path.basename(folder),
@@ -131,10 +116,6 @@ class Artaios():
     def read_transmission_for(self, artaios_out):
         """Call after self.run(). Read transmission from artaios
         std-output.
-
-        Note
-        ----
-        Relevant options are...
 
         Parameters
         ----------
@@ -161,7 +142,7 @@ class Artaios():
 
         Note
         ----
-        Relevant options are...
+        Set at least options['greenmatrixfile']
         """
         with multiprocessing.Pool(processes=self.options['mp']) as pool:
             files = [str(os.path.join(folder,

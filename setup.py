@@ -24,18 +24,19 @@
 
 import setuptools
 
-# with open("README.rst", "r") as fh:
-# long_description = fh.read()
+with open("README.rst", "r") as fh:
+    long_description = fh.read()
 
 setuptools.setup(
     name='pyiets',
     version='0.0.1',
-    author='Benjamin Bolbrinker, Michael Deffner, Martin Zoellner, Carmen Herrmann',
+    author=('Benjamin Bolbrinker, Michael Deffner, ' +
+            'Martin Zoellner, Carmen Herrmann'),
     author_email='benjamin.bolbrinker@chemie.uni.hamburg.de',
     description='A tool for calculating inelastic tunneling spectra',
     packages=['pyiets'],
     scripts=['bin/pyiets'],
-    # long_description=long_description,
+    long_description=long_description,
     long_description_content_type='text/markdown',
     url='https://github.com/',
     classifiers=[
