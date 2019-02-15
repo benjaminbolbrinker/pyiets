@@ -7,6 +7,7 @@ mos
 *.xyz
 *.out
 .vscode
+*.egg-info
 iets.dat
 tests/sampleinput/distortions/
 tests/sampleinput/output/

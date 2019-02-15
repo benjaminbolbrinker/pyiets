@@ -34,7 +34,7 @@ setuptools.setup(
     author_email='benjamin.bolbrinker@chemie.uni.hamburg.de',
     description='A tool for calculating inelastic tunneling spectra',
     packages=['pyiets'],
-    scripts=['pyiets.py'],
+    scripts=['bin/pyiets'],
     # long_description=long_description,
     long_description_content_type='text/markdown',
     url='https://github.com/',

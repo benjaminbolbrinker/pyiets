@@ -11,13 +11,13 @@ documentation_html:
 test_all: test_H2O_dscf test_H2O_ridft test_C10H4Au6S2
 
 test_C10H4Au6S2:
-	./pyiets.py ${C10H4Au6S2}
+	bin/pyiets.py ${C10H4Au6S2}
 
 test_H2O_dscf: 
-	./pyiets.py ${H2O_dscf}
+	bin/pyiets.py ${H2O_dscf}
 
 test_H2O_ridft: 
-	./pyiets.py ${H2O_ridft}
+	bin/pyiets.py ${H2O_ridft}
 
 clean: clean_C10H4Au6S2 clean_H2O_dscf clean_H2O_ridft clean_docs
 
