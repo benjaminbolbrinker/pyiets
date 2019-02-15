@@ -4,7 +4,7 @@ H2O_ridft=./tests/sampleinput_ridft
 
 cwd:=$(abspath .)
 
-documentation_html:
+documentation:
 	cd docs/ && make html
 	firefox ${cwd}/docs/build/html/index.html
 
