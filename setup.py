@@ -22,15 +22,25 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-from disutils.core import setup
+import setuptools
 
-setup(name='pyiets',
-      version='0.0.1',
-      description='Post processing tool for SNF (MoViPac)',
-      author='Benjamin Bolbrinker',
-      author_email='benjamin.bolbrinker@chemie.uni-hamburg.de',
-      license='GPLv3',
-      url='',
-      packages=[],
-      scripts=['pyiets.py'],
-      zip_safe=False)
+# with open("README.rst", "r") as fh:
+# long_description = fh.read()
+
+setuptools.setup(
+    name='pyIETS - a tool for calculating IET-spectra',
+    version='0.0.1',
+    author='Benjamin Bolbrinker, Michael Deffner, Martin Zoellner, Carmen Herrmann',
+    author_email='benjamin.bolbrinker@chemie.uni.hamburg.de',
+    description='A tool for calculating inelastic tunneling spectra',
+    packages=['pyiets'],
+    scripts=['pyiets.py'],
+    # long_description=long_description,
+    long_description_content_type="text/markdown",
+    url='https://github.com/',
+    classifiers=[
+        "Programming Language :: Python :: 3",
+        "License :: OSI Approved :: GPLv3",
+        "Operating System :: Ubuntu 18.04"
+    ],
+)

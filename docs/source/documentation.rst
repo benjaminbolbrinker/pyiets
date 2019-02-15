@@ -41,7 +41,11 @@ Inputfiles
 ^^^^^^^^^^^^^^^^^^
 
 This input file will be used to perform the electron transport calculation.
-Note: the :code:`print_green` parameter has to be provided explicitly!
+
+- Note one: depending on the previous single point calculation the :code:`mos` parameter has to be set to a different filename.
+  E.g. when turbomole is used with :code:`resulution of identity = true` set :code:`mos` to :code:`ASE.TM.ridft.out` otherwise set to :code:`ASE.TM.dscf.out`
+
+- Note two: the :code:`print_green` parameter has to be provided explicitly!
 
 
 .. _snfout-label: 
