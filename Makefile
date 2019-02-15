@@ -9,18 +9,18 @@ documentation_html:
 	firefox ${cwd}/docs/build/html/index.html
 
 install:
-	bash install.sh
+	./install.sh
 
 test_all: test_H2O_dscf test_H2O_ridft test_C10H4Au6S2
 
 test_C10H4Au6S2:
-	bin/pyiets ${C10H4Au6S2}
+	pyiets ${C10H4Au6S2}
 
 test_H2O_dscf: 
-	bin/pyiets ${H2O_dscf}
+	pyiets ${H2O_dscf}
 
 test_H2O_ridft: 
-	bin/pyiets ${H2O_ridft}
+	pyiets ${H2O_ridft}
 
 clean: clean_C10H4Au6S2 clean_H2O_dscf clean_H2O_ridft clean_docs
 
