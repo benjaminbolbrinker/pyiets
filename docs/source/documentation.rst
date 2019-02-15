@@ -16,11 +16,14 @@ Inputfiles
 ^^^^^^^^^^^^^^^^^^
 
 - :code:`sp_control` dictionary containing options for single point calculation:
+
    - :code:`qc_prog` string defining the quantum chemistry program (default: :code:`"turbomole"`).
+
    - :code:`params` dictionary containing parameters for single point calculation (default: :code:`null`). 
+
       - here you can set all parameters provided by ASE to control the single point calculations started by pyIETS. If you use turbomole a list of all parameters can be seen here ASE-turbomole_.
 
-- :code:`sp_restart` if set to :code:`true` looks for :code:`mode_folder` and :code:`output_folder` to restart old calculations. This can save a lot of time and resources (default: :code:`false`). Do not change to :code:`true` if you changed parameters after the prior run of pyIETS.
+- :code:`sp_restart` if set to :code:`true` looks for :code:`mode_folder` and :code:`output_folder` to restart old calculations. This can save a lot of time and resources (default: :code:`false`). DO NOT change to :code:`true` if you changed parameters after the prior run of pyIETS!
 
 - :code:`artaios` absolute path to the folder where artaios is installed (default: :code:`null`).
 

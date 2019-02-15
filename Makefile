@@ -1,5 +1,6 @@
 C10H4Au6S2=./tests/sampleinput_michael
-H2O=./tests/sampleinput
+H2O_dscf=./tests/sampleinput_dscf
+H2O_ridft=./tests/sampleinput_ridft
 
 cwd:=$(abspath .)
 
@@ -7,21 +8,27 @@ documentation_html:
 	cd docs/ && make html
 	firefox ${cwd}/docs/build/html/index.html
 
-test_all: test_H2O test_C10H4Au6S2
+test_all: test_H2O_dscf test_H2O_ridft test_C10H4Au6S2
 
 test_C10H4Au6S2:
 	./pyiets.py ${C10H4Au6S2}
 
-test_H2O: 
-	./pyiets.py ${H2O}
+test_H2O_dscf: 
+	./pyiets.py ${H2O_dscf}
 
-clean: clean_C10H4Au6S2 clean_H2O clean_docs
+test_H2O_ridft: 
+	./pyiets.py ${H2O_ridft}
+
+clean: clean_C10H4Au6S2 clean_H2O_dscf clean_H2O_ridft clean_docs
 
 clean_C10H4Au6S2: 
 	rm -rf ${C10H4Au6S2}/*distortions* ${C10H4Au6S2}/*.restart ${C10H4Au6S2}/output 
 
-clean_H2O:
-	rm -rf ${H2O}/*distortions* ${H2O}/*.restart ${H2O}/output 
+clean_H2O_dscf:
+	rm -rf ${H2O_dscf}/*distortions* ${H2O_dscf}/*.restart ${H2O_dscf}/output 
+
+clean_H2O_ridft:
+	rm -rf ${H2O_ridft}/*distortions* ${H2O_ridft}/*.restart ${H2O_ridft}/output 
 
 clean_docs:
 	cd docs && make clean

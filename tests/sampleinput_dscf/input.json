@@ -1,0 +1,15 @@
+{
+"sp_control": 
+    {
+      "qc_prog": "turbomole",
+      "params": {
+        "use resolution of identity": false,
+        "define_str": "\n\na coord\n*\nno\nb all TZ\n*\neht\n\n\n\n*"
+        }
+    },
+"sp_restart": false,
+"snf_out": "snf.out",
+"modes": "all",
+"mp": 2,
+"artaios": "/home/bolbrinker/Software/artaios"
+}

@@ -110,11 +110,6 @@ if __name__ == '__main__':
                          options['sp_restart_file']),
             os.path.join(options['workdir'],
                          options['mode_folder']))
-    # print(os.path.join(options['sp_restart_file'],
-                       # options['mode_folder'],
-                       # options['sp_restart_file']))
-    # print(mode_folders)
-    # print(done)
     singlepoint = pyiets.sp.SinglePoint(
         mode_folders, options,
         restartsaveloc=os.path.join(options['workdir'],
