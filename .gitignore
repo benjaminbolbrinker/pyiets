@@ -9,7 +9,9 @@ mos
 .vscode
 *.egg-info
 iets.dat
-tests/sampleinput/distortions/
-tests/sampleinput/output/
-tests/sampleinput_michael/distortions/
-tests/sampleinput_michael/output/
+tests/H2O_dscf/distortions/
+tests/H2O_dscf/output/
+tests/H2O_ridft/distortions/
+tests/H2O_ridft/output/
+tests/C10H4Au6S2_ridft/distortions/
+tests/C10H4Au6S2_ridft/output/
