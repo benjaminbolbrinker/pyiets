@@ -29,7 +29,7 @@ class Molecule:
 
     """
     def __init__(self, atoms=None, atomicnumbers=None, vectors=None):
-        """Creates molecule from atoms and vectors.
+        """Creates molecule from atoms and vectors.[Bohr]
 
         Parameters
         ----------
