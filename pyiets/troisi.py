@@ -64,6 +64,7 @@ class Troisi:
         gm_idx = [[g for g in self.greenmat_dictarr
                   if mode.get_folders()[idx] == g['mode']][0]
                   for idx in range(len(mode.get_folders()))]
+        [print(mode.atoms) for mode in self.modes]
         d0 = self.options['delta']
 
         troisi_greenmatrix = (math.sqrt(2*d0)/(2*d0) * (0.5*d0/cstep) *
