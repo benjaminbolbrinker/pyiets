@@ -125,13 +125,14 @@ class SnfParser:
             counter += 1
         moleculestring = self.snfoutfile[lidx0:lidx1]
         moleculestring = moleculestring[4:-1]
-
         atoms = [atomstring.split()[1] for atomstring in moleculestring]
+        an = [int(atomstring.split()[2]) for atomstring in moleculestring]
         moleculestring = [atomstring.split()[4:]
                           for atomstring in moleculestring]
 
         molecvectors = [[float(i) for i in vec] for vec in moleculestring]
-        molec = mol.Molecule(atoms=atoms, vectors=molecvectors)
+        molec = mol.Molecule(atoms=atoms, atomicnumbers=an,
+                             vectors=molecvectors)
         return molec
 
     def _get_mode_vectors(self, mode_idx):

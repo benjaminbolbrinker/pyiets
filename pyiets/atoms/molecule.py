@@ -28,7 +28,7 @@ class Molecule:
     """Small wrapper class to ASE-Atoms object.
 
     """
-    def __init__(self, atoms=None, vectors=None):
+    def __init__(self, atoms=None, atomicnumbers=None, vectors=None):
         """Creates molecule from atoms and vectors.
 
         Parameters
@@ -37,10 +37,13 @@ class Molecule:
             List declaring the atom names.
         vectors : :obj:`list` of :obj:`float`, optional
             List declaring vectors of atoms
+        atomicnumbers : :obj:`list` of :obj:`int`, optional
+            List declaring atomic numbers.
 
         """
         self.atoms = atoms
         self.vectors = np.array(vectors)
+        self.an = atomicnumbers
         for idx, at in enumerate(self.atoms):
             self.atoms[idx] = self.atoms[idx][0] + self.atoms[idx][1:].lower()
 
@@ -60,6 +63,6 @@ class Molecule:
 
         """
         print('Printing molecule')
-        assert len(self.atoms) == len(self.vectors)
+        assert len(self.atoms) == len(self.vectors) == len(self.an)
         for idx, atom in enumerate(self.atoms):
-            print(atom, self.vectors[idx])
+            print(atom, self.an[idx], self.vectors[idx])

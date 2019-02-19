@@ -12,7 +12,7 @@ class Troisi:
     ''' Class for calculating the IETS intensity from previous single
     point and transport calculations.
     '''
-    def __init__(self, options, modes, greenmat_dictarr):
+    def __init__(self, options, modes, greenmat_dictarr, molecule):
         """ Constructor of SinglePoint class.
         Note
         ----
@@ -38,6 +38,7 @@ class Troisi:
         self.options = options
         self.modes = modes
         self.greenmat_dictarr = greenmat_dictarr
+        self.molecule = molecule
         self.troisi_greenmatrices = []
         self.output_mode_folders = [None]*len(modes)
         self.iets_dict_list = None
@@ -64,12 +65,18 @@ class Troisi:
         gm_idx = [[g for g in self.greenmat_dictarr
                   if mode.get_folders()[idx] == g['mode']][0]
                   for idx in range(len(mode.get_folders()))]
-        [print(mode.atoms) for mode in self.modes]
         d0 = self.options['delta']
+        reduced_mass = 0.0
+        assert len(mode.get_vectors()) == len(self.molecule.an)
+        for idx, vector in enumerate(mode.get_vectors()):
+            for coord in vector:
+                reduced_mass += (coord**2)/self.molecule.an[idx]
 
+        reduced_mass = 1.0 / reduced_mass
         troisi_greenmatrix = (math.sqrt(2*d0)/(2*d0) * (0.5*d0/cstep) *
                               (np.array(gm_idx[1]['greensmatrix'])
                               - np.array(gm_idx[0]['greensmatrix'])))
+        troisi_greenmatrix /= math.sqrt(reduced_mass)
         mode.set_troisi_greensmat(gm=troisi_greenmatrix)
 
     def _init_output(self, path_to_sp):

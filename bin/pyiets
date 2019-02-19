@@ -102,7 +102,7 @@ if __name__ == '__main__':
     print('Parsing Input and building structures...')
     preprocess = pyiets.preprocess.Preprocessor(WORKDIR, options)
 
-    modes = preprocess.preprocess()
+    modes, molecule = preprocess.preprocess()
     print('Done\n')
 
     print('Running single point calculations...')
@@ -146,7 +146,8 @@ if __name__ == '__main__':
 
     print('Calculating Troisi-Greensmatrices...')
     troisi = Troisi(options=options, modes=modes,
-                    greenmat_dictarr=greenmatrices_unsrt)
+                    greenmat_dictarr=greenmatrices_unsrt,
+                    molecule=molecule)
     troisi.calc_greensmatrices()
     print('Done\n')
 

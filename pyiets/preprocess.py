@@ -25,9 +25,11 @@ class Preprocessor():
                      for mode_idx in modes]
 
         if self.options['sp_restart']:
-            return self._prepareDistortions(modes)
+            return (self._prepareDistortions(modes),
+                    self.snf_parser.get_molecule())
         else:
-            return self._writeDistortions(modes)
+            return (self._writeDistortions(modes),
+                    self.snf_parser.get_molecule())
 
     def _prepareDistortions(self, modes):
         molecule = self.snf_parser.get_molecule()
