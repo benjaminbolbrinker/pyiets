@@ -47,6 +47,8 @@ setuptools.setup(
     install_requires=[
         'ase',
         'numpy',
+        'mendeleev',
+        'cclib',
         'sphinx',
         'sphinxcontrib-bibtex',
         'numpydoc',
