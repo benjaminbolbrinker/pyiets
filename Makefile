@@ -1,6 +1,7 @@
 C10H4Au6S2=./tests/C10H4Au6S2_ridft
 H2O_dscf=./tests/H2O_dscf
 H2O_ridft=./tests/H2O_ridft
+H2O_ridft_gaussianin=./tests/H2O_ridft_gaussianin
 
 cwd:=$(abspath .)
 
@@ -22,7 +23,10 @@ test_H2O_dscf:
 test_H2O_ridft: 
 	pyiets ${H2O_ridft}
 
-clean: clean_C10H4Au6S2 clean_H2O_dscf clean_H2O_ridft clean_docs
+test_H2O_ridft_gaussianin: 
+	pyiets ${H2O_ridft_gaussianin}
+
+clean: clean_C10H4Au6S2 clean_H2O_dscf clean_H2O_ridft clean_docs clean_H2O_ridft_gaussianin
 
 clean_C10H4Au6S2: 
 	rm -rf ${C10H4Au6S2}/*distortions* ${C10H4Au6S2}/*.restart ${C10H4Au6S2}/output 
@@ -32,6 +36,9 @@ clean_H2O_dscf:
 
 clean_H2O_ridft:
 	rm -rf ${H2O_ridft}/*distortions* ${H2O_ridft}/*.restart ${H2O_ridft}/output 
+
+clean_H2O_ridft_gaussianin:
+	rm -rf ${H2O_ridft_gaussianin}/*distortions* ${H2O_ridft_gaussianin}/*.restart ${H2O_ridft_gaussianin}/output 
 
 clean_docs:
 	cd docs && make clean
