@@ -9,11 +9,11 @@ import pyiets.atoms.vibration as vib
 import pyiets.atoms.molecule as mol
 
 
-class GaussianParser:
+class Parser:
     def __init__(self, options):
         self.options = options
         self.gaussianoutname = os.path.join(options['workdir'],
-                                            options['gaussian_out'])
+                                            options['vib_out_file'])
         with open(self.gaussianoutname, 'r') as fp:
             self.gaussianoutfile = fp.readlines()
         self.data = cclib.io.ccread(self.gaussianoutname)

@@ -29,7 +29,7 @@ import pyiets.atoms.molecule as mol
 
 
 class Parser:
-    """Class for parsing options['snf_out'] file.
+    """Class for parsing snf output in options['vib_out_file'] file.
 
     """
     def __init__(self, options):
@@ -46,7 +46,7 @@ class Parser:
 
         """
         self.options = options
-        self.snfoutname = os.path.join(options['workdir'], options['snf_out'])
+        self.snfoutname = os.path.join(options['workdir'], options['vib_out_file'])
         with open(self.snfoutname, 'r') as fp:
             self.snfoutfile = fp.readlines()
         self.natoms = self._get_natoms()
