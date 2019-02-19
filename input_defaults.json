@@ -5,7 +5,8 @@
     "params": null
   },
   "input_file": "input.json",
-  "snf_out": "snf.out",
+  "vib_out": "snf",
+  "vib_out_file": "snf.out",
   "sp_restart": false,
   "sp_restart_file": "sp.restart",
   "sp_name": "sp",

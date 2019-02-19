@@ -28,7 +28,7 @@ import pyiets.atoms.vibration as vib
 import pyiets.atoms.molecule as mol
 
 
-class SnfParser:
+class Parser:
     """Class for parsing options['snf_out'] file.
 
     """
@@ -220,7 +220,7 @@ class SnfParser:
 
 
 def exportMolecule(snfoutname, outformat):
-    snfparser = SnfParser(snfoutname=snfoutname)
+    snfparser = Parser(snfoutname=snfoutname)
     molecule = snfparser.get_molecule()
     asemolecule = molecule.to_ASE_atoms_obj()
     io.write(asemolecule.get_chemical_formula(mode='hill')

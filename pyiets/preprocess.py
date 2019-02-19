@@ -1,6 +1,7 @@
 import os
 import ase.io
 import pyiets.io.snfio
+import pyiets.io.gaussianio
 from pyiets.atoms.molecule import Molecule
 
 
@@ -8,9 +9,13 @@ class Preprocessor():
     def __init__(self, workdir, options):
         self.workdir = workdir
         self.options = options
-        snf_parser = pyiets.io.snfio.SnfParser(options)
-        self.snf_parser = snf_parser
-        dissotionoutname = snf_parser.get_molecule()\
+
+        if options['vib_out'] == 'snf':
+            self.parser = pyiets.io.snfio.Parser(options)
+        elif options['vib_out'] == 'gaussian':
+            self.parser = pyiets.io.gaussianio.Parser(options)
+
+        dissotionoutname = self.parser.get_molecule()\
             .to_ASE_atoms_obj().get_chemical_formula(mode='hill') + '.' + str(
             options['sp_control']['qc_prog'])
         self.dissotionoutname = dissotionoutname
@@ -19,20 +24,20 @@ class Preprocessor():
     def preprocess(self):
         modes = self.options['modes']
         if modes == 'all':
-            modes = self.snf_parser.get_modes()
+            modes = self.parser.get_modes()
         else:
-            modes = [self.snf_parser.get_mode(int(mode_idx))
+            modes = [self.parser.get_mode(int(mode_idx))
                      for mode_idx in modes]
 
         if self.options['sp_restart']:
             return (self._prepareDistortions(modes),
-                    self.snf_parser.get_molecule())
+                    self.parser.get_molecule())
         else:
             return (self._writeDistortions(modes),
-                    self.snf_parser.get_molecule())
+                    self.parser.get_molecule())
 
     def _prepareDistortions(self, modes):
-        molecule = self.snf_parser.get_molecule()
+        molecule = self.parser.get_molecule()
         for mode in modes:
             mode_vecs = mode.vectors
             dissortions = [molecule.vectors - mode_vecs*self.options['delta'],
@@ -51,7 +56,7 @@ class Preprocessor():
 
     def _writeDistortions(self, modes):
         cwd = os.getcwd()
-        molecule = self.snf_parser.get_molecule()
+        molecule = self.parser.get_molecule()
 
         os.mkdir(os.path.join(self.workdir, self.options['mode_folder']))
         outdirpath = os.path.abspath(os.path.join(self.workdir,
