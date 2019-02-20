@@ -1,35 +1,74 @@
 import os
 import re
+import pyiets.atoms.molecule as mol
+import pyiets.atoms.vibration as vib
 
-import cclib
-from mendeleev import element
 from ase.units import Bohr
 
-import pyiets.atoms.vibration as vib
-import pyiets.atoms.molecule as mol
+from mendeleev import element
 
 
 class Parser:
+    """Class for parsing options['snf_out'] file.
+
+    """
     def __init__(self, options):
+        """ Creates parser object.
+
+        Note
+        ----
+        Relevant parameters are...
+
+        Parameters
+        ----------
+        options : :obj:`dict`
+            dict to set behaviour.
+
+        """
         self.options = options
         self.gaussianoutname = os.path.join(options['workdir'],
-                                            options['vib_out_file'])
+                                            options['gaussian_out'])
         with open(self.gaussianoutname, 'r') as fp:
             self.gaussianoutfile = fp.readlines()
-        self.data = cclib.io.ccread(self.gaussianoutname)
         self.natoms = self._get_natoms()
         self.nmodes = self._get_nmodes()
         self.molecule = self.get_molecule()
         self.options['cstep'] = self._get_distortion()
 
-    def _get_distortion(self):
-        return 0.01
-
     def _get_natoms(self):
-        return self.data.natom
+        for idx, line in enumerate(self.gaussianoutfile):
+            if (re.search(r'\s*Standard orientation:\s*', line) and
+               re.search(r'\s-+\s*', self.gaussianoutfile[idx+1]) and
+               re.search(r'\s*Center\s*Atomic\s*Atomic\s*Coordinates\s*'
+               + r'\(Angstroms\)\s*', self.gaussianoutfile[idx+2]) and
+               re.search(r'\s-+\s*', self.gaussianoutfile[idx+4])):
+                break
+        idx += 5
+        idx2 = idx
+
+        while not re.search(r'\s-{5,}\s*', self.gaussianoutfile[idx2]):
+            idx2 += 1
+        natoms = idx2 - idx
+        return natoms
 
     def _get_nmodes(self):
-        return len(self.data.vibdisps)
+        for idx1, line in enumerate(self.gaussianoutfile):
+            if re.search(r'Harmonic\sfrequencies', line):
+                break
+
+        nblocks = 0
+        ncols = []
+        for idx2, line in enumerate(self.gaussianoutfile[idx1:], idx1):
+            if re.search(r'\s*Atom\s*AN\s+', line):
+                ncols.append(len(re.findall(r'(X\s{2,}Y\s{2,}Z)', line)))
+                nblocks += 1
+        assert len(ncols) == nblocks
+
+        nmodes = sum(ncols)
+        return nmodes
+
+    def _get_distortion(self):
+        return 0.01
 
     def get_molecule(self):
         for idx, line in enumerate(self.gaussianoutfile):
@@ -52,11 +91,47 @@ class Parser:
                              vectors=vectors)
         return molec
 
+    def _get_wavenumbersabove(self, idx):
+        while not re.search(r'Frequencies --', self.gaussianoutfile[idx]):
+            idx -= 1
+        return [float(i) for i in re.findall(r'[+-]?\d+\.\d+',
+                                             self.gaussianoutfile[idx])]
+
     def get_mode(self, mode_idx):
-        return vib.Mode(vectors=self.data.vibdisps[mode_idx],
-                        atoms=self.get_molecule().atoms,
-                        wavenumber=self.data.vibfreqs[mode_idx],
+
+        for idx1, line in enumerate(self.gaussianoutfile):
+            if re.search(r'Harmonic\sfrequencies', line):
+                break
+
+        nblocks = 0
+        for idx2, line in enumerate(self.gaussianoutfile[idx1:], idx1):
+            if re.search(r'\s*Atom\s*AN\s+', line):
+                ncols = len(re.findall(r'(X\s+Y\s+Z)', line))
+                nblocks += 1
+        column = mode_idx % ncols
+        block_idx = 0
+        for idx2, line in enumerate(self.gaussianoutfile[idx1:], idx1):
+            if re.search(r'\s*Atom\s*AN\s+', line):
+                wavenum = self._get_wavenumbersabove(idx2)[column]
+                if block_idx == int(mode_idx/ncols):
+                    raw_block = []
+                    for idx3, line in enumerate(self.gaussianoutfile[idx2+1:],
+                                                idx2):
+                        if re.search(r'\d+\s+\d+(\s+[-+]?\d+\.\d+)+', line):
+                            raw_block.append(line)
+                        else:
+                            break
+                    assert len(raw_block) == self.natoms
+                    break
+                block_idx += 1
+        vector_block = [[float(i) for i in
+                        l.split()[2:][column*3:(column*3)+3]]
+                        for l in raw_block]
+        mode = vib.Mode(vectors=vector_block,
+                        atoms=self.molecule.atoms,
+                        wavenumber=wavenum,
                         idx=mode_idx)
+        return mode
 
     def get_modes(self):
 

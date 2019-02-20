@@ -16,4 +16,5 @@ if __name__ == '__main__':
     for idx, wavenumber in enumerate(iets['wavenumber']):
         plt.axvline(x=wavenumber, ymax=iets['intensity'][idx]/max_intensity)
 
+    plt.xlim([600, 2200])
     plt.savefig(savepic)
