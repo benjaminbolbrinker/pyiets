@@ -23,6 +23,7 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 import setuptools
+from pipenv import find_install_requires
 
 with open("README.rst", "r") as fh:
     long_description = fh.read()
@@ -35,7 +36,7 @@ setuptools.setup(
     author_email='benjamin.bolbrinker@chemie.uni.hamburg.de',
     description='A tool for calculating inelastic tunneling spectra',
     packages=['pyiets'],
-    scripts=['bin/pyiets'],
+    scripts=['bin/pyiets', 'bin/plotiets'],
     long_description=long_description,
     long_description_content_type='text/markdown',
     url='https://github.com/',
@@ -44,15 +45,16 @@ setuptools.setup(
         'License :: OSI Approved :: GPLv3',
         'Operating System :: Ubuntu 18.04'
     ],
-    install_requires=[
-        'ase',
-        'numpy',
-        'mendeleev',
-        'cclib',
-        'sphinx',
-        'matplotlib',
-        'sphinxcontrib-bibtex',
-        'numpydoc',
-        'sphinx-rtd-theme',
-    ],
+    install_requires=find_install_requires()
+    # [
+    # 'ase==3.16.2',
+    # 'numpy==1.15.2',
+    # 'mendeleev==0.4.4',
+    # 'cclib==1.6.1',
+    # 'sphinx==1.8.4',
+    # 'matplotlib==3.0.0',
+    # 'numpydoc==0.8.0',
+    # 'sphinxcontrib-bibtex',
+    # 'sphinx-rtd-theme',
+    # ],
 )

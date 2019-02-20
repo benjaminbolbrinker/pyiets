@@ -12,6 +12,9 @@ sphinx = "*"
 sphinxcontrib-bibtex = "*"
 numpydoc = "*"
 sphinx-rtd-theme = "*"
+mendeleev = "*"
+cclib = "*"
+matplotlib = "*"
 
 [requires]
 python_version = "3.5"
