@@ -29,7 +29,7 @@ with open("README.rst", "r") as fh:
 
 setuptools.setup(
     name='pyiets',
-    version='0.0.1',
+    version='0.0.2',
     author=('Benjamin Bolbrinker, Michael Deffner, ' +
             'Martin Zoellner, Carmen Herrmann'),
     author_email='benjamin.bolbrinker@chemie.uni.hamburg.de',
@@ -48,7 +48,6 @@ setuptools.setup(
         'ase==3.16.2',
         'numpy==1.15.2',
         'mendeleev==0.4.4',
-        'cclib==1.6.1',
         'sphinx==1.8.4',
         'matplotlib==3.0.0',
         'numpydoc==0.8.0',
