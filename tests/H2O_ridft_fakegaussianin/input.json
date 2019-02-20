@@ -7,7 +7,6 @@
 		"define_str": "\n\na coord\n*\nno\nb all TZ\n*\neht\n\n\n\nri\non\n\n*"
         }
     },
-"sp_restart": false,
 "vib_out": "gaussian",
 "vib_out_file": "g98.out",
 "modes": "all",

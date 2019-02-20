@@ -7,11 +7,10 @@
   "input_file": "input.json",
   "vib_out": "snf",
   "vib_out_file": "snf.out",
-  "sp_restart": false,
+  "restart": false,
   "sp_restart_file": "sp.restart",
   "sp_name": "sp",
 
-  "artaios_restart": false,
   "artaios_restart_file": "artaios.restart",
   "artaios": null,
   "artaios_bin": "bin/artaios",
