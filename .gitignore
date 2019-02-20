@@ -8,6 +8,7 @@ mos
 *.out
 .vscode
 *.egg-info
+docs/build/
 iets.dat
 tests/H2O_dscf/distortions/
 tests/H2O_dscf/output/

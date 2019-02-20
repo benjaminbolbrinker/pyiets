@@ -23,7 +23,11 @@ Inputfiles
 
       - here you can set all parameters provided by ASE to control the single point calculations started by pyIETS. If you use turbomole a list of all parameters can be seen here ASE-turbomole_.
 
-- :code:`sp_restart` if set to :code:`true` looks for :code:`mode_folder` and :code:`output_folder` to restart old calculations. This can save a lot of time and resources (default: :code:`false`). DO NOT change to :code:`true` if you changed parameters after the prior run of pyIETS!
+- :code:`restart` if set to :code:`true` looks for :code:`mode_folder` and :code:`output_folder` to restart old calculations. This can save a lot of time and resources (default: :code:`false`). DO NOT change to :code:`true` if you changed parameters after the prior run of pyIETS!
+
+- :code:`vib_out` set to :code:`"snf"` of :code:`gaussian`
+
+- :code:`vib_out_file` path to file in which normal where calculated (default: :code:`snf.out`). Gaussian and SNF inputfiles are supported (see :code:`vib_out`).
 
 - :code:`artaios` absolute path to the folder where artaios is installed (default: :code:`null`).
 
@@ -33,7 +37,7 @@ Inputfiles
 
 - :code:`mp` number of cores to be used. pyIETS will start TURBOMOLE and ARTAIOS on different cores. Depending on the functional and basis set you use the single point calculations are the most time consuming part of the calculation. The number of single point calculations performed by the pyIETS is proportional to the number of modes one specifies in :code:`modes`. A total of 2* :code:`modes` + 1 single point calculations are performed. For highest efficiency choose a multiple of this value (default: :code:`1`).
 
-- :code:`modes` either a string or a list of integers specifying the modes for which pyIETS calculates inelastric tunneling intensities. If a list is provided the vibrational modes in the :code:`snf.out` file are accessed by index. Note however, indexing starts from 0. That means modes 1, 2, 3 in the :code:`snf.out` file are accessed by :code:`[0, 1, 2]` (default: :code:`"all"`).
+- :code:`modes` either a string or a list of integers specifying the modes for which pyIETS calculates inelastric tunneling intensities. If a list is provided the vibrational modes in the file specified by :code:`vib_out_file` are accessed by index. Note however, indexing starts from 0. That means modes 1, 2, 3 in the file specified by :code:`vib_out_file` are accessed by :code:`[0, 1, 2]` (default: :code:`"all"`).
 
 .. _artaiosin-label: 
 
