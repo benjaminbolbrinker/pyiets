@@ -12,8 +12,8 @@ if __name__ == '__main__':
         'names': ('mode_idx', 'wavenumber', 'energy', 'intensity'),
         'formats': ('i8', 'f8', 'f8', 'f8')
         })
-
+    max_intensity = max(iets['intensity'])
     for idx, wavenumber in enumerate(iets['wavenumber']):
-        plt.axvline(x=wavenumber, ymax=iets['intensity'][idx])
+        plt.axvline(x=wavenumber, ymax=iets['intensity'][idx]/max_intensity)
 
     plt.savefig(savepic)
