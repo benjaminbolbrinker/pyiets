@@ -27,7 +27,7 @@ class Parser:
         """
         self.options = options
         self.gaussianoutname = os.path.join(options['workdir'],
-                                            options['gaussian_out'])
+                                            options['vib_out_file'])
         with open(self.gaussianoutname, 'r') as fp:
             self.gaussianoutfile = fp.readlines()
         self.natoms = self._get_natoms()
