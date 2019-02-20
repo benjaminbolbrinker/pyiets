@@ -82,9 +82,10 @@ class Artaios():
             contains absoulte paths specifying the greensmatrix files from
             artaios-output to be read.
         """
+        # greenmatrices = [self.read_greenmatrix(f)
+        # for f in files]
         with multiprocessing.Pool(processes=self.options['mp']) as pool:
-            greenmatrices = [self.read_greenmatrix(f)
-                             for f in files]
+            greenmatrices = pool.imap(self.read_greenmatrix, files)
             pool.close()
             pool.join()
 

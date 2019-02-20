@@ -50,6 +50,7 @@ setuptools.setup(
         'mendeleev',
         'cclib',
         'sphinx',
+        'matplotlib',
         'sphinxcontrib-bibtex',
         'numpydoc',
         'sphinx-rtd-theme',
