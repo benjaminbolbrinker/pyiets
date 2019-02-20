@@ -62,10 +62,11 @@ class Troisi:
                     if mode.get_idx() == mode_idx), None)
 
         cstep = self.options['cstep']
+        d0 = self.options['cstep']*2
         gm_idx = [[g for g in self.greenmat_dictarr
                   if mode.get_folders()[idx] == g['mode']][0]
                   for idx in range(len(mode.get_folders()))]
-        d0 = self.options['cstep']
+
         reduced_mass = 0.0
         assert len(mode.get_vectors()) == len(self.molecule.an)
         for idx, vector in enumerate(mode.get_vectors()):
@@ -73,11 +74,12 @@ class Troisi:
                 reduced_mass += (coord**2)/self.molecule.an[idx]
 
         reduced_mass = 1.0 / reduced_mass
-        troisi_greenmatrix = (math.sqrt(2*d0)/(2*d0) * (0.5*d0/cstep) *
+        troisi_greenmatrix = ((math.sqrt(2*d0)/(2*d0)) * (0.5*d0/cstep) *
                               (np.array(gm_idx[1]['greensmatrix'])
                               - np.array(gm_idx[0]['greensmatrix'])))
         troisi_greenmatrix /= math.sqrt(reduced_mass)
         mode.set_troisi_greensmat(gm=troisi_greenmatrix)
+        return troisi_greenmatrix
 
     def _init_output(self, path_to_sp):
         """Initialises input for reading artaios calculation.
