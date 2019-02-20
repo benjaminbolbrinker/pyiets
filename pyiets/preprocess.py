@@ -40,8 +40,8 @@ class Preprocessor():
         molecule = self.parser.get_molecule()
         for mode in modes:
             mode_vecs = mode.vectors
-            dissortions = [molecule.vectors - mode_vecs*self.options['delta'],
-                           molecule.vectors + mode_vecs*self.options['delta']]
+            dissortions = [molecule.vectors - mode_vecs*self.options['cstep'],
+                           molecule.vectors + mode_vecs*self.options['cstep']]
 
             asedissortions = [Molecule(molecule.atoms, vectors=dis)
                               .to_ASE_atoms_obj()
@@ -76,8 +76,8 @@ class Preprocessor():
 
         for mode in modes:
             mode_vecs = mode.vectors
-            dissortions = [molecule.vectors - mode_vecs*self.options['delta'],
-                           molecule.vectors + mode_vecs*self.options['delta']]
+            dissortions = [molecule.vectors - mode_vecs*self.options['cstep'],
+                           molecule.vectors + mode_vecs*self.options['cstep']]
 
             asedissortions = [Molecule(molecule.atoms, vectors=dis)
                               .to_ASE_atoms_obj()

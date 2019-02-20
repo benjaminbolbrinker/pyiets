@@ -65,7 +65,7 @@ class Troisi:
         gm_idx = [[g for g in self.greenmat_dictarr
                   if mode.get_folders()[idx] == g['mode']][0]
                   for idx in range(len(mode.get_folders()))]
-        d0 = self.options['delta']
+        d0 = self.options['cstep']
         reduced_mass = 0.0
         assert len(mode.get_vectors()) == len(self.molecule.an)
         for idx, vector in enumerate(mode.get_vectors()):
