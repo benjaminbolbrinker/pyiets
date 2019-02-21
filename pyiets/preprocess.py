@@ -4,6 +4,7 @@ import pyiets.io.snfio
 import pyiets.io.gaussianio
 from pyiets.atoms.molecule import Molecule
 import numpy as np
+import multiprocessing
 
 
 class Preprocessor():
@@ -31,7 +32,13 @@ class Preprocessor():
                      for mode_idx in modes]
 
         print('Unweighting mode vectors...')
-        [mode.to_non_weighted() for mode in modes]
+        with multiprocessing.Pool(processes=self.options['mp']) as pool:
+            modes_pool = pool.map(to_non_weighted, modes)
+            pool.close()
+            pool.join()
+
+        modes = [mode for mode in modes_pool]
+
         print('Creating input structures...')
         if self.options['restart']:
             return (self._prepareDistortions(modes),
@@ -103,3 +110,8 @@ class Preprocessor():
         os.chdir(cwd)
         returnarr.append(modes)
         return modes
+
+
+def to_non_weighted(mode):
+    mode.to_non_weighted()
+    return mode
