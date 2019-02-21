@@ -60,7 +60,7 @@ class Mode:
         self.iets = []
         self.weighted = weighted
 
-    def _normalize(self, vector, threadshold=0.005):
+    def _normalize(self, vector, threadshold=1e-5):
         norm = math.sqrt(sum([i**2 for i in vector]))
         if norm < threadshold:
             norm = 1.0
