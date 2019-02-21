@@ -32,7 +32,7 @@ class Preprocessor():
 
         print('Unweighting mode vectors...')
         [mode.to_non_weighted() for mode in modes]
-        print('Done')
+        print('Creating input structures...')
         if self.options['restart']:
             return (self._prepareDistortions(modes),
                     self.parser.get_molecule())
