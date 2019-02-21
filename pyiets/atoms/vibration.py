@@ -60,10 +60,10 @@ class Mode:
         self.iets = []
         self.weighted = weighted
 
-    def _normalize(self, vector):
+    def _normalize(self, vector, threadshold=0.005):
         norm = np.linalg.norm(vector)
-        if norm == 0:
-            norm = np.finfo(vector.dtype).eps
+        if norm < threadshold:
+            norm = 1.0
         return np.array(vector/norm)
 
     def to_weighted(self):
