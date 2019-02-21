@@ -94,10 +94,6 @@ def get_options(path):
     return options
 
 
-def la():
-    print('Tst')
-
-
 if __name__ == '__main__':
     WORKDIR = sys.argv[1]
     options = get_options(WORKDIR)

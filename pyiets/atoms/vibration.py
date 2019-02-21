@@ -61,26 +61,26 @@ class Mode:
         self.weighted = weighted
 
     def _normalize(self, vector, threadshold=0.005):
-        norm = np.linalg.norm(vector)
+        norm = math.sqrt(sum([i**2 for i in vector]))
         if norm < threadshold:
             norm = 1.0
-        return np.array(vector/norm)
+        return [i/norm for i in vector]
 
     def to_weighted(self):
         if not self.weighted:
             self.vectors = [
-                    np.array([float(i)*math.sqrt(
+                    [float(i)*math.sqrt(
                         element(self.atoms[idx]).atomic_weight)
-                             for i in vec])
+                     for i in vec]
                     for idx, vec in enumerate(self.vectors)]
             self.vectors = [self._normalize(vec) for vec in self.vectors]
 
     def to_non_weighted(self):
         if self.weighted:
             self.vectors = [
-                    np.array([float(i)/math.sqrt(
+                    [float(i)/math.sqrt(
                         element(self.atoms[idx]).atomic_weight)
-                             for i in vec])
+                     for i in vec]
                     for idx, vec in enumerate(self.vectors)]
             self.vectors = [self._normalize(vec) for vec in self.vectors]
 
