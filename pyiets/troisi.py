@@ -62,7 +62,7 @@ class Troisi:
                     if mode.get_idx() == mode_idx), None)
 
         cstep = self.options['cstep']
-        d0 = self.options['cstep']*2
+
         gm_idx = [[g for g in self.greenmat_dictarr
                   if mode.get_folders()[idx] == g['mode']][0]
                   for idx in range(len(mode.get_folders()))]
@@ -74,7 +74,7 @@ class Troisi:
                 reduced_mass += (coord**2)/self.molecule.an[idx]
 
         reduced_mass = 1.0 / reduced_mass
-        troisi_greenmatrix = ((math.sqrt(2*d0)/(2*d0)) * (0.5*d0/cstep) *
+        troisi_greenmatrix = ((math.sqrt(2.0)/(2.0)) * (0.5/cstep) *
                               (np.array(gm_idx[1]['greensmatrix'])
                               - np.array(gm_idx[0]['greensmatrix'])))
         troisi_greenmatrix /= math.sqrt(reduced_mass)
