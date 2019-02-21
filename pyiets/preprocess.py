@@ -3,6 +3,7 @@ import ase.io
 import pyiets.io.snfio
 import pyiets.io.gaussianio
 from pyiets.atoms.molecule import Molecule
+import numpy as np
 
 
 class Preprocessor():
@@ -29,7 +30,9 @@ class Preprocessor():
             modes = [self.parser.get_mode(int(mode_idx))
                      for mode_idx in modes]
 
+        [mode.print() for mode in modes]
         [mode.to_non_weighted() for mode in modes]
+        [mode.print() for mode in modes]
         if self.options['restart']:
             return (self._prepareDistortions(modes),
                     self.parser.get_molecule())
@@ -40,7 +43,7 @@ class Preprocessor():
     def _prepareDistortions(self, modes):
         molecule = self.parser.get_molecule()
         for mode in modes:
-            mode_vecs = mode.vectors
+            mode_vecs = np.array(mode.vectors)
             dissortions = [molecule.vectors - mode_vecs*self.options['cstep'],
                            molecule.vectors + mode_vecs*self.options['cstep']]
 
@@ -76,7 +79,7 @@ class Preprocessor():
         os.chdir('../../')
 
         for mode in modes:
-            mode_vecs = mode.vectors
+            mode_vecs = np.array(mode.vectors)
             dissortions = [molecule.vectors - mode_vecs*self.options['cstep'],
                            molecule.vectors + mode_vecs*self.options['cstep']]
 
