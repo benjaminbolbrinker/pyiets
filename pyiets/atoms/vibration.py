@@ -19,15 +19,18 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+import math
 import numpy as np
+from mendeleev import element
 
 
 class Mode:
     """Small class to process information of vibrational modes.
 
     """
-    def __init__(self, vectors=None, atoms=None, wavenumber=None, idx=None,
-                 dissortion_folders=None, troisi_greensmatrix=None):
+    def __init__(self, vectors, atoms, wavenumber, idx=None,
+                 dissortion_folders=None, troisi_greensmatrix=None,
+                 weighted=True):
         """Creates vibrational mode.
 
         Parameters
@@ -48,12 +51,36 @@ class Mode:
         """
         self.vectors = np.array(vectors)
         self.atoms = atoms
+        assert len(self.vectors) == len(self.atoms)
         self.wavenumber = wavenumber
         self.idx = idx
         self.dissortion_folders = dissortion_folders
 
         self.troisi_greensmatrix = troisi_greensmatrix
         self.iets = []
+        self.weighted = weighted
+
+    def _normalize(self, vector):
+        norm = np.linalg.norm(vector)
+        if norm == 0:
+            norm = np.finfo(vector.dtype).eps
+        return vector/norm
+
+    def to_weighted(self):
+        if not self.weighted:
+            self.vectors = [
+                    [float(i)*math.sqrt(element(self.atoms[idx]).atomic_weight)
+                     for i in vec]
+                    for idx, vec in enumerate(self.vectors)]
+            self.vectors = [self._normalize(vec) for vec in self.vectors]
+
+    def to_non_weighted(self):
+        if self.weighted:
+            self.vectors = [
+                    [float(i)/math.sqrt(element(self.atoms[idx]).atomic_weight)
+                     for i in vec]
+                    for idx, vec in enumerate(self.vectors)]
+            self.vectors = [self._normalize(vec) for vec in self.vectors]
 
     def set_troisi_greensmat(self, gm):
         """Set Greensfunction from Troisi ansatz.
