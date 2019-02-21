@@ -103,9 +103,7 @@ if __name__ == '__main__':
     preprocess = pyiets.preprocess.Preprocessor(WORKDIR, options)
 
     modes, molecule = preprocess.preprocess()
-    [mode.print() for mode in modes]
     [mode.to_non_weighted() for mode in modes]
-    [mode.print() for mode in modes]
     print('Done\n')
 
     print('Running single point calculations...')
