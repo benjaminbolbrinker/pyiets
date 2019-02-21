@@ -61,10 +61,10 @@ class Mode:
         self.weighted = weighted
 
     def _normalize(self, vector):
-        norm = np.linalg.norm(vector)
+        norm = math.sqrt(sum([float(i)**2 for i in vector]))
         if norm == 0:
-            norm = np.finfo(vector.dtype).eps
-        return vector/norm
+            return vector
+        return [float(i)/norm for i in vector]
 
     def to_weighted(self):
         if not self.weighted:

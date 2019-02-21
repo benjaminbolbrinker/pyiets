@@ -94,6 +94,10 @@ def get_options(path):
     return options
 
 
+def la():
+    print('Tst')
+
+
 if __name__ == '__main__':
     WORKDIR = sys.argv[1]
     options = get_options(WORKDIR)
@@ -103,7 +107,6 @@ if __name__ == '__main__':
     preprocess = pyiets.preprocess.Preprocessor(WORKDIR, options)
 
     modes, molecule = preprocess.preprocess()
-    [mode.to_non_weighted() for mode in modes]
     print('Done\n')
 
     print('Running single point calculations...')
@@ -141,9 +144,6 @@ if __name__ == '__main__':
     g_files = [os.path.join(m, options['greenmatrix_file'])
                for m in mode_folders.union(done)]
 
-    # greenmatrices_unsrt = [artaios.read_greenmatrices(g_files)[idx]
-                           # for idx in range(len(artaios.read_greenmatrices(
-                               # g_files)))]
     greenmatrices_unsrt = [gm for gm in artaios.read_greenmatrices(g_files)]
     print('Done\n')
 

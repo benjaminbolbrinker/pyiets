@@ -29,6 +29,7 @@ class Preprocessor():
             modes = [self.parser.get_mode(int(mode_idx))
                      for mode_idx in modes]
 
+        [mode.to_non_weighted() for mode in modes]
         if self.options['restart']:
             return (self._prepareDistortions(modes),
                     self.parser.get_molecule())

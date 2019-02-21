@@ -192,7 +192,8 @@ class Parser:
         mode = vib.Mode(vectors=mode_vectors,
                         atoms=self.molecule.atoms,
                         wavenumber=wavenum,
-                        idx=mode_idx)
+                        idx=mode_idx,
+                        weighted=True)
         return mode
 
     def get_modes(self):
