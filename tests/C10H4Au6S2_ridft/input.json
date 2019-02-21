@@ -11,7 +11,7 @@
 "vib_out_file": "snf.out",
 "c_modes": [47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58],
 "modes": "all",
-"mp": 12,
+"mp": 10,
 "artaios": "/home/bolbrinker/Software/artaios",
 "define_str": "\n\na coord\n*\nno\nb all def2-SVP\n*\neht\n\n\n\nri\non\n\ndft\non\nfunc b-p\n\n*"
 }
