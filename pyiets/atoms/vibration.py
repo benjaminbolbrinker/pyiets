@@ -74,6 +74,7 @@ class Mode:
                      for i in vec]
                     for idx, vec in enumerate(self.vectors)]
             self.vectors = [self._normalize(vec) for vec in self.vectors]
+            self.weighted = True
 
     def to_non_weighted(self):
         if self.weighted:
@@ -83,6 +84,7 @@ class Mode:
                      for i in vec]
                     for idx, vec in enumerate(self.vectors)]
             self.vectors = [self._normalize(vec) for vec in self.vectors]
+            self.weighted = False
 
     def set_troisi_greensmat(self, gm):
         """Set Greensfunction from Troisi ansatz.

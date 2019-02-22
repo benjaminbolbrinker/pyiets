@@ -50,7 +50,7 @@ def run(params):
     molecule.set_calculator(calc)
 
     # Redirect output
-    tmoutname = 'turbomole.out'
+    tmoutname = 'turbomole.stdout'
     print('''
 Starting turbomole in \'{}\'
 Redirecting output to \'{}\'
