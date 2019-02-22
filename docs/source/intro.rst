@@ -11,8 +11,9 @@ For this program to function three inputfiles have to be provided:
   - options for single point calculation
 
 - :code:`artaios.in`: control file for spin-dependent electron transport calculations for molecular junctions
-- :code:`snf.out`: output file from previous calculation of vibrational normal modes
 
+- output file from previous calculation of vibrational normal modes. Supported formats are SNF-output and Gaussian-output.
+  
 
 When all three input files are provided type 
 
