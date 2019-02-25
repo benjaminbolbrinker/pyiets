@@ -81,7 +81,11 @@ class Mode:
                         element(self.atoms[idx]).atomic_weight)
                      for i in vec]
                     for idx, vec in enumerate(self.vectors)]
-            self.vectors = [self._normalize(vec) for vec in self.vectors]
+            # self.vectors = [self._normalize(vec) for vec in self.vectors]
+            self.vectors = np.linalg.norm(
+                    self._normalize(np.reshape(self.vectors,
+                                               len(self.vectors)*3))).reshape(
+                                                       len(self.vectors)/3, 3)
             self.weighted = False
 
     def set_troisi_greensmat(self, gm):
