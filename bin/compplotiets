@@ -18,6 +18,6 @@ if __name__ == '__main__':
         })
 
     plt.stem(iets1['wavenumber'], iets1['intensity'])
-    plt.stem(iets2['wavenumber'], iets2['intensity'])
+    plt.stem(iets2['wavenumber'], -iets2['intensity'])
 
     plt.savefig(savepic)
