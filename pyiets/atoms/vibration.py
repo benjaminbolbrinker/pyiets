@@ -70,7 +70,8 @@ class Mode:
             # self.vectors = [self._normalize(vec) for vec in self.vectors]
             self.vectors = np.reshape(np.linalg.norm(
                     np.reshape(self.vectors,
-                               len(self.vectors)*3)), (len(self.vectors)/3, 3))
+                               int(len(self.vectors)*3))),
+                    (int(len(self.vectors)/3), 3))
             self.weighted = True
 
     def to_non_weighted(self):
@@ -83,7 +84,8 @@ class Mode:
             # self.vectors = [self._normalize(vec) for vec in self.vectors]
             self.vectors = np.reshape(np.linalg.norm(
                     np.reshape(self.vectors,
-                               len(self.vectors)*3)), (len(self.vectors)/3, 3))
+                               int(len(self.vectors)*3))),
+                    (int(len(self.vectors)/3), 3))
             self.weighted = False
 
     def set_troisi_greensmat(self, gm):
