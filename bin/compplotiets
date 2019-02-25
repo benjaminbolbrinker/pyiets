@@ -1,0 +1,23 @@
+import sys
+import numpy as np
+import matplotlib.pyplot as plt
+
+
+if __name__ == '__main__':
+    filename1 = sys.argv[1]
+    filename2 = sys.argv[2]
+    savepic = sys.argv[3]
+
+    iets1 = np.loadtxt(filename1, dtype={
+        'names': ('mode_idx', 'wavenumber', 'energy', 'intensity'),
+        'formats': ('i8', 'f8', 'f8', 'f8')
+        })
+    iets2 = np.loadtxt(filename2, dtype={
+        'names': ('mode_idx', 'wavenumber', 'energy', 'intensity'),
+        'formats': ('i8', 'f8', 'f8', 'f8')
+        })
+
+    plt.stem(iets1['wavenumber'], iets1['intensity'])
+    plt.stem(iets2['wavenumber'], iets2['intensity'])
+
+    plt.savefig(savepic)
