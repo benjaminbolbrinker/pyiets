@@ -105,6 +105,7 @@ if __name__ == '__main__':
     modes, molecule = preprocess.preprocess()
     print('Done\n')
 
+    [mode.print() for mode in modes]
     print('Running single point calculations...')
     mode_folders, done = restart.choose_mode_folders(
             os.path.join(options['workdir'],
