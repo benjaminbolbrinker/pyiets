@@ -54,10 +54,13 @@ This input file will be used to perform the electron transport calculation.
 
 .. _snfout-label: 
 
-:code:`snf.out`
-^^^^^^^^^^^^^^^
+File containing output from previous vibrational calculation
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-This file has to be created by a prior SNF calculations to calculate vibrational normal modes.
+This file has to be created by a prior calculations to calculate vibrational normal modes. 
+Supported formates:
 
+   - SNF-output
+   - Gaussian-output
 
 .. _ASE-turbomole: https://wiki.fysik.dtu.dk/ase/ase/calculators/turbomole.html
