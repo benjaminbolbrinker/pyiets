@@ -29,7 +29,7 @@ with open("README.rst", "r") as fh:
 
 setuptools.setup(
     name='pyiets',
-    version='0.0.2',
+    version='0.0.3',
     author=('Benjamin Bolbrinker, Michael Deffner, ' +
             'Martin Zoellner, Carmen Herrmann'),
     author_email='benjamin.bolbrinker@chemie.uni.hamburg.de',
