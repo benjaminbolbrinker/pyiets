@@ -19,7 +19,20 @@ When all three input files are provided type
 
 .. code-block:: bash
 
-   pyiets.py .
+   pyiets .
+
+After successfully finished call
+
+.. code-block:: bash
+   
+   pyiets-plot iets.dat iets.png
+
+to visualize the results. Cleaning up the directory works with
+
+.. code-block:: bash
+
+   pyiets-clean .
+
 
 .. _Turbomole: http://www.turbomole.com/
 .. _ARTAIOS: https://www.chemie.uni-hamburg.de/institute/ac/arbeitsgruppen/herrmann/software/artaios.html 
