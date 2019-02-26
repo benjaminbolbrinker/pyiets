@@ -27,7 +27,7 @@ After successfully finished call
    
    pyiets-plot iets.dat iets.png
 
-to visualize the results. Cleaning up the directory works with
+to visualize the results. Clean up the temporary folders with
 
 .. code-block:: bash
 
