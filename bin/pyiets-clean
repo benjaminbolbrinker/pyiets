@@ -3,6 +3,7 @@
 import os
 import sys
 import json
+import shutil
 
 import pyiets.read
 
@@ -17,5 +18,7 @@ with open(os.path.join(ROOT_DIR, 'input_defaults.json')) as f:
 
 options.update(pyiets.read.infile(options['input_file']))
 
-os.rmdir(os.path.join(WORKDIR, options['mode_folder']))
-os.rmdir(os.path.join(WORKDIR, options['output_folder']))
+shutil.rmtree(os.path.join(WORKDIR, options['mode_folder']),
+              ignore_errors=True)
+shutil.rmtree(os.path.join(WORKDIR, options['output_folder']),
+              ignore_errors=True)
