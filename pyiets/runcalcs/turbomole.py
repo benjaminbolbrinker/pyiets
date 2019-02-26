@@ -51,7 +51,8 @@ def run(params):
 
     # Redirect output
     tmoutname = 'turbomole.stdout'
-    print('''
+    if options['verbose']:
+        print('''
 Starting turbomole in \'{}\'
 Redirecting output to \'{}\'
 '''.format(folder, tmoutname))

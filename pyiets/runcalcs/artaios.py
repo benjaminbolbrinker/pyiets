@@ -30,7 +30,8 @@ def run(params):
     # Run and redirect output
     stdoutname = options['artaios_stdout']
     stderrname = options['artaios_stderr']
-    print('''
+    if options['verbose']:
+        print('''
 Starting artaios in \'{}\'
 Redirecting output to \'{}\' and \'{}\'
 '''.format(folder, stdoutname, stderrname))

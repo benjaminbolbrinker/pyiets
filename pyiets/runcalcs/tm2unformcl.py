@@ -23,7 +23,8 @@ def run(params):
 
     stdoutname = 'artaios_tm.stdout'
     stderrname = 'artaios_tm.stderr'
-    print('''
+    if options['verbose']:
+        print('''
 Starting tm2unformcl in \'{}\'
 Redirecting output to \'{}\' and \'{}\'
 '''.format(folder, stdoutname, stderrname))
