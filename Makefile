@@ -10,9 +10,6 @@ documentation:
 	cd docs/ && make html
 	firefox ${cwd}/docs/build/html/index.html
 
-install:
-	./install.sh
-
 test_all: test_H2O_dscf test_H2O_ridft test_H2O_ridft_gaussianin test_H2O_ridft_fake_gaussianin test_C10H4Au6S2
 
 test_C10H4Au6S2:

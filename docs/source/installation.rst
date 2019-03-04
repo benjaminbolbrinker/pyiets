@@ -8,7 +8,7 @@ For installing this package simply type:
 
 .. code-block:: bash
 
-   make install
+   ./install
 
 To confirm the environment was installed properly type:
 
