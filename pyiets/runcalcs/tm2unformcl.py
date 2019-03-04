@@ -30,8 +30,7 @@ Redirecting output to \'{}\' and \'{}\'
 '''.format(folder, stdoutname, stderrname))
 
     # Run and redirect output
-    process = subprocess.Popen(os.path.join(options['artaios'],
-                                            options['artaios_tm_bin']),
+    process = subprocess.Popen(options['artaios_tm_bin'],
                                shell=True,
                                stdout=subprocess.PIPE,
                                stderr=subprocess.PIPE)
