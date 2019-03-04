@@ -10,6 +10,5 @@
 "vib_out": "gaussian",
 "vib_out_file": "g98.out",
 "modes": "all",
-"mp": 6,
-"artaios": "/home/bolbrinker/Software/artaios"
+"mp": 6
 }
