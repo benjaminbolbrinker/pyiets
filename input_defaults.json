@@ -12,7 +12,7 @@
   "sp_name": "sp",
 
   "artaios_restart_file": "artaios.restart",
-  "artaios": null,
+  "artaios": "/home/p1tx073/Software/artaios",
   "artaios_bin": "bin/artaios",
   "artaios_tm_bin": "bin/tm2unformcl",
   "artaios_in": "artaios.in",
