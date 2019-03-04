@@ -31,7 +31,6 @@ class Preprocessor():
             modes = [self.parser.get_mode(int(mode_idx))
                      for mode_idx in modes]
 
-        print('Unweighting mode vectors...')
         with multiprocessing.Pool(processes=self.options['mp']) as pool:
             modes_pool = pool.map(to_non_weighted, modes)
             pool.close()
@@ -39,7 +38,6 @@ class Preprocessor():
 
         modes = [mode for mode in modes_pool]
 
-        print('Creating input structures...')
         if self.options['restart']:
             return (self._prepareDistortions(modes),
                     self.parser.get_molecule())
