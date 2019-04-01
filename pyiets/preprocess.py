@@ -2,6 +2,7 @@ import os
 import ase.io
 import pyiets.io.snfio
 import pyiets.io.gaussianio
+import pyiets.io.turbomoleio
 from pyiets.atoms.molecule import Molecule
 import numpy as np
 import multiprocessing
@@ -16,6 +17,8 @@ class Preprocessor():
             self.parser = pyiets.io.snfio.Parser(options)
         elif options['vib_out'] == 'gaussian':
             self.parser = pyiets.io.gaussianio.Parser(options)
+        elif options['vib_out'] == 'turbomole':
+            self.parser = pyiets.io.turbomoleio.Parser(options)
 
         dissotionoutname = self.parser.get_molecule()\
             .to_ASE_atoms_obj().get_chemical_formula(mode='hill') + '.' + str(

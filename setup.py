@@ -47,6 +47,7 @@ setuptools.setup(
     ],
     install_requires=[
         'ase==3.16.2',
+        'cclib==1.6.1',
         'numpy==1.15.2',
         'mendeleev==0.4.4',
         'sphinx==1.8.4',
