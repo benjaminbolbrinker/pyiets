@@ -1,0 +1,30 @@
+ ===========================================
+ =             THIS IS ARTAIOS             =
+ =               Version 2.0               =
+ =                                         =
+ =  C. Herrmann, L. Gross, T. Steenbock,   =
+ =  M. Deffner, A. Voigt & G. C Solomon    =
+ =                                         =
+ =  Hamburg University, University of      =
+ =  Copenhagen & Northwestern University   =
+ =                2009-2016                =
+ ===========================================
+
+ Reading leftbas
+ Reading centralbas
+ Reading rightbas
+ Reading leftatoms
+ Reading centralatoms
+ Reading rightatoms
+
+====================================
+  Full transmission for alpha electrons
+====================================
+------------------------------------
+ Largest interelectrode H and S elements
+------------------------------------
+    -31.9142665133    0.6880028948
+
+energy; transmission:         -5.000000         0.188028
+  printing greensmatrix.1 ...
+ Artaios terminated normally

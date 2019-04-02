@@ -1,0 +1,10 @@
+  set term postscript color
+  set term postscript eps
+  set output "transmission.1.eps"
+  set nokey
+  set title 'Transmission'
+  set xlabel 'energy [ev]'
+  set xrange [       -5.000000:      -5.000000]
+  set ylabel 'transmission'
+  set logscale y
+  plot "transmission.1.dat"  u 1:2 w l

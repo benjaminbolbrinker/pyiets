@@ -1,0 +1,33 @@
+ Entering Gaussian System
+ *********************************************
+ Gaussian 98:
+ frequency fake output
+ *********************************************
+                         Standard orientation:
+ --------------------------------------------------------------------
+  Center     Atomic     Atomic              Coordinates (Angstroms)
+  Number     Number      Type              X           Y           Z
+ --------------------------------------------------------------------
+    1          8             0       -0.048471   -0.048471   -0.000000
+    2          1             0        0.921111   -0.151842    0.000000
+    3          1             0       -0.151842    0.921111    0.000000
+ --------------------------------------------------------------------
+     1 basis functions        1 primitive gaussians
+     1 alpha electrons        1 beta electrons
+
+ Harmonic frequencies (cm**-1), IR intensities (KM/Mole),
+ Raman scattering activities (A**4/amu), Raman depolarization ratios,
+ reduced masses (AMU), force constants (mDyne/A) and normal coordinates:
+                      1                      2                      3
+                     a                      a                      a    
+ Frequencies --  1609.8497              3686.6199              3784.4629
+ Red. masses --     1.0814                 1.0464                 1.0795
+ Frc consts  --     1.6512                 8.3793                 9.1094
+ IR Inten    --    48.9805                 2.6012                21.4350
+ Raman Activ --     0.0000                 0.0000                 0.0000
+ Depolar     --     0.0000                 0.0000                 0.0000
+ Atom AN      X      Y      Z        X      Y      Z        X      Y      Z
+   1   8    -0.05  -0.05  -0.00     0.04   0.04   0.00     0.05  -0.05   0.00
+   2   1     0.09   0.70   0.00    -0.69   0.13  -0.00    -0.70   0.07  -0.00
+   3   1     0.70   0.09   0.00     0.13  -0.69  -0.00    -0.07   0.70   0.00
+   
