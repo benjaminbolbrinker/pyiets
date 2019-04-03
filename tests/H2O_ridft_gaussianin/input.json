@@ -9,6 +9,7 @@
     },
 "vib_out": "gaussian",
 "vib_out_file": "h2o_gaussian.log",
+"artaios_in": "artaios.in",
 "modes": "all",
 "mp": 6,
 "artaios": "/home/bolbrinker/Software/artaios"

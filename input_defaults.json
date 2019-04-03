@@ -5,8 +5,8 @@
     "params": null
   },
   "input_file": "input.json",
-  "vib_out": "snf",
-  "vib_out_file": "snf.out",
+  "vib_out": null,
+  "vib_out_file": null,
   "restart": false,
   "sp_restart_file": "sp.restart",
   "sp_name": "sp",
@@ -27,6 +27,6 @@
   "mode_folder": "distortions",
   "modes": "all",
   "cstep": 0.01,
-  "mp": 6,
+  "mp": 1,
   "verbose": false
 }

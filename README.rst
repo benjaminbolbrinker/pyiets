@@ -4,7 +4,7 @@ Install with:
 
    ./install
 
-To get documentations type:
+The documentation can be found in `docs`. To get a graphical version of the documentation type:
 
 .. code-block:: bash
 

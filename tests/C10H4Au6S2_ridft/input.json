@@ -8,7 +8,9 @@
         }
     },
 "restart": false,
+"vib_out": "snf",
 "vib_out_file": "snf.out",
+"artaios_in": "artaios.in",
 "c_modes": [47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58],
 "modes": "all",
 "mp": 10

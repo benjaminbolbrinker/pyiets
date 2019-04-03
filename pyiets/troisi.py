@@ -67,9 +67,6 @@ class Troisi:
                   if mode.get_folders()[idx] == g['mode']][0]
                   for idx in range(len(mode.get_folders()))]
 
-        mode.print()
-        print(gm_idx[0])
-        print(gm_idx[1])
         reduced_mass = 0.0
         assert len(mode.get_vectors()) == len(self.molecule.an)
         for idx, vector in enumerate(mode.get_vectors()):
@@ -81,7 +78,10 @@ class Troisi:
                               (np.array(gm_idx[1]['greensmatrix'])
                               - np.array(gm_idx[0]['greensmatrix'])))
         troisi_greenmatrix /= math.sqrt(reduced_mass)
-        print(troisi_greenmatrix)
+        # mode.print()
+        # print(gm_idx[0])
+        # print(gm_idx[1])
+        # print(troisi_greenmatrix)
         mode.set_troisi_greensmat(gm=troisi_greenmatrix)
         return troisi_greenmatrix
 

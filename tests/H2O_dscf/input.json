@@ -7,6 +7,9 @@
         "define_str": "\n\na coord\n*\nno\nb all TZ\n*\neht\n\n\n\n*"
         }
     },
+"vib_out": "snf",
+"vib_out_file": "snf.out",
+"artaios_in": "artaios.in",
 "restart": false,
 "modes": "all",
 "mp": 2

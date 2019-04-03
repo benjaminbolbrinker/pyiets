@@ -9,6 +9,7 @@
     },
 "vib_out_file": "g98.out",
 "vib_out": "gaussian",
+"artaios_in": "artaios.in",
 "restart": false,
 "modes": "all",
 "mp": 6

@@ -7,6 +7,9 @@
 		"define_str": "\n\na coord\n*\nno\nb all def2-SVP\n*\neht\n\n\n\nri\non\n\ndft\non\nfunc b-p\n\nscf\n iter\n300\nconv\n8\n\n*"
         }
     },
+"vib_out": "snf",
+"vib_out_file": "snf.out",
+"artaios_in": "artaios.in",
 "restart": false,
 "modes": "all",
 "mp": 6
