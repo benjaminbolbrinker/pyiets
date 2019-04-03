@@ -35,6 +35,7 @@ Usage
 This tells PyIETS to use Turbomole for single point calculations by employing the parameters provided in :code:`params`.
 The following three parameters tell PyIETS the names of the files created in step 1) and 2). 
 The flag :code:`mp` specifies the number of single point calculations that will be run in parallel (each on a different core).
+Further examples are provided in the :code:`tests`-directory.
 
 Input files
 ----------
