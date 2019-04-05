@@ -37,6 +37,19 @@ The following three parameters tell PyIETS the names of the files created in ste
 The flag :code:`mp` specifies the number of single point calculations that will be run in parallel (each on a different core).
 Further examples are provided in the :code:`tests`-directory.
 
+After setting up the input files run PyIETS via
+
+.. code-block:: bash
+
+   pyiets .
+
+The program should have generated two folders and one file. The file is named via the :code:`iets_out_file`-tag and contains the IETS-spectrum. 
+The folders are named via the :code:`mode_folder` and :code:`output_folder`-tag, respectively.
+The former contains the single-point calculations and transport calculations of the undistorted and distorted molecule which was provided.
+The latter contains the resulting Troisi-greensmatrices and the corresponding calculations are saved in files named via the :code:`troisi_greenmatrix_file`-tag.
+
+
+
 Input files
 ----------
 The proram takes three input files. In the following each file is described in detail including a complete list of input parameters.
@@ -123,5 +136,44 @@ Supported formates:
 
 
 .. _ASE-turbomole: https://wiki.fysik.dtu.dk/ase/ase/calculators/turbomole.html
+
+
+Postprocessing
+-------------
+
+PyIETS also contains some tools for post-processing which are described in the following.
+
+:code:`pyiets-plot`
+^^^^^^^^^^^^^^^^^^^
+Plotting of the IETS spectrum. Type
+
+.. code-block:: bash
+   
+   pyiets-plot iets.dat iets.png
+
+to visualize the results. 
+
+
+:code:`pyiets-compplot`
+^^^^^^^^^^^^^^^^^^^
+
+Plotting of two IETS spectra. Type
+
+.. code-block:: bash
+   
+   pyiets-plot iets0.dat iets1.dat iets.png
+
+to compare two IETS-spectra. 
+
+
+:code:`pyiets-clean`
+^^^^^^^^^^^^^^^^^^^
+
+Clean up the temporary folders (:code:`mode_folder` and :code:`output_folder`) via
+
+.. code-block:: bash
+
+   pyiets-clean .
+
 
 
