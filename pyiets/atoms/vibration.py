@@ -62,11 +62,11 @@ class Mode:
 
     def to_weighted(self):
         if not self.weighted:
-            self.vectors = [
+            self.vectors = np.array([
                     [float(i)*math.sqrt(
                         element(self.atoms[idx]).atomic_weight)
                      for i in vec]
-                    for idx, vec in enumerate(self.vectors)]
+                    for idx, vec in enumerate(self.vectors)])
             # self.vectors = [self._normalize(vec) for vec in self.vectors]
             norm = np.linalg.norm(
                     np.reshape(self.vectors, int(len(self.vectors)*3)))
