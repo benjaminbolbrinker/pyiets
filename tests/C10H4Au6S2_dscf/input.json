@@ -3,7 +3,7 @@
     {
       "qc_prog": "turbomole",
       "params": {
-		"define_str": "\n\na coord\n*\nno\nb all def2-SVP\n*\neht\n\n\n\n\ndft\non\nfunc b-p\n\nscf\niter\n300\nconv\n7\n\n*"
+		"define_str": "\n\na coord\n*\nno\nb all def2-SVP\n*\neht\n\n\n\n\ndft\non\ngrid m4\nfunc b-p\n\nscf\niter\n300\nconv\n8\n\n*"
         }
     },
 "restart": false,

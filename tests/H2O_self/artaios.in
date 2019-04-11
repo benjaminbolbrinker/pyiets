@@ -2,13 +2,13 @@ $general
  rbas
  do_transport
  qcprog tm
- mosfile ASE.TM.ridft.out
+ mosfile ASE.TM.dscf.out
  print_green
 $end
 
 $partitioning
- leftatoms 1
- centralatoms 2
+ leftatoms 2
+ centralatoms 1
  rightatoms 3
 $end
 

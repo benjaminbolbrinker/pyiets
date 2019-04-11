@@ -78,10 +78,10 @@ class Troisi:
                               (np.array(gm_idx[1]['greensmatrix'])
                               - np.array(gm_idx[0]['greensmatrix'])))
         troisi_greenmatrix /= math.sqrt(reduced_mass)
-        # mode.print()
-        # print(gm_idx[0])
-        # print(gm_idx[1])
-        # print(troisi_greenmatrix)
+        mode.print()
+        print(gm_idx[0])
+        print(gm_idx[1])
+        print(troisi_greenmatrix)
         mode.set_troisi_greensmat(gm=troisi_greenmatrix)
         return troisi_greenmatrix
 
