@@ -21,7 +21,7 @@
 import multiprocessing
 
 import pyiets.runcalcs.turbomole as turbomole
-import pyiets.runcalcs.turbomole as gaussian
+import pyiets.runcalcs.gaussian as gaussian
 import pyiets.runcalcs.artaios as artaios
 import pyiets.runcalcs.tm2unformcl as tm2unformcl
 

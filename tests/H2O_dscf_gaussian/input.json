@@ -4,7 +4,8 @@
       "qc_prog": "gaussian",
       "params": {
         "basis": "Def2SVP",
-        "method": "BP86"
+        "method": "BP86",
+		"multiplicity": 1
         }
     },
 "vib_out": "snf",

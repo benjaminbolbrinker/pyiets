@@ -74,4 +74,8 @@ class SinglePoint():
         if self.options['sp_control']['qc_prog'] == 'turbomole':
             calcmanager.start_tm_single_points(self.mode_folders, self.options,
                                                self.restartsaveloc)
+        elif self.options['sp_control']['qc_prog'] == 'gaussian':
+            calcmanager.start_gaussian_single_points(self.mode_folders,
+                                                     self.options,
+                                                     self.restartsaveloc)
         os.chdir(cwd)

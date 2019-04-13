@@ -50,14 +50,14 @@ def run(params):
     molecule.set_calculator(calc)
 
     # Redirect output
-    tmoutname = 'gaussian.stdout'
+    g09outname = 'gaussian.stdout'
     if options['verbose']:
         print('''
 Starting gaussian in \'{}\'
 Redirecting output to \'{}\'
-'''.format(folder, tmoutname))
+'''.format(folder, g09outname))
     f = io.StringIO()
-    with open(tmoutname, 'w') as f:
+    with open(g09outname, 'w') as f:
         with redirect_stdout(f):
             molecule.get_potential_energy()
 

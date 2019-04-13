@@ -1,7 +1,7 @@
 $general
  rbas
  do_transport
- qcprog tm
+ qcprog g09
  mosfile ASE.TM.dscf.out
  print_green
 $end
