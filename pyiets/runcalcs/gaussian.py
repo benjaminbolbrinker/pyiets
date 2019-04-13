@@ -2,7 +2,7 @@ import io
 import os
 import glob
 import ase.io
-from ase.calculators.turbomole import Turbomole
+from ase.calculators.gaussian import Gaussian
 from contextlib import redirect_stdout
 
 
@@ -30,12 +30,12 @@ def run(params):
     lock = params[3]
 
     coord = options['dissotionoutname']
-    tmparams = options['sp_control']['params']
+    g09params = options['sp_control']['params']
 
     cwd = os.getcwd()
     os.chdir(folder)
 
-    calc = Turbomole(**tmparams)
+    calc = Gaussian(**g09params)
 
     # Clean directory
     files = glob.glob('*')
@@ -50,10 +50,10 @@ def run(params):
     molecule.set_calculator(calc)
 
     # Redirect output
-    tmoutname = 'turbomole.stdout'
+    tmoutname = 'gaussian.stdout'
     if options['verbose']:
         print('''
-Starting turbomole in \'{}\'
+Starting gaussian in \'{}\'
 Redirecting output to \'{}\'
 '''.format(folder, tmoutname))
     f = io.StringIO()

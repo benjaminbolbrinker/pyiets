@@ -21,8 +21,7 @@ class Preprocessor():
             self.parser = pyiets.io.turbomoleio.Parser(options)
 
         dissotionoutname = self.parser.get_molecule()\
-            .to_ASE_atoms_obj().get_chemical_formula(mode='hill') + '.' + str(
-            options['sp_control']['qc_prog'])
+            .to_ASE_atoms_obj().get_chemical_formula(mode='hill') + '.xyz'
         self.dissotionoutname = dissotionoutname
         options['dissotionoutname'] = dissotionoutname
 
@@ -82,7 +81,7 @@ class Preprocessor():
         os.chdir(spname)
         ase.io.write(self.dissotionoutname,
                      molecule.to_ASE_atoms_obj(),
-                     format=self.options['sp_control']['qc_prog'])
+                     format="xyz")
 
         os.chdir('../../')
 
@@ -104,7 +103,7 @@ class Preprocessor():
                 os.chdir(modedir)
                 ase.io.write(self.dissotionoutname,
                              dissortion,
-                             format=self.options['sp_control']['qc_prog'])
+                             format='xyz')
                 os.chdir('../')
             mode.set_folders(dissortion_folders)
 

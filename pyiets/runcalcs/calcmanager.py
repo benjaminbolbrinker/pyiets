@@ -21,6 +21,7 @@
 import multiprocessing
 
 import pyiets.runcalcs.turbomole as turbomole
+import pyiets.runcalcs.turbomole as gaussian
 import pyiets.runcalcs.artaios as artaios
 import pyiets.runcalcs.tm2unformcl as tm2unformcl
 
@@ -47,6 +48,30 @@ def start_tm_single_points(folders, options, restarfileloc=None):
         params = [(folder, options, restarfileloc, lock)
                   for folder in folders]
         pool.map(turbomole.run, params)
+
+
+def start_gaussian_single_points(folders, options, restarfileloc=None):
+    '''Start turbomole calculations asynchronously in specified folders.
+
+    Parameters
+    ----------
+    folders : :obj:`list`
+        containing foldernames (str)
+    coord : :obj:`str`
+        name of turbomole coord file (has to be present in each folder).
+    params : :obj:`dict`
+        ASE params for turbomole.
+    nthreads : int
+        number of threads.
+    restartfilename : :obj:`str`, optional
+        name of restartfile.
+    '''
+    with multiprocessing.Pool(processes=options['mp']) as pool:
+        manager = multiprocessing.Manager()
+        lock = manager.Lock()
+        params = [(folder, options, restarfileloc, lock)
+                  for folder in folders]
+        pool.map(gaussian.run, params)
 
 
 def start_artaios(folders, options, restarfileloc=None):

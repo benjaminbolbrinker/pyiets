@@ -22,7 +22,8 @@
 import sys
 
 supported_qc_progs = {
-    'turbomole'
+    'turbomole',
+    'gaussian'
 }
 
 

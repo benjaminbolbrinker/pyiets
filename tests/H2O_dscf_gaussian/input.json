@@ -1,0 +1,17 @@
+{
+"sp_control": 
+    {
+      "qc_prog": "gaussian",
+      "params": {
+        "basis": "Def2SVP",
+        "method": "BP86"
+        }
+    },
+"vib_out": "snf",
+"vib_out_file": "snf.out",
+"artaios_in": "artaios.in",
+"restart": false,
+"modes": "all",
+"mp": 2,
+"verbose": true
+}
