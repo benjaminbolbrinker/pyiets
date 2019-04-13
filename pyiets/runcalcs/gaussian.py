@@ -2,8 +2,60 @@ import io
 import os
 import glob
 import ase.io
-from ase.calculators.gaussian import Gaussian
+# from ase.calculators.gaussian import Gaussian
+import subprocess
 from contextlib import redirect_stdout
+
+
+def create_g09_input(g09_options, ase_molecule, filename):
+    options = {
+            'method': 'BP86',
+            'basis': 'Def2SVP',
+            'charge': 0,
+            'multiplicity': 1,
+            'nprocshared': 1
+            }
+
+    options.update(g09_options)
+
+    with open(filename, 'w') as fp:
+        fp.write('%chk=g09.chk\n')
+        fp.write('%NProcShared=' + str(options['nprocshared']) + '\n')
+        fp.write('#P ' + options['method']
+                       + '/' + options['basis']
+                       + ' GFPrint\n\n')
+        fp.write('Title '
+                 + ase_molecule.get_chemical_formula(mode='hill')
+                 + '\n\n')
+        fp.write(str(options['charge']) + ' '*4 +
+                 str(options['multiplicity']) + '\n')
+        for idx, vec in enumerate(ase_molecule.get_positions()):
+            fp.write(ase_molecule.get_chemical_symbols()[idx] + ' '*4)
+            for coord in vec:
+                fp.write(str(coord) + ' '*4)
+            fp.write('\n')
+        fp.write('\n\n')
+        fp.write('--Link1--\n')
+        fp.write('%chk=g09.log\n')
+        fp.write('%NProcShared=' + str(options['nprocshared']) + '\n')
+        fp.write('#P ' + options['method']
+                       + '/' + options['basis']
+                       + ' guess=read\n')
+        fp.write('#P GFINPUT IOP(6/7=3)\n')
+        fp.write('# iop(5/33=3)\n')
+        fp.write('# iop(3/33=1)\n\n')
+        fp.write('Title '
+                 + ase_molecule.get_chemical_formula(mode='hill')
+                 + '\n\n')
+        fp.write(str(options['charge']) + ' '*4 +
+                 str(options['multiplicity']) + '\n')
+        for idx, vec in enumerate(ase_molecule.get_positions()):
+            fp.write(ase_molecule.get_chemical_symbols()[idx] + ' '*4)
+            for coord in vec:
+                fp.write(str(coord) + ' '*4)
+            fp.write('\n')
+        fp.write('\n\n')
+        return
 
 
 def run(params):
@@ -29,13 +81,14 @@ def run(params):
     restartfileloc = params[2]
     lock = params[3]
 
-    coord = options['dissotionoutname']
-    g09params = options['sp_control']['params']
-
     cwd = os.getcwd()
     os.chdir(folder)
 
-    calc = Gaussian(**g09params)
+    infilename = 'g09.com'
+    coord = options['dissotionoutname']
+    create_g09_input(options['sp_control']['params'],
+                     ase.io.read(options['dissotionoutname']),
+                     infilename)
 
     # Clean directory
     files = glob.glob('*')
@@ -44,12 +97,7 @@ def run(params):
     for cleanupFile in cleanupFiles:
         os.remove(cleanupFile)
 
-    molecule = ase.io.read(coord, format='xyz')
-
-    # Run
-    molecule.set_calculator(calc)
-
-    # Redirect output
+    # Run and redirect output
     g09outname = 'gaussian.stdout'
     if options['verbose']:
         print('''
@@ -59,7 +107,7 @@ Redirecting output to \'{}\'
     f = io.StringIO()
     with open(g09outname, 'w') as f:
         with redirect_stdout(f):
-            molecule.get_potential_energy()
+            subprocess.call(['g09', '<', infilename, '>', g09outname])
 
     os.chdir(cwd)
 
