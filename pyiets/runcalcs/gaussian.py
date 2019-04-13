@@ -3,7 +3,6 @@ import os
 import glob
 import ase.io
 # from ase.calculators.gaussian import Gaussian
-import subprocess
 from contextlib import redirect_stdout
 
 
@@ -36,7 +35,7 @@ def create_g09_input(g09_options, ase_molecule, filename):
             fp.write('\n')
         fp.write('\n\n')
         fp.write('--Link1--\n')
-        fp.write('%chk=g09.log\n')
+        fp.write('%chk=g09.chk\n')
         fp.write('%NProcShared=' + str(options['nprocshared']) + '\n')
         fp.write('#P ' + options['method']
                        + '/' + options['basis']
@@ -86,19 +85,20 @@ def run(params):
 
     infilename = 'g09.com'
     coord = options['dissotionoutname']
-    create_g09_input(options['sp_control']['params'],
-                     ase.io.read(options['dissotionoutname']),
-                     infilename)
+    create_g09_input(g09_options=options['sp_control']['params'],
+                     ase_molecule=ase.io.read(options['dissotionoutname']),
+                     filename=infilename)
 
     # Clean directory
     files = glob.glob('*')
     cleanupFiles = files
     cleanupFiles.remove(coord)
+    cleanupFiles.remove(infilename)
     for cleanupFile in cleanupFiles:
         os.remove(cleanupFile)
 
     # Run and redirect output
-    g09outname = 'gaussian.stdout'
+    g09outname = 'g09.log'
     if options['verbose']:
         print('''
 Starting gaussian in \'{}\'
@@ -107,7 +107,8 @@ Redirecting output to \'{}\'
     f = io.StringIO()
     with open(g09outname, 'w') as f:
         with redirect_stdout(f):
-            subprocess.call(['g09', '<', infilename, '>', g09outname])
+            # subprocess.call(['g09', ' < ', infilename, ' > ', g09outname])
+            os.system('g09 < ' + infilename + ' > ' + g09outname)
 
     os.chdir(cwd)
 
