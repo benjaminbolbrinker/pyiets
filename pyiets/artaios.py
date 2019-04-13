@@ -68,8 +68,11 @@ class Artaios():
         os.chdir(self.options['workdir'])
 
         if self.options['sp_control']['qc_prog'] == 'turbomole':
-            calcmanager.start_artaios(self.mode_folders,
-                                      self.options, self.restartsaveloc)
+            calcmanager.start_artaios_tm(self.mode_folders,
+                                         self.options, self.restartsaveloc)
+        if self.options['sp_control']['qc_prog'] == 'gaussian':
+            calcmanager.start_artaios_g09(self.mode_folders,
+                                          self.options, self.restartsaveloc)
 
         os.chdir(cwd)
 

@@ -74,7 +74,34 @@ def start_gaussian_single_points(folders, options, restarfileloc=None):
         pool.map(gaussian.run, params)
 
 
-def start_artaios(folders, options, restarfileloc=None):
+def start_artaios_g09(folders, options, restarfileloc=None):
+    '''Start artaios calculations asynchronously in specified folders.
+
+    Parameters
+    ----------
+    folders : :obj:`list`
+        containing foldernames (str)
+    coord : :obj:`str`
+        name of turbomole coord file (has to be present in each folder).
+    params : :obj:`dict`
+        ASE params for turbomole.
+    nthreads : int
+        number of threads.
+    restartfilename : :obj:`str`, optional
+        name of restartfile.
+    '''
+
+    with multiprocessing.Pool(processes=options['mp']) as pool:
+        manager = multiprocessing.Manager()
+        lock = manager.Lock()
+        params = [(folder, options, restarfileloc, lock)
+                  for folder in folders]
+        pool.imap(artaios.run, params)
+        pool.close()
+        pool.join()
+
+
+def start_artaios_tm(folders, options, restarfileloc=None):
     '''Start artaios calculations asynchronously in specified folders.
 
     Parameters
