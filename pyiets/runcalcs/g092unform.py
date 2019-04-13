@@ -32,7 +32,7 @@ Redirecting output to \'{}\' and \'{}\'
     # Run and redirect output
     process = subprocess.Popen(options['artaios_gm_bin'] + " "
                                + "g09.log" + " "
-                               + options['artaios_gm_bin_spin_comp'],
+                               + str(options['artaios_gm_bin_spin_comp']),
                                shell=True,
                                stdout=subprocess.PIPE,
                                stderr=subprocess.PIPE)
