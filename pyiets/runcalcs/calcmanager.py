@@ -24,6 +24,7 @@ import pyiets.runcalcs.turbomole as turbomole
 import pyiets.runcalcs.gaussian as gaussian
 import pyiets.runcalcs.artaios as artaios
 import pyiets.runcalcs.tm2unformcl as tm2unformcl
+import pyiets.runcalcs.g092unform as g092unform
 
 
 def start_tm_single_points(folders, options, restarfileloc=None):
@@ -90,6 +91,15 @@ def start_artaios_g09(folders, options, restarfileloc=None):
     restartfilename : :obj:`str`, optional
         name of restartfile.
     '''
+
+    with multiprocessing.Pool(processes=options['mp']) as pool:
+        manager = multiprocessing.Manager()
+        lock = manager.Lock()
+        params = [(folder, options)
+                  for folder in folders]
+        pool.imap(g092unform.run, params)
+        pool.close()
+        pool.join()
 
     with multiprocessing.Pool(processes=options['mp']) as pool:
         manager = multiprocessing.Manager()

@@ -14,6 +14,8 @@
   "artaios_restart_file": "artaios.restart",
   "artaios_bin": "artaios",
   "artaios_tm_bin": "tm2unformcl",
+  "artaios_gm_bin": "g09_2unform",
+  "artaios_gm_bin_spin_comp": 2,
   "artaios_in": "artaios.in",
   "artaios_out": "artaios.out",
   "artaios_stdout": "artaios.in.stdout",

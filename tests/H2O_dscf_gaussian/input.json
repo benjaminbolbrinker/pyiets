@@ -11,6 +11,8 @@
 "vib_out": "snf",
 "vib_out_file": "snf.out",
 "artaios_in": "artaios.in",
+"artaios_gm_bin": "g09_2unform",
+"artaios_gm_bin_spin_comp": 2,
 "restart": false,
 "modes": "all",
 "mp": 2,
