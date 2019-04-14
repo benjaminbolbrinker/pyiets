@@ -11,7 +11,7 @@ if __name__ == '__main__':
     iets = np.loadtxt(filename, dtype={
         'names': ('mode_idx', 'wavenumber', 'energy', 'intensity'),
         'formats': ('i8', 'f8', 'f8', 'f8')
-        })
+    })
 
     plt.stem(iets['wavenumber'], iets['intensity'])
 
