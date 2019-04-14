@@ -1,0 +1,212 @@
+
+ *************************************************************
+ *                                                           *
+ *                            SNF                            *
+ *                                                           *
+ *                   VERSION: SNF V 5.0.1                    *
+ *                                                           *
+ *                 Copyright (C) 1999 -- 2011                *
+ *                                                           *
+ *    Carmen Herrmann, Bernd A. Hess, Christoph R. Jacob,    *
+ *     Carsten Kind, Sandra Luber, Johannes Neugebauer,      *
+ *       Markus Reiher, Stephan Schenk, Thomas Weymuth       *
+ *                                                           *
+ *              Laboratory of Physical Chemistry             *
+ *                         ETH Zurich                        *
+ *                                                           *
+ *      This program comes with ABSOLUTELY NO WARRANTY.      *
+ *      This is free software: you can redistribute it       *
+ *      and/or modify it under the terms of the GNU          *
+ *      General Public License.                              *
+ *                                                           *
+ *************************************************************
+
+
+
+Cite this work as: 
+
+T. Weymuth, M. P. Haag, K. Kiewisch, S. Luber,
+S. Schenk, Ch. R. Jacob, C. Herrmann, J. Neu-
+gebauer, M. Reiher,
+J. Comput. Chem., 2012, 33, 2186.
+
+Based on original work in
+
+J. Neugebauer, M. Reiher, C. Kind, B. A. Hess,
+J. Comput. Chem., 2002, 23, 895.
+
+ SNF Control file information
+ ----------------------------
+   snf control file          : snf_control
+   title                     : snf calculation
+   snf restart file          : restart
+   restart file format vers. :  4.20
+   symmetry                  :   c1 
+   Number of atoms           :     3
+   Number of steps           :     2
+   distortion [bohr]         :  0.010
+   print gaussian fake output
+   print transl. and rot. contributions
+   print  zeropoint energy 
+   print thermodynamics
+   Plot range for spectra  [cm^-1]    :  200-3500
+   half-width for peaks [cm^-1]       :   20
+   peak type in spectra plots         : gauss  
+   Scaling factor for frequencies     :           1.000000000000
+
+ Molecule of snf run
+ -------------------
+
+   No El  AN             m               x               y               z
+    1 H    1      1.007825      0.00000000      1.43445142     -0.92681051
+    2 H    1      1.007825      0.00000000     -1.43445142     -0.92681051
+    3 O    8     15.994915      0.00000000      0.00000000      0.23170310
+
+ Restart file information
+ ------------------------
+   restart file name         : restart
+   title                     : /home/deffner/Berechnungen/37_test_scripts
+   program for single points : GAUSSIAN  
+   type of calculation       : g09       
+   file format version       :  4.20
+   Number of atoms           :     3
+   Number of steps           :     2
+   distortion [bohr]         :  0.010
+
+
+  100.00 % of all calculations have already been done
+  (or are redundant because of the molecular symmetry).
+
+   Geometry fits to c1  symmetry within   0.0     bohr.
+
+ Hessian symmetry check information   
+ ------------------------------------ 
+   Maximal absolute error |hij-hji| :  0.18E-03
+   Standard deviation               :  0.51E-04
+
+ Identifying translational and rotation normal modes
+ ---------------------------------------------------
+
+   Type identification for irrep: a    
+
+   type of mode | No. | wavenumber | trans. frac. | rot. frac. 
+   -------------|-----|------------|--------------|------------
+    rotational  |   1 |     -16.42 |         7.82 |      99.69
+    translation |   2 |      -0.45 |        99.99 |       1.16
+    translation |   3 |       0.27 |       100.00 |       0.00
+    translation |   4 |       1.17 |        99.69 |       7.82
+    rotational  |   5 |      19.90 |         1.16 |      99.99
+    rotational  |   6 |      25.45 |         0.00 |     100.00
+    vibrational |   1 |    1607.25 |         0.00 |       0.00
+    vibrational |   2 |    3677.75 |         0.00 |       0.00
+    vibrational |   3 |    3777.24 |         0.00 |       0.00
+
+ Translational and rotational modes are now projected off!
+ Frequencies may slightly change but the resulting data are more accurate!
+
+ Infrared intensities:
+ ---------------------
+
+   mode | irrep | mode no. in | wavenumber | ir intensity | rel. int.
+   no.  |       | this irrep  |   [1/cm]   |   [km/mol]   |          
+   -----|-------|-------------|------------|--------------|-----------
+      1 | a     |           1 |    1607.25 |    40.079807 |    0.6200
+      2 | a     |           2 |    3677.75 |     1.625698 |    0.0251
+      3 | a     |           3 |    3777.24 |    64.649433 |    1.0000
+
+ General molecular quantities
+ ----------------------------
+   Zero point energy (ZPE) [kJ/mol]   :      54.2
+   Molecular mass [amu]               :      18.0
+   Principal momenta and eigenvectors :
+
+        2.40255        4.14750        6.55005
+
+        0.00000        1.00000       -0.00000
+        0.00000        0.00000        1.00000
+        1.00000        0.00000        0.00000
+
+ NOTE:
+
+ Symmetry number sigma is chosen automatically according
+ to the point group employed in the calculation, which has
+ not necessarily to be the true point group of the molecule!
+ Using a wrong sigma yields wrong partition functions for
+ rotation and thus hampers thermodynamics calculations.
+
+
+ Thermochemical data
+ -------------------
+   Symmetry number (sigma)           :              1
+   Temperature  [K]                  :         298.15
+   Pressure  [Pa]                    :      101325.00
+   Total spin quantum number         :           0.00
+   Partition function (bottom)       :   0.876950E-01
+   Partition function (v=0)          :   0.274872E+09
+   ln(Q(bottom))                     :  -0.243389E+01
+   ln(Q(v=0))                        :   0.194318E+02
+   Entropy  S [J/(mol K)]            :         194.85
+   Enthalpy H [kJ/mol]               :          64.13
+   Cv [J/(mol*K)]                    :          25.16
+   Gibbs Enthalpy G [kJ/mol]         :           6.03
+   Electronic Energy  [Hartree]      :        0.0000000000
+   Electronic Energy + ZPE [Hartree] :        0.0206463824
+   Total Energy  [Hartree]           :        0.0022981661
+
+    NOTE: * H and G do NOT contain <E_elec>!
+              (only the Total Energy contains everything) 
+          * H, G, S, and Cv contain the ZPE!
+          * the electronic contribution to S is the spin-only value!
+
+  Contributions                 :    translation       rotation      vibration     electronic
+   Entropy  [J/(mol K)]         :         144.80          50.02           0.03           0.00
+   Enthalpy  [kJ/mol]           :           6.20           3.72          54.21
+   Cv [J/(mol*K)]               :          12.47          12.47           0.21
+   Partition function (bottom)  :   0.300432E+07   0.914530E+02   0.319176E-09
+   Partition function (v=0)     :   0.300432E+07   0.914530E+02   0.100043E+01
+   ln(Q(bottom))                :      14.915562       4.515826     -21.865277
+   ln(Q(v=0))                   :      14.915562       4.515826       0.000428
+
+
+ Frequencies and mass-weighted normal coordinates
+ ------------------------------------------------
+
+          eigenvalues  in  cm^-1
+
+ ROOT NO.:          1         2         3
+ EIGVAL. :     1607.246  3677.752  3777.238
+
+
+
+
+    root no.    1           2           3
+
+          1607.24646  3677.75161  3777.23770
+  
+ x  H    1   0.00000     0.00000     0.00000
+ y  H    1   0.41904    -0.56956    -0.53025
+ z  H    1   0.53675     0.39490     0.42825
+ x  H    2   0.00000     0.00000     0.00000
+ y  H    2  -0.41904     0.56956    -0.53025
+ z  H    2   0.53675     0.39490    -0.42825
+ x  O    3   0.00000     0.00000     0.00000
+ y  O    3  -0.00000    -0.00000     0.26620
+ z  O    3  -0.26946    -0.19825    -0.00000
+
+ Generate fake outputs for normal mode presentation
+ --------------------------------------------------
+   Created gaussian fake output file : g98.out
+ Type of data chosen for Raman spectrum plot: (ractivi)
+
+ Generate spectra plots
+ ----------------------
+   Created gnuplot data file  : gauss_spectrum.dat
+   Created gnuplot input file : ir_gauss.gpin
+   Created gnuplot data file  : line_spectrum.dat
+   Created gnuplot input file : ir_line.gpin
+   Created spectrum eps file  : ir_line.eps
+   Created spectrum eps file  : ir_gauss.eps
+
+**********************************
+** time used in snf:  0 seconds **
+**********************************
