@@ -4,14 +4,15 @@
 import sys
 import numpy as np
 import matplotlib.pyplot as plt
+import math
 
 
 def first(x):
     return x[0]
 
 
-def gaussian(x):
-    return np.exp(-(x/sigma)**2/2)
+def gaussian(x, sigma):
+    return (1/(sigma*math.sqrt(2*math.pi)))*np.exp(-(x/sigma)**2/2)
 
 
 if __name__ == '__main__':
@@ -27,6 +28,8 @@ if __name__ == '__main__':
     wavenum_sample = np.linspace(min(iets['wavenumber']),
                                  max(iets['wavenumber']),
                                  num=sampling)
+    point_distance = (max(iets['wavenumber']) -
+                      min(iets['wavenumber']))/sampling
     signal = np.zeros(sampling)
     pair = list(zip(wavenum_sample, signal))
     signal_pair = list(zip(iets['wavenumber'], iets['intensity']))
@@ -35,17 +38,23 @@ if __name__ == '__main__':
 
     p_wavenum = [i[0] for i in pair]
     i_wavenum = [i[1] for i in pair]
-    N = 50
-    sigma = 200
-    dx = float(3940-3930)/N
-    gx = np.arange(-3*sigma, 3*sigma, dx)
-    gauss = [gaussian(x) for x in gx]
-    result = np.convolve(i_wavenum, gauss, mode='same')
-    plt.plot(p_wavenum, i_wavenum)
+    dx = (max(iets['wavenumber']) - min(iets['wavenumber']))/len(i_wavenum)
+    sigma = 10
+    gx = np.arange(-4*sigma, sigma*4, dx)
+    gauss = [gaussian(x, sigma) for x in gx]
+
+    result = np.convolve(i_wavenum, gauss, mode='full')
+
+    while True:
+        p_wavenum = [p_wavenum[0]-point_distance] + p_wavenum
+        if len(p_wavenum) == len(result):
+            break
+        p_wavenum = p_wavenum + [p_wavenum[-1]+point_distance]
+        if len(p_wavenum) == len(result):
+            break
+
+    plt.plot(p_wavenum, result)
     plt.savefig(savefig)
-    np.savetxt(outfilename, list(zip(iets['mode_idx'],
-                                     iets['wavenumber'],
-                                     iets['energy'],
-                                     iets['intensity'])),
+    np.savetxt(outfilename, list(zip(p_wavenum, result)),
                # fmt='{%d} {%.18e} {%d} {%.18e}')
-               fmt=['%d', '%.18e', '%.18e', '%.18e'])
+               fmt=['%.18e', '%.18e'])
