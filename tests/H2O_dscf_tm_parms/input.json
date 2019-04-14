@@ -1,0 +1,21 @@
+{
+"sp_control": 
+    {
+      "qc_prog": "turbomole",
+      "params": {
+        "use resolution of identity": false,
+		"multiplicity": 1,
+		"charge": 0,
+		"use dft": true,
+		"density functional": "b-p",
+		"basis set name": "def2-SVP"
+        }
+    },
+"vib_out": "snf",
+"vib_out_file": "snf.out",
+"artaios_in": "artaios.in",
+"restart": false,
+"modes": "all",
+"mp": 2,
+"verbose": true
+}
