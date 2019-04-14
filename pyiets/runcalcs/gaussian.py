@@ -31,7 +31,7 @@ def create_g09_input(g09_options, ase_molecule, filename):
         for idx, vec in enumerate(ase_molecule.get_positions()):
             fp.write(ase_molecule.get_chemical_symbols()[idx] + ' '*4)
             for coord in vec:
-                fp.write(str(coord) + ' '*4)
+                fp.write('{:.16f}'.format(coord) + ' '*4)
             fp.write('\n')
         fp.write('\n\n')
         fp.write('--Link1--\n')
@@ -51,7 +51,7 @@ def create_g09_input(g09_options, ase_molecule, filename):
         for idx, vec in enumerate(ase_molecule.get_positions()):
             fp.write(ase_molecule.get_chemical_symbols()[idx] + ' '*4)
             for coord in vec:
-                fp.write(str(coord) + ' '*4)
+                fp.write('{:.16f}'.format(coord) + ' '*4)
             fp.write('\n')
         fp.write('\n\n')
         return

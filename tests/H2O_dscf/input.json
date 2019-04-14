@@ -4,7 +4,7 @@
       "qc_prog": "turbomole",
       "params": {
         "use resolution of identity": false,
-        "define_str": "\n\na coord\n*\nno\nb all TZ\n*\neht\n\n\n\n*"
+        "define_str": "\n\na coord\n*\nno\nb all def2-SVP\n*\neht\n\n\n\ndft\non\nfunc\nb-p\n\n*"
         }
     },
 "vib_out": "snf",

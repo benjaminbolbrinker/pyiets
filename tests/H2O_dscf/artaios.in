@@ -7,8 +7,8 @@ $general
 $end
 
 $partitioning
- leftatoms 1
- centralatoms 2
+ leftatoms 2
+ centralatoms 1
  rightatoms 3
 $end
 
