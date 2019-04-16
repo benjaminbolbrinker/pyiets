@@ -10,3 +10,6 @@ mos
 docs/build/
 iets.dat
 *.png
+distortions/
+nohup.out
+output/
