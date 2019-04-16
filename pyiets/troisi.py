@@ -4,6 +4,8 @@ from shutil import copyfile, move
 import numpy as np
 from tempfile import mkstemp
 
+from mendeleev import element
+
 import pyiets.artaios as artaios
 import pyiets.restart as restart
 
@@ -71,20 +73,24 @@ class Troisi:
         mode.to_weighted()
         assert len(mode.get_vectors()) == len(self.molecule.an)
         for idx, vector in enumerate(mode.get_vectors()):
+            print("MODE vec: ", vector)
             for coord in vector:
-                reduced_mass += (coord**2)/self.molecule.an[idx]
+                reduced_mass += (coord*coord)/(float(
+                    element(self.molecule.an[idx]).atomic_weight))
+                print("atoms: ", (float(element(self.molecule.an[idx])
+                                  .atomic_weight)))
 
         reduced_mass = 1.0 / reduced_mass
         troisi_greenmatrix = ((math.sqrt(2.0)/(4.0)/cstep) *
                               (np.array(gm_idx[0]['greensmatrix'])
                               - np.array(gm_idx[1]['greensmatrix'])))
         troisi_greenmatrix /= math.sqrt(reduced_mass)
+        print(reduced_mass)
         mode.print()
         print(gm_idx[0])
         print(gm_idx[1])
         print(troisi_greenmatrix)
         mode.set_troisi_greensmat(gm=troisi_greenmatrix)
-        mode.to_non_weighted()
         return troisi_greenmatrix
 
     def _init_output(self, path_to_sp):
