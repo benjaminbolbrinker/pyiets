@@ -68,7 +68,7 @@ class Troisi:
                   for idx in range(len(mode.get_folders()))]
 
         reduced_mass = 0.0
-        # mode.to_weighted()
+        mode.to_weighted()
         assert len(mode.get_vectors()) == len(self.molecule.an)
         for idx, vector in enumerate(mode.get_vectors()):
             for coord in vector:
@@ -84,6 +84,7 @@ class Troisi:
         print(gm_idx[1])
         print(troisi_greenmatrix)
         mode.set_troisi_greensmat(gm=troisi_greenmatrix)
+        mode.to_non_weighted()
         return troisi_greenmatrix
 
     def _init_output(self, path_to_sp):

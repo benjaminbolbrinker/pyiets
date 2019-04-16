@@ -22,7 +22,8 @@ def create_g09_input(g09_options, ase_molecule, filename):
         fp.write('%NProcShared=' + str(options['nprocshared']) + '\n')
         fp.write('#P ' + options['method']
                        + '/' + options['basis']
-                       + ' GFPrint\n\n')
+                       + ' GFPrint'
+                       + ' NoSymmetry\n\n')
         fp.write('Title '
                  + ase_molecule.get_chemical_formula(mode='hill')
                  + '\n\n')
@@ -40,7 +41,7 @@ def create_g09_input(g09_options, ase_molecule, filename):
         fp.write('#P ' + options['method']
                        + '/' + options['basis']
                        + ' guess=read\n')
-        fp.write('#P GFINPUT IOP(6/7=3)\n')
+        fp.write('#P GFINPUT IOP(6/7=3) NoSymmetry\n')
         fp.write('# iop(5/33=3)\n')
         fp.write('# iop(3/33=1)\n\n')
         fp.write('Title '
