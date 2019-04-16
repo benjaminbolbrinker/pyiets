@@ -73,23 +73,20 @@ class Troisi:
         mode.to_weighted()
         assert len(mode.get_vectors()) == len(self.molecule.an)
         for idx, vector in enumerate(mode.get_vectors()):
-            print("MODE vec: ", vector)
             for coord in vector:
                 reduced_mass += (coord*coord)/(float(
                     element(self.molecule.an[idx]).atomic_weight))
-                print("atoms: ", (float(element(self.molecule.an[idx])
-                                  .atomic_weight)))
 
         reduced_mass = 1.0 / reduced_mass
         troisi_greenmatrix = ((math.sqrt(2.0)/(4.0)/cstep) *
                               (np.array(gm_idx[0]['greensmatrix'])
                               - np.array(gm_idx[1]['greensmatrix'])))
         troisi_greenmatrix /= math.sqrt(reduced_mass)
-        print(reduced_mass)
-        mode.print()
-        print(gm_idx[0])
-        print(gm_idx[1])
-        print(troisi_greenmatrix)
+        if self.options['verbose']:
+            mode.print()
+            print(gm_idx[0])
+            print(gm_idx[1])
+            print(troisi_greenmatrix)
         mode.set_troisi_greensmat(gm=troisi_greenmatrix)
         return troisi_greenmatrix
 
