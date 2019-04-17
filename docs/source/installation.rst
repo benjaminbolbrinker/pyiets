@@ -17,7 +17,6 @@ To confirm the environment was installed properly type:
 
    make test_all
 
-Note that Turbomole_ 7.1 does not support parallelism for calculations with ridft and hybrid functionals.
 
 .. _Turbomole: http://www.turbomole.com/
 .. _ARTAIOS: https://www.chemie.uni-hamburg.de/institute/ac/arbeitsgruppen/herrmann/software/artaios.html 
