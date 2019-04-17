@@ -18,8 +18,9 @@ def gaussian(x, sigma):
 if __name__ == '__main__':
     infilename = sys.argv[1]
     outfilename = sys.argv[2]
-    sampling = int(sys.argv[3])
-    savefig = sys.argv[4]
+    savefig = sys.argv[3]
+    sampling = int(sys.argv[4])
+    HWHM = float(sys.argv[5])
 
     iets = np.loadtxt(infilename, dtype={
         'names': ('mode_idx', 'wavenumber', 'energy', 'intensity'),
@@ -39,7 +40,8 @@ if __name__ == '__main__':
     p_wavenum = [i[0] for i in pair]
     i_wavenum = [i[1] for i in pair]
     dx = (max(iets['wavenumber']) - min(iets['wavenumber']))/len(i_wavenum)
-    sigma = 10
+
+    sigma = 2*math.sqrt(2*math.log(2, math.e))
     gx = np.arange(-4*sigma, sigma*4, dx)
     gauss = [gaussian(x, sigma) for x in gx]
 
