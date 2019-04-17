@@ -41,7 +41,7 @@ if __name__ == '__main__':
     i_wavenum = [i[1] for i in pair]
     dx = (max(iets['wavenumber']) - min(iets['wavenumber']))/len(i_wavenum)
 
-    sigma = 2*math.sqrt(2*math.log(2, math.e))
+    sigma = HWHM/2*math.sqrt(2*math.log(2, math.e))
     gx = np.arange(-4*sigma, sigma*4, dx)
     gauss = [gaussian(x, sigma) for x in gx]
 
