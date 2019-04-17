@@ -260,6 +260,7 @@ Plotting of IETS spectra with Gaussian broadening. Type
 
 to create IETS-data with a sampling of <sampling>. The signal is filtered with a Gaussian with a HWHM of <hwhm>.
 
+
 :code:`pyiets-clean`
 ^^^^^^^^^^^^^^^^^^^
 
