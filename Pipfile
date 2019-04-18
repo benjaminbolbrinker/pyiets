@@ -15,6 +15,7 @@ numpydoc = "*"
 sphinx-rtd-theme = "*"
 mendeleev = "*"
 matplotlib = "*"
+pyiets = {path = "."}
 
 [requires]
 python_version = "3.5"
