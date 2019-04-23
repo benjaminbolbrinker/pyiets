@@ -6,6 +6,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 import math
 
+import scipy.constants as const
+
 
 def first(x):
     return x[0]
@@ -20,7 +22,7 @@ if __name__ == '__main__':
     outfilename = sys.argv[2]
     savefig = sys.argv[3]
     sampling = int(sys.argv[4])
-    HWHM = float(sys.argv[5])
+    FWHM = float(sys.argv[5])
 
     iets = np.loadtxt(infilename, dtype={
         'names': ('mode_idx', 'wavenumber', 'energy', 'intensity'),
@@ -41,7 +43,7 @@ if __name__ == '__main__':
     i_wavenum = [i[1] for i in pair]
     dx = (max(iets['wavenumber']) - min(iets['wavenumber']))/len(i_wavenum)
 
-    sigma = HWHM/2*math.sqrt(2*math.log(2, math.e))
+    sigma = FWHM/2*math.sqrt(2*math.log(2, math.e))
     gx = np.arange(-4*sigma, sigma*4, dx)
     gauss = [gaussian(x, sigma) for x in gx]
 
@@ -55,7 +57,16 @@ if __name__ == '__main__':
         if len(p_wavenum) == len(result):
             break
 
-    plt.plot(p_wavenum, result)
+    fig = plt.figure()
+    ax1 = fig.add_subplot(111)
+    plt.ylabel('Intensity [1/V]')
+    plt.xlabel('Wavenumber [1/cm]')
+    ax2 = ax1.twiny()
+    wavenum2mV = 1e3*const.c*const.h/const.e
+    ax1.plot(p_wavenum, result)
+    ax2.plot([min(p_wavenum)*wavenum2mV, max(p_wavenum)*wavenum2mV],
+             2*[0.0], ' ')
+    plt.xlabel('Bias Voltage [mV]')
     plt.savefig(savefig)
     np.savetxt(outfilename, list(zip(p_wavenum, result)),
                # fmt='{%d} {%.18e} {%d} {%.18e}')
