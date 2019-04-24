@@ -258,7 +258,7 @@ Plotting of IETS spectra with Gaussian broadening. Type
 
    pyiets-gaussian-broadening iets.dat iets-filtered.dat iets-filtered.png <sampling> <fwhm>
 
-to create IETS-data with a sampling of <sampling>. The signal is filtered with a Gaussian with a FWHM of <fwhm>.
+to create IETS-data with a sampling of <sampling>. The signal is filtered with a Gaussian with a FWHM of <fwhm> in units of 1/cm.
 
 
 :code:`pyiets-clean`
