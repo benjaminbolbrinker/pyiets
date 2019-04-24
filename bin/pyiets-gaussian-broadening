@@ -62,9 +62,9 @@ if __name__ == '__main__':
     plt.ylabel('Intensity [1/V]')
     plt.xlabel('Wavenumber [1/cm]')
     ax2 = ax1.twiny()
-    wavenum2mV = 1e3*const.c*const.h/const.e
+    wavenum_1cm2mV = 1e5*const.c*const.h/const.e
     ax1.plot(p_wavenum, result)
-    ax2.plot([min(p_wavenum)*wavenum2mV, max(p_wavenum)*wavenum2mV],
+    ax2.plot([min(p_wavenum)*wavenum_1cm2mV, max(p_wavenum)*wavenum_1cm2mV],
              2*[0.0], ' ')
     plt.xlabel('Bias Voltage [mV]')
     plt.savefig(savefig)
