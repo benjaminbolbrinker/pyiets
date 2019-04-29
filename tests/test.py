@@ -18,6 +18,9 @@ test_dirs = ['C10H4Au6S2_dscf',
              'H2O_ridft_turbomolein_M',
              'H2O_self']
 
+test_dirs = [os.path.join(os.path.dirname(__file__), test)
+             for test in test_dirs]
+
 for test in test_dirs:
     if filecmp.cmp(os.path.join(test, 'iets.dat'),
                    os.path.join(test, 'test.dat')):

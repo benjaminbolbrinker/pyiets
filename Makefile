@@ -16,7 +16,7 @@ documentation:
 	cd docs/ && make html
 	firefox ${cwd}/docs/build/html/index.html
 
-test_all: test_H2O_dscf test_H2O_dscf_tm_params test_H2O_dscf_g09 test_H2O_ridft test_H2O_ridft_tm_params test_H2O_ridft_gaussianin test_H2O_ridft_fake_gaussianin test_H2O_ridft_turbomole_M test_H2O_M test_H2O_self
+test_all: test_H2O_dscf test_H2O_dscf_tm_params test_H2O_dscf_g09 test_H2O_ridft test_H2O_ridft_tm_params test_H2O_ridft_gaussianin test_H2O_ridft_fake_gaussianin test_H2O_ridft_turbomole_M test_H2O_M test_H2O_self test
 
 test_C10H4Au6S2:
 	pyiets ${C10H4Au6S2}
@@ -50,6 +50,9 @@ test_H2O_M:
 
 test_H2O_self: 
 	pyiets ${H2O_self}
+
+test:
+	./tests/test.py
 
 clean: clean_C10H4Au6S2 clean_H2O_dscf clean_H2O_dscf_tm_params clean_H2O_dscf_g09 clean_H2O_ridft clean_H2O_ridft_tm_params clean_docs clean_H2O_ridft_gaussianin clean_H2O_ridft_fake_gaussianin clean_H2O_ridft_turbomole_M clean_H2O_M clean_H2O_self
 

@@ -4,11 +4,11 @@
       "qc_prog": "turbomole",
       "params": {
         "use resolution of identity": true,
-		"define_str": "\n\na coord\n*\nno\nb all TZ\n*\neht\n\n\n\nri\non\n\ndft\non\nfunc lyp\n\nscf\n iter\n300\nconv\n7\n\n*"
+		"define_str": "\n\na coord\n*\nno\nb all dhf-SV(P)-2c\n*\neht\n\n\n\nri\non\n\ndft\non\nfunc lyp\n\nscf\n iter\n300\nconv\n7\n\n\nscf\nsoghf\nyes\n\n\n*"
         }
     },
-"vib_out_file": "snf.out",
 "vib_out": "snf",
+"vib_out_file": "snf.out",
 "artaios_in": "artaios.in",
 "restart": false,
 "modes": "all",
