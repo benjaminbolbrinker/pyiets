@@ -4,6 +4,8 @@
     "qc_prog": "turbomole",
     "params": null
   },
+  "two_component_calculation": false,
+
   "input_file": "input.json",
   "vib_out": null,
   "vib_out_file": null,
