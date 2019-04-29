@@ -138,11 +138,52 @@ if __name__ == '__main__':
                  os.path.join(folder, options['artaios_in']))
     artaios.preprocess()
     artaios.run()
+
+    if options['two_component_calculation']:
+        pass  # modify singlepoint input
+        pass  # modify restart file
+        print('Running two-component single point calculations...')
+        mode_folders, done = restart.choose_mode_folders(
+                os.path.join(options['workdir'],
+                             options['mode_folder'],
+                             options['sp_restart_file']),
+                os.path.join(options['workdir'],
+                             options['mode_folder']))
+        singlepoint = pyiets.sp.SinglePoint(
+            mode_folders, options,
+            restartsaveloc=os.path.join(options['workdir'],
+                                        options['mode_folder']))
+        singlepoint.run()
+        print('Done\n')
+
+        pass  # modify restart file
+        print('Running two-component transport calculations...')
+        mode_folders, done = restart.choose_mode_folders(
+                os.path.join(options['workdir'],
+                             options['mode_folder'],
+                             options['artaios_restart_file']),
+                os.path.join(options['workdir'],
+                             options['mode_folder']))
+        artaios = pyiets.artaios.Artaios(
+                mode_folders, options,
+                restartsaveloc=os.path.join(options['workdir'],
+                                            options['mode_folder']))
+
+        pass  # modify artaios
+        # Copy artaios input to each folder
+        for folder in mode_folders:
+            copyfile(os.path.join(options['workdir'],
+                                  options['artaios_in']),
+                     os.path.join(folder, options['artaios_in']))
+        artaios.preprocess()
+        artaios.run()
+
+    print('Done\n')
+
     g_files = [os.path.join(m, options['greenmatrix_file'])
                for m in mode_folders.union(done)]
 
     greenmatrices_unsrt = [gm for gm in artaios.read_greenmatrices(g_files)]
-    print('Done\n')
 
     print('Calculating Troisi-Greensmatrices...')
     troisi = Troisi(options=options, modes=modes,
