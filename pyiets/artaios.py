@@ -50,7 +50,7 @@ class Artaios():
         self.restartsaveloc = restartsaveloc
         self.greenmatrices = None
 
-    def run(self):
+    def preprocess(self, soc=False):
         """Read turbomole mos-files and run artaios calculations
         for every vibration mode. Mos-filename has to be specisfied in
         options['artaios_in'] file. Calculation is controlled via 'input.json'
@@ -68,11 +68,33 @@ class Artaios():
         os.chdir(self.options['workdir'])
 
         if self.options['sp_control']['qc_prog'] == 'turbomole':
-            calcmanager.start_artaios_tm(self.mode_folders,
-                                         self.options, self.restartsaveloc)
-        if self.options['sp_control']['qc_prog'] == 'gaussian':
-            calcmanager.start_artaios_g09(self.mode_folders,
+            calcmanager.start_tm2unformcl(self.mode_folders,
                                           self.options, self.restartsaveloc)
+        if self.options['sp_control']['qc_prog'] == 'gaussian':
+            calcmanager.start_g092unform(self.mode_folders,
+                                         self.options, self.restartsaveloc)
+
+        os.chdir(cwd)
+
+    def run(self):
+        """Read turbomole mos-files and run artaios calculations
+        for every vibration mode. Mos-filename has to be specisfied in
+        options['artaios_in'] file. Calculation is controlled via 'input.json'
+
+        Note
+        ----
+        Set at least options['workdir'], options['sp_control'],
+                     options['qc_prog'], options['artaios'],
+                     options['artaios_bin'], options['artaios_in'],
+                     options[artaios_restart_file'], options['artaios_stdout'],
+                     options['artaios_stderr']
+
+        """
+        cwd = os.getcwd()
+        os.chdir(self.options['workdir'])
+
+        calcmanager.start_artaios(self.mode_folders,
+                                  self.options, self.restartsaveloc)
 
         os.chdir(cwd)
 
