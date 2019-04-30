@@ -24,6 +24,7 @@ import pyiets.runcalcs.turbomole as turbomole
 import pyiets.runcalcs.gaussian as gaussian
 import pyiets.runcalcs.artaios as artaios
 import pyiets.runcalcs.tm2unformcl as tm2unformcl
+import pyiets.runcalcs.tm2unformsoc as tm2unformsoc
 import pyiets.runcalcs.g092unform as g092unform
 
 
@@ -75,7 +76,7 @@ def start_gaussian_single_points(folders, options, restarfileloc=None):
         pool.map(gaussian.run, params)
 
 
-def start_artaios_g09(folders, options, restarfileloc=None):
+def start_artaios(folders, options, restarfileloc=None):
     '''Start artaios calculations asynchronously in specified folders.
 
     Parameters
@@ -95,23 +96,39 @@ def start_artaios_g09(folders, options, restarfileloc=None):
     with multiprocessing.Pool(processes=options['mp']) as pool:
         manager = multiprocessing.Manager()
         lock = manager.Lock()
+        params = [(folder, options, restarfileloc, lock)
+                  for folder in folders]
+        pool.imap(artaios.run, params)
+        pool.close()
+        pool.join()
+
+
+def start_g092unform(folders, options, restarfileloc=None):
+    '''Start artaios calculations asynchronously in specified folders.
+
+    Parameters
+    ----------
+    folders : :obj:`list`
+        containing foldernames (str)
+    coord : :obj:`str`
+        name of turbomole coord file (has to be present in each folder).
+    params : :obj:`dict`
+        ASE params for turbomole.
+    nthreads : int
+        number of threads.
+    restartfilename : :obj:`str`, optional
+        name of restartfile.
+    '''
+
+    with multiprocessing.Pool(processes=options['mp']) as pool:
         params = [(folder, options)
                   for folder in folders]
         pool.imap(g092unform.run, params)
         pool.close()
         pool.join()
 
-    with multiprocessing.Pool(processes=options['mp']) as pool:
-        manager = multiprocessing.Manager()
-        lock = manager.Lock()
-        params = [(folder, options, restarfileloc, lock)
-                  for folder in folders]
-        pool.imap(artaios.run, params)
-        pool.close()
-        pool.join()
 
-
-def start_artaios_tm(folders, options, restarfileloc=None):
+def start_tm2unformcl(folders, options, restarfileloc=None):
     '''Start artaios calculations asynchronously in specified folders.
 
     Parameters
@@ -129,19 +146,33 @@ def start_artaios_tm(folders, options, restarfileloc=None):
     '''
 
     with multiprocessing.Pool(processes=options['mp']) as pool:
-        manager = multiprocessing.Manager()
-        lock = manager.Lock()
         params = [(folder, options)
                   for folder in folders]
         pool.imap(tm2unformcl.run, params)
         pool.close()
         pool.join()
 
+
+def start_tm2unformsoc(folders, options, restarfileloc=None):
+    '''Start artaios calculations asynchronously in specified folders.
+
+    Parameters
+    ----------
+    folders : :obj:`list`
+        containing foldernames (str)
+    coord : :obj:`str`
+        name of turbomole coord file (has to be present in each folder).
+    params : :obj:`dict`
+        ASE params for turbomole.
+    nthreads : int
+        number of threads.
+    restartfilename : :obj:`str`, optional
+        name of restartfile.
+    '''
+
     with multiprocessing.Pool(processes=options['mp']) as pool:
-        manager = multiprocessing.Manager()
-        lock = manager.Lock()
-        params = [(folder, options, restarfileloc, lock)
+        params = [(folder, options)
                   for folder in folders]
-        pool.imap(artaios.run, params)
+        pool.imap(tm2unformsoc.run, params)
         pool.close()
         pool.join()
