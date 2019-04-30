@@ -68,8 +68,14 @@ class Artaios():
         os.chdir(self.options['workdir'])
 
         if self.options['sp_control']['qc_prog'] == 'turbomole':
-            calcmanager.start_tm2unformcl(self.mode_folders,
-                                          self.options, self.restartsaveloc)
+            if self.options['two_component_calculation']:
+                calcmanager.start_tm2unformsoc(self.mode_folders,
+                                               self.options,
+                                               self.restartsaveloc)
+            else:
+                calcmanager.start_tm2unformcl(self.mode_folders,
+                                              self.options,
+                                              self.restartsaveloc)
         if self.options['sp_control']['qc_prog'] == 'gaussian':
             calcmanager.start_g092unform(self.mode_folders,
                                          self.options, self.restartsaveloc)

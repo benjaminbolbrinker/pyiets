@@ -58,7 +58,7 @@ class SinglePoint():
         self.mode_folders = mode_folders
         self.restartsaveloc = restartsaveloc
 
-    def run(self):
+    def run(self, soc=False):
         """Run single calculations in every folder provided in
         contructor.
 

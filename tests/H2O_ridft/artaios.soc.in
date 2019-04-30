@@ -1,0 +1,33 @@
+$general
+ rbas
+ do_transport
+ qcprog tm
+ mosfile ASE.TM.ridft.out
+ print_green
+$end
+
+$partitioning
+ leftatoms 1
+ centralatoms 2
+ rightatoms 3
+$end
+
+$energy_range
+ start -5.0
+ end -5.0
+ steps 0
+$end
+
+$system
+ nspin 4
+$end
+
+$electrodes
+ fermi_level -5.0
+ self_energy wbl
+ dos_s 0.036
+$end
+
+$debug
+ xyzfile coord
+$end
