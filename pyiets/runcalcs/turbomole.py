@@ -38,11 +38,12 @@ def run(params):
     calc = Turbomole(**tmparams)
 
     # Clean directory
-    files = glob.glob('*')
-    cleanupFiles = files
-    cleanupFiles.remove(coord)
-    for cleanupFile in cleanupFiles:
-        os.remove(cleanupFile)
+    if options['restart']:
+        files = glob.glob('*')
+        cleanupFiles = files
+        cleanupFiles.remove(coord)
+        for cleanupFile in cleanupFiles:
+            os.remove(cleanupFile)
 
     molecule = ase.io.read(coord, format='xyz')
 
