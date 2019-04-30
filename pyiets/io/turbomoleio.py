@@ -1,4 +1,5 @@
 import os
+import logging
 import pyiets.atoms.molecule as mol
 import pyiets.atoms.vibration as vib
 
@@ -29,7 +30,8 @@ class Parser:
         self.options = options
         self.turbomoleoutname = os.path.join(options['workdir'],
                                              options['vib_out_file'])
-        parser = cclib.io.ccopen(self.turbomoleoutname)
+        parser = cclib.io.ccopen(self.turbomoleoutname,
+                                 loglevel=logging.WARNING)
         self.data = parser.parse()
         self.natoms = self._get_natoms()
         self.nmodes = self._get_nmodes()
