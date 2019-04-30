@@ -69,7 +69,9 @@ class Preprocessor():
         cwd = os.getcwd()
         molecule = self.parser.get_molecule()
 
-        os.mkdir(os.path.join(self.workdir, self.options['mode_folder']))
+        os.makedirs(os.path.join(self.workdir, self.options['mode_folder']),
+                    exist_ok=True)
+        # os.mkdir(os.path.join(self.workdir, self.options['mode_folder']))
         outdirpath = os.path.abspath(os.path.join(self.workdir,
                                                   self.options['mode_folder']))
 
@@ -77,7 +79,8 @@ class Preprocessor():
         spname = self.options['sp_name']
         returnarr.append(os.path.realpath(spname))
         os.chdir(outdirpath)
-        os.mkdir(spname)
+        os.makedirs(spname, exist_ok=True)
+        # os.mkdir(spname)
         os.chdir(spname)
         ase.io.write(self.dissotionoutname,
                      molecule.to_ASE_atoms_obj(),
@@ -98,7 +101,8 @@ class Preprocessor():
             dissortion_folders = []
             for idx, dissortion in enumerate(asedissortions):
                 modedir = 'mode' + str(mode.get_idx()) + '_' + str(idx)
-                os.mkdir(modedir)
+                os.makedirs(modedir, exist_ok=True)
+                # os.mkdir(modedir)
                 dissortion_folders.append(modedir)
                 os.chdir(modedir)
                 ase.io.write(self.dissotionoutname,
