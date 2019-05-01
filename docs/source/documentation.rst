@@ -187,6 +187,11 @@ This file contains the directory names in which single point calculations have a
 
 Name of the folder that will contain the single point calculation of the undistorted structure (default: :code:`"sp"`).
 
+:code:`tcc`
+^^^^^^^^^^^^^^^^^^^
+
+Turn off/on two-component calculation. Only compatible with :code:`turbomole` (default: :code:`false`).
+
 :code:`troisi_greenmatrix_file`
 ^^^^^^^^^^^^^^^^^^^
 
