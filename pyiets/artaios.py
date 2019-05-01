@@ -66,7 +66,6 @@ class Artaios():
         """
         cwd = os.getcwd()
         os.chdir(self.options['workdir'])
-
         if self.options['sp_control']['qc_prog'] == 'turbomole':
             if self.options['tcc']:
                 calcmanager.start_tm2unformsoc(self.mode_folders,
@@ -158,15 +157,25 @@ class Artaios():
         """
         with open(artaios_out, 'r') as fp:
             rawinput = fp.readlines()
-        float_re = r'[-+]?\d+[.][Ee0-9+-]+'
-        regex = (r'energy;\s*transmission:\s*(' +
-                 float_re + r')\s*(' +
-                 float_re + r')')
-        transmission_list = []
-        for idx, line in enumerate(rawinput):
-            arr = [[float(a[0]), float(a[1])]
-                   for a in re.findall(regex, line)]
-            [transmission_list.append(a) for a in arr if a]
+        if self.options['tcc']:
+            regex = r'\s*(?:([+-]?\d+\.\d+(?:[eEdD][+-]\d+)?)\s+)'*6
+            transmission_list = []
+            for idx, line in enumerate(rawinput):
+                arr = [[float(a[0]), float(a[1]), float(a[2]),
+                        float(a[3]), float(a[4]), float(a[5])]
+                       for a in re.findall(regex, line)]
+                [transmission_list.append(a) for a in arr if a]
+
+        else:
+            float_re = r'[-+]?\d+[.][Ee0-9+-]+'
+            regex = (r'energy;\s*transmission:\s*(' +
+                     float_re + r')\s*(' +
+                     float_re + r')')
+            transmission_list = []
+            for idx, line in enumerate(rawinput):
+                arr = [[float(a[0]), float(a[1])]
+                       for a in re.findall(regex, line)]
+                [transmission_list.append(a) for a in arr if a]
         return transmission_list
 
     def read_transmission(self):

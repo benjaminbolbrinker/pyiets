@@ -16,12 +16,11 @@ def run(params):
 
     folder = params[0]
     options = params[1]
-
     cwd = os.getcwd()
     # subprocess.call(['cp', os.path.realpath(options['artaios_in']), folder])
     os.chdir(folder)
-    os.rename(options['greenmatrix_file'],
-              os.path.join(options['greenmatrix_file'], '.old'))
+    os.remove(options['greenmatrix_file'])
+    # os.path.join(options['greenmatrix_file'], '.old'))
     stdoutname = 'artaios_tm_soc.stdout'
     stderrname = 'artaios_tm_soc.stderr'
     if options['verbose']:
