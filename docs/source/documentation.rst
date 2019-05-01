@@ -48,6 +48,23 @@ The folders are named via the :code:`mode_folder` and :code:`output_folder`-tag,
 The former contains the single-point calculations and transport calculations of the undistorted and distorted molecule which was provided.
 The latter contains the resulting Troisi-greensmatrices and the corresponding calculations are saved in files named via the :code:`troisi_greenmatrix_file`-tag.
 
+Two-component calculations with Turbomole
+---------------------------------------
+
+Two-component calculations can be performed as well.
+For this purpose, first perform a single-component calculation of the IETS spectrum as described above.
+Then adjust the input files:
+
+- The :code:`artaios_in` should be adjusted to separately treat spin up and spin down electrons (set :code:`nspin 4` in the :code:`system` field )
+- The parameters :code:`tcc` and :code:`define_str` in the :code:`input.json`-file should be adjusted, respectively. Often it makes sense to specify the :code:`iets_output_file`. Otherwise the file would be overwritten.
+
+
+Speeding up
+-----------
+
+For speeding up the calculation use initial guesses of the occupied molecular orbitals and start vectors from a previously performed single point calculation of the equilibrium structure (structure of the molecule provided in the vibrational calculation). 
+
+In Turbomole this can be achived by using the :code:`use <path to control-file>` instead of :code:`eht` in the :code:`define_str`-parameter.
 
 
 Input files
