@@ -227,7 +227,8 @@ class Troisi:
                              self.options['output_folder'],
                              self.options['artaios_restart_file']),
                 os.path.join(self.options['workdir'],
-                             self.options['output_folder'])
+                             self.options['output_folder']),
+                self.options['restart']
                 )
         art = artaios.Artaios(folders, self.options,
                               restartsaveloc=self.options['output_folder'])

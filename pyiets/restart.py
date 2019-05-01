@@ -1,7 +1,7 @@
 import os
 
 
-def choose_mode_folders(restartfile, path):
+def choose_mode_folders(restartfile, path, restart):
     """Chooses folders which have not been calculated yet.
 
     Restartability is accomplished by reading from file which
@@ -26,7 +26,7 @@ def choose_mode_folders(restartfile, path):
     cwd = os.getcwd()
     os.chdir(path)
 
-    if os.path.exists(restartfile):
+    if os.path.exists(restartfile) and restart:
         with open(
              restartfile, 'r'
         ) as restartfile:

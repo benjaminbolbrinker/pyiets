@@ -4,7 +4,7 @@
     "qc_prog": "turbomole",
     "params": null
   },
-  "two_component_calculation": false,
+  "tcc": false,
 
   "input_file": "input.json",
   "vib_out": null,
@@ -16,6 +16,7 @@
   "artaios_restart_file": "artaios.restart",
   "artaios_bin": "artaios",
   "artaios_tm_bin": "tm2unformcl",
+  "artaios_tm_soc_bin": "tm2unformsoc",
   "artaios_gm_bin": "g09_2unform",
   "artaios_gm_bin_spin_comp": 2,
   "artaios_in": "artaios.in",

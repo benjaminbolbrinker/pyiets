@@ -68,7 +68,7 @@ class Artaios():
         os.chdir(self.options['workdir'])
 
         if self.options['sp_control']['qc_prog'] == 'turbomole':
-            if self.options['two_component_calculation']:
+            if self.options['tcc']:
                 calcmanager.start_tm2unformsoc(self.mode_folders,
                                                self.options,
                                                self.restartsaveloc)
