@@ -91,12 +91,13 @@ def run(params):
                      filename=infilename)
 
     # Clean directory
-    files = glob.glob('*')
-    cleanupFiles = files
-    cleanupFiles.remove(coord)
-    cleanupFiles.remove(infilename)
-    for cleanupFile in cleanupFiles:
-        os.remove(cleanupFile)
+    if options['restart']:
+        files = glob.glob('*')
+        cleanupFiles = files
+        cleanupFiles.remove(coord)
+        cleanupFiles.remove(infilename)
+        for cleanupFile in cleanupFiles:
+            os.remove(cleanupFile)
 
     # Run and redirect output
     g09outname = 'g09.log'
