@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 import sys
+import csv
 import numpy as np
 import matplotlib.pyplot as plt
 
@@ -7,12 +8,26 @@ import matplotlib.pyplot as plt
 if __name__ == '__main__':
     filename = sys.argv[1]
     savepic = sys.argv[2]
+    with open(filename, 'r') as fp:
+        reader = csv.reader(fp, delimiter=" ")
+        ncols = len(list(reader)[0])
 
-    iets = np.loadtxt(filename, dtype={
-        'names': ('mode_idx', 'wavenumber', 'energy', 'intensity'),
-        'formats': ('i8', 'f8', 'f8', 'f8')
-    })
+    if ncols == 4:
+        iets = np.loadtxt(filename, dtype={
+            'names': ('mode_idx', 'wavenumber', 'energy', 'intensity'),
+            'formats': ('i8', 'f8', 'f8', 'f8')
+        })
 
-    plt.stem(iets['wavenumber'], iets['intensity'])
+        plt.stem(iets['wavenumber'], iets['intensity'])
+
+    if ncols == 8:
+        iets = np.loadtxt(filename, dtype={
+            'names': ('mode_idx', 'wavenumber', 'energy', 'intensity_tot',
+                      'intensity_uu', 'intensity_du',
+                      'intensity_ud', 'intensity_dd'),
+            'formats': ('i8', 'f8', 'f8', 'f8', 'f8', 'f8', 'f8', 'f8')
+        })
+        plt.stem(iets['wavenumber'], iets['intensity_uu'])
+        plt.stem(iets['wavenumber'], iets['intensity_dd'])
 
     plt.savefig(savepic)
