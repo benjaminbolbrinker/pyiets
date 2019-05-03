@@ -4,6 +4,7 @@ import csv
 import numpy as np
 import matplotlib.pyplot as plt
 
+import scipy.constants as const
 
 if __name__ == '__main__':
     filename = sys.argv[1]
@@ -12,13 +13,26 @@ if __name__ == '__main__':
         reader = csv.reader(fp, delimiter=" ")
         ncols = len(list(reader)[0])
 
+    fig = plt.figure()
+    ax1 = fig.add_subplot(111)
+    plt.ylabel('Intensity [1/V]')
+    plt.xlabel('Wavenumber [1/cm]')
+    ax2 = ax1.twiny()
+    plt.xlabel('Wavenumber [1/cm]')
+    plt.ylabel('Intensity [1/V]')
+
+    wavenum_1cm2mV = 1e5*const.c*const.h/const.e
+
     if ncols == 4:
         iets = np.loadtxt(filename, dtype={
             'names': ('mode_idx', 'wavenumber', 'energy', 'intensity'),
             'formats': ('i8', 'f8', 'f8', 'f8')
         })
 
-        plt.stem(iets['wavenumber'], iets['intensity'])
+        ax1.stem(iets['wavenumber'], iets['intensity'])
+        ax2.plot([min(iets['wavenumber'])*wavenum_1cm2mV,
+                  max(iets['wavenumber'])*wavenum_1cm2mV],
+                 2*[0.0], ' ')
 
     if ncols == 8:
         iets = np.loadtxt(filename, dtype={
@@ -27,7 +41,11 @@ if __name__ == '__main__':
                       'intensity_ud', 'intensity_dd'),
             'formats': ('i8', 'f8', 'f8', 'f8', 'f8', 'f8', 'f8', 'f8')
         })
-        plt.stem(iets['wavenumber'], iets['intensity_uu'])
-        plt.stem(iets['wavenumber'], iets['intensity_dd'])
+        ax1.stem(iets['wavenumber'], iets['intensity_uu'])
+        ax1.stem(iets['wavenumber'], iets['intensity_dd'])
+        ax2.plot([min(iets['wavenumber'])*wavenum_1cm2mV,
+                  max(iets['wavenumber'])*wavenum_1cm2mV],
+                 2*[0.0], ' ')
 
-    plt.savefig(savepic)
+    plt.xlabel('Bias Voltage [mV]')
+    plt.savefig(savepic, bbox_inches='tight')

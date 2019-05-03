@@ -75,7 +75,7 @@ if __name__ == '__main__':
                   max(p_wavenum)*wavenum_1cm2mV],
                  2*[0.0], ' ')
         plt.xlabel('Bias Voltage [mV]')
-        plt.savefig(savefig)
+        plt.savefig(savefig, bbox_inches='tight')
         np.savetxt(outfilename, list(zip(p_wavenum, result)),
                    # fmt='{%d} {%.18e} {%d} {%.18e}')
                    fmt=['%.18e', '%.18e'])
@@ -134,4 +134,4 @@ if __name__ == '__main__':
             np.savetxt(outfilename + str(idx), list(zip(p_wavenum, result)),
                        # fmt='{%d} {%.18e} {%d} {%.18e}')
                        fmt=['%.18e', '%.18e'])
-        plt.savefig(savefig)
+        plt.savefig(savefig, bbox_inches='tight')
