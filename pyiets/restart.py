@@ -39,6 +39,8 @@ def choose_mode_folders(restartfile, path, restart):
             mode_folders = set([os.path.realpath(f.path) for f in
                                 os.scandir(path)
                                 if f.is_dir()])
+    if os.path.exists(restartfile) and not restart:
+        os.remove(restartfile)
 
     os.chdir(cwd)
     return (mode_folders, already_done)
