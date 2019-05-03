@@ -106,6 +106,12 @@ Name of the files containing ARTAIOS error output(default: :code:`"artaios.in.st
 
 ARTAIOS-tm2unformcl executable (default: :code:`"tm2unformcl"`).
 
+:code:`artaios_soc_tm`
+^^^^^^^^^^^^^^^^^^^
+
+ARTAIOS-tm2unformsoc executable (default: :code:`"tm2unformsoc"`).
+
+
 :code:`cstep`
 ^^^^^^^^^^^^^^^^^^^
 
