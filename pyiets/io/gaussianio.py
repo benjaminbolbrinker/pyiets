@@ -68,7 +68,7 @@ class Parser:
         return nmodes
 
     def _get_distortion(self):
-        return 0.01
+        return self.options['cstep']
 
     def get_molecule(self):
         for idx, line in enumerate(self.gaussianoutfile):

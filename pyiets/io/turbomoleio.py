@@ -45,7 +45,7 @@ class Parser:
         return len(self.data.vibfreqs)
 
     def _get_distortion(self):
-        return 0.01
+        return self.options['cstep']
 
     def get_molecule(self):
         atomicnumbers = self.data.atomnos
