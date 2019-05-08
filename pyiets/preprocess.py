@@ -37,8 +37,10 @@ class Preprocessor():
             modes_pool = pool.map(to_non_weighted, modes)
             pool.close()
             pool.join()
-
         modes = [mode for mode in modes_pool]
+
+        # for mode in modes:
+        # mode.to_non_weighted()
 
         if self.options['restart']:
             return (self._prepareDistortions(modes),

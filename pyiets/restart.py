@@ -26,16 +26,16 @@ def choose_mode_folders(restartfile, path, restart):
     cwd = os.getcwd()
     os.chdir(path)
 
+    already_done = set([])
     if os.path.exists(restartfile) and restart:
         with open(
              restartfile, 'r'
-        ) as restartfile:
-            already_done = set(restartfile.read().split())
+        ) as fp:
+            already_done = set(fp.read().split())
             mode_folders = set([os.path.realpath(f.path) for f in
                                 os.scandir(path)
                                 if f.is_dir()]) - already_done
     else:
-            already_done = set([])
             mode_folders = set([os.path.realpath(f.path) for f in
                                 os.scandir(path)
                                 if f.is_dir()])
