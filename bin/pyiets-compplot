@@ -12,6 +12,7 @@ if __name__ == '__main__':
     savepic = sys.argv[3]
 
     g0 = (const.e**2)/const.h
+    wavenum_1cm2mV = 1e5*const.c*const.h/const.e
 
     with open(filename1, 'r') as fp:
         line = fp.readline()
@@ -19,18 +20,21 @@ if __name__ == '__main__':
 
     fig = plt.figure()
     ax1 = fig.add_subplot(111)
-    plt.ylabel(r'$W_{\alpha} / G_0$~[\Omega^{-1}]')
+    plt.ylabel(r'$W_{\alpha} / g_0$~[\Omega^{-1}]')
     plt.xlabel('Wavenumber [1/cm]')
     ax2 = ax1.twiny()
     plt.xlabel('Wavenumber [1/cm]')
-    plt.ylabel(r'$W_{\alpha} / G_0$~[\Omega^{-1}]')
+    plt.ylabel(r'$W_{\alpha} / g_0$~[\Omega^{-1}]')
 
     if ncols == 4:
         iets1 = np.loadtxt(filename1, dtype={
             'names': ('mode_idx', 'wavenumber', 'energy', 'intensity'),
             'formats': ('i8', 'f8', 'f8', 'f8')
         })
-        plt.stem(iets1['wavenumber'], iets1['intensity']/g0)
+        ax1.stem(iets1['wavenumber'], iets1['intensity']/g0)
+        ax2.plot([min(iets1['wavenumber'])*wavenum_1cm2mV,
+                  max(iets1['wavenumber'])*wavenum_1cm2mV],
+                 2*[0.0], ' ')
 
     if ncols == 8:
         iets1 = np.loadtxt(filename1, dtype={
@@ -39,8 +43,11 @@ if __name__ == '__main__':
                       'intensity_ud', 'intensity_dd'),
             'formats': ('i8', 'f8', 'f8', 'f8', 'f8', 'f8', 'f8', 'f8')
         })
-        plt.stem(iets1['wavenumber'], iets1['intensity_uu']/g0)
-        plt.stem(iets1['wavenumber'], iets1['intensity_dd']/g0)
+        ax1.stem(iets1['wavenumber'], iets1['intensity_uu']/g0)
+        ax1.stem(iets1['wavenumber'], iets1['intensity_dd']/g0)
+        ax2.plot([min(iets1['wavenumber'])*wavenum_1cm2mV,
+                  max(iets1['wavenumber'])*wavenum_1cm2mV],
+                 2*[0.0], ' ')
 
     with open(filename2, 'r') as fp:
         line = fp.readline()
@@ -51,7 +58,10 @@ if __name__ == '__main__':
             'names': ('mode_idx', 'wavenumber', 'energy', 'intensity'),
             'formats': ('i8', 'f8', 'f8', 'f8')
         })
-        plt.stem(iets2['wavenumber'], -iets2['intensity']/g0)
+        ax1.stem(iets2['wavenumber'], -iets2['intensity']/g0)
+        ax2.plot([min(iets2['wavenumber'])*wavenum_1cm2mV,
+                  max(iets2['wavenumber'])*wavenum_1cm2mV],
+                 2*[0.0], ' ')
 
     if ncols == 8:
         iets2 = np.loadtxt(filename2, dtype={
@@ -60,8 +70,11 @@ if __name__ == '__main__':
                       'intensity_ud', 'intensity_dd'),
             'formats': ('i8', 'f8', 'f8', 'f8', 'f8', 'f8', 'f8', 'f8')
         })
-        plt.stem(iets2['wavenumber'], -iets2['intensity_dd']/g0)
-        plt.stem(iets2['wavenumber'], -iets2['intensity_dd']/g0)
+        ax1.stem(iets2['wavenumber'], -iets2['intensity_dd']/g0)
+        ax1.stem(iets2['wavenumber'], -iets2['intensity_dd']/g0)
+        ax2.plot([min(iets2['wavenumber'])*wavenum_1cm2mV,
+                  max(iets2['wavenumber'])*wavenum_1cm2mV],
+                 2*[0.0], ' ')
 
     plt.xlabel('Bias Voltage [mV]')
     plt.savefig(savepic)
