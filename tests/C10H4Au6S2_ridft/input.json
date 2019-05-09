@@ -11,7 +11,8 @@
 "vib_out": "snf",
 "vib_out_file": "snf.out",
 "artaios_in": "artaios.in",
-"modes": [47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58],
+"modes": "all",
 "c_modes": "all",
-"mp": 20
+"mp": 8,
+"iets_output_file": "iets_all_new.dat"
 }

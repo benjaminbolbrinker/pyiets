@@ -2,7 +2,6 @@
 # -*- coding: utf-8 -*-
 
 import sys
-import csv
 import numpy as np
 import matplotlib.pyplot as plt
 import math
@@ -25,11 +24,11 @@ if __name__ == '__main__':
     sampling = int(sys.argv[4])
     FWHM = float(sys.argv[5])
 
-    g0 =  (const.e**2)/const.h
+    g0 = (const.e**2)/const.h
 
     with open(infilename, 'r') as fp:
-        reader = csv.reader(fp, delimiter=" ")
-        ncols = len(list(reader)[0])
+        line = fp.readline()
+    ncols = len(line.split())
 
     if ncols == 4:
         iets = np.loadtxt(infilename, dtype={
@@ -68,7 +67,7 @@ if __name__ == '__main__':
 
         fig = plt.figure()
         ax1 = fig.add_subplot(111)
-        plt.ylabel(r'Intensity $W_{\alpha} / G_0 $ ')
+        plt.ylabel(r'Intensity $W_{\alpha} / G_0 $')
         plt.xlabel('Wavenumber [1/cm]')
         ax2 = ax1.twiny()
         wavenum_1cm2mV = 1e5*const.c*const.h/const.e
@@ -91,7 +90,7 @@ if __name__ == '__main__':
         })
         fig = plt.figure()
         ax1 = fig.add_subplot(111)
-        plt.ylabel(r'Intensity $W_{\alpha} / G_0 $ ')
+        plt.ylabel(r'$W_{\alpha} / G_0$~[\Omega^{-1}]')
         plt.xlabel('Wavenumber [1/cm]')
         ax2 = ax1.twiny()
 
