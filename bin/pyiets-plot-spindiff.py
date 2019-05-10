@@ -1,0 +1,36 @@
+#!/usr/bin/env python3
+import sys
+import numpy as np
+import matplotlib.pyplot as plt
+
+import scipy.constants as const
+
+if __name__ == '__main__':
+    filename = sys.argv[1]
+    savepic = sys.argv[2]
+
+    fig = plt.figure()
+    ax1 = fig.add_subplot(111)
+    plt.ylabel(r'$\Delta W_{\alpha} / g_0$~[\Omega^{-1}]')
+    plt.xlabel('Wavenumber [1/cm]')
+    ax2 = ax1.twiny()
+    plt.xlabel('Wavenumber [1/cm]')
+    plt.ylabel(r'$\Delta W_{\alpha} / g_0$~[\Omega^{-1}]')
+
+    wavenum_1cm2mV = 1e5*const.c*const.h/const.e
+    g0 = (const.e**2)/const.h
+
+    iets = np.loadtxt(filename, dtype={
+        'names': ('mode_idx', 'wavenumber', 'energy', 'intensity_tot',
+                  'intensity_uu', 'intensity_du',
+                  'intensity_ud', 'intensity_dd'),
+        'formats': ('i8', 'f8', 'f8', 'f8', 'f8', 'f8', 'f8', 'f8')
+    })
+    ax1.stem(iets['wavenumber'], abs(iets['intensity_uu']
+                                     - iets['intensity_dd'])/g0)
+    ax2.plot([min(iets['wavenumber'])*wavenum_1cm2mV,
+              max(iets['wavenumber'])*wavenum_1cm2mV],
+             2*[0.0], ' ')
+
+    plt.xlabel('Bias Voltage [mV]')
+    plt.savefig(savepic, bbox_inches='tight')
