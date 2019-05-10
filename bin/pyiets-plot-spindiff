@@ -11,11 +11,13 @@ if __name__ == '__main__':
 
     fig = plt.figure()
     ax1 = fig.add_subplot(111)
-    plt.ylabel(r'$\Delta W_{\alpha} / g_0$~[\Omega^{-1}]')
+    # plt.ylabel(r'$\Delta W_{\alpha} / g_0$~[\Omega^{-1}]')
+    plt.ylabel(r'$\Delta W_{\alpha} / W_\alpha^{tot}')
     plt.xlabel('Wavenumber [1/cm]')
     ax2 = ax1.twiny()
     plt.xlabel('Wavenumber [1/cm]')
-    plt.ylabel(r'$\Delta W_{\alpha} / g_0$~[\Omega^{-1}]')
+    # plt.ylabel(r'$\Delta W_{\alpha} / g_0$~[\Omega^{-1}]')
+    plt.ylabel(r'$\Delta W_{\alpha} / W_\alpha^{tot}')
 
     wavenum_1cm2mV = 1e5*const.c*const.h/const.e
     g0 = (const.e**2)/const.h
@@ -26,8 +28,10 @@ if __name__ == '__main__':
                   'intensity_ud', 'intensity_dd'),
         'formats': ('i8', 'f8', 'f8', 'f8', 'f8', 'f8', 'f8', 'f8')
     })
+    # ax1.stem(iets['wavenumber'], abs(iets['intensity_uu']
+                                     # - iets['intensity_dd'])/g0)
     ax1.stem(iets['wavenumber'], abs(iets['intensity_uu']
-                                     - iets['intensity_dd'])/g0)
+                                     - iets['intensity_dd'])/(iets['intensity_tot']))
     ax2.plot([min(iets['wavenumber'])*wavenum_1cm2mV,
               max(iets['wavenumber'])*wavenum_1cm2mV],
              2*[0.0], ' ')

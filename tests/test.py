@@ -5,9 +5,7 @@ import os
 import filecmp
 
 
-test_dirs = ['C10H4Au6S2_dscf',
-             'C10H4Au6S2_ridft',
-             'H2O_dscf',
+test_dirs = ['H2O_dscf',
              'H2O_dscf_gaussian',
              'H2O_dscf_tm_parms',
              'H2O_M',
