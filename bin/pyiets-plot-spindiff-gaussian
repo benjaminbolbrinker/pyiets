@@ -34,7 +34,7 @@ if __name__ == '__main__':
     })
     fig = plt.figure()
     ax1 = fig.add_subplot(111)
-    plt.ylabel(r'$\Delta W_{\alpha} / g_0$~[\Omega^{-1}]')
+    plt.ylabel(r'$\Delta W_{\alpha}$ / $W_\alpha^{tot}$')
     plt.xlabel('Wavenumber [1/cm]')
     ax2 = ax1.twiny()
 

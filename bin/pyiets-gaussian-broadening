@@ -67,7 +67,7 @@ if __name__ == '__main__':
 
         fig = plt.figure()
         ax1 = fig.add_subplot(111)
-        plt.ylabel(r'Intensity $W_{\alpha} / g_0 $')
+        plt.ylabel(r'$W_{\alpha}$ / $g_0$ [$\Omega^{-1}$]')
         plt.xlabel('Wavenumber [1/cm]')
         ax2 = ax1.twiny()
         wavenum_1cm2mV = 1e5*const.c*const.h/const.e
@@ -90,7 +90,7 @@ if __name__ == '__main__':
         })
         fig = plt.figure()
         ax1 = fig.add_subplot(111)
-        plt.ylabel(r'$W_{\alpha} / g_0$~[\Omega^{-1}]')
+        plt.ylabel(r'$W_{\alpha}$ / $g_0$ [$\Omega^{-1}$]')
         plt.xlabel('Wavenumber [1/cm]')
         ax2 = ax1.twiny()
 

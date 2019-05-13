@@ -20,11 +20,11 @@ if __name__ == '__main__':
 
     fig = plt.figure()
     ax1 = fig.add_subplot(111)
-    plt.ylabel(r'$W_{\alpha} / g_0$~[\Omega^{-1}]')
+    plt.ylabel(r'$W_{\alpha}$ / $g_0$ [$\Omega^{-1}$]')
     plt.xlabel('Wavenumber [1/cm]')
     ax2 = ax1.twiny()
     plt.xlabel('Wavenumber [1/cm]')
-    plt.ylabel(r'$W_{\alpha} / g_0$~[\Omega^{-1}]')
+    plt.ylabel(r'$W_{\alpha}$ / $g_0$ [$\Omega^{-1}$]')
 
     if ncols == 4:
         iets1 = np.loadtxt(filename1, dtype={
@@ -77,4 +77,4 @@ if __name__ == '__main__':
                  2*[0.0], ' ')
 
     plt.xlabel('Bias Voltage [mV]')
-    plt.savefig(savepic)
+    plt.savefig(savepic, bbox_inches='tight')
