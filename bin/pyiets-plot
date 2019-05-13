@@ -48,6 +48,6 @@ if __name__ == '__main__':
                   max(iets['wavenumber'])*wavenum_1cm2mV],
                  2*[0.0], ' ')
 
-    plt.yaxis.grid()
+    ax1.yaxis.grid()
     plt.xlabel('Bias Voltage [mV]')
     plt.savefig(savepic, bbox_inches='tight')

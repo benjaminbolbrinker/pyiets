@@ -37,5 +37,5 @@ if __name__ == '__main__':
              2*[0.0], ' ')
 
     plt.xlabel('Bias Voltage [mV]')
-    plt.yaxis.grid()
+    ax1.yaxis.grid()
     plt.savefig(savepic, bbox_inches='tight')
