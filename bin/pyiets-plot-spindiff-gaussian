@@ -81,4 +81,5 @@ if __name__ == '__main__':
     np.savetxt(outfilename + str(idx), list(zip(p_wavenum, result)),
                # fmt='{%d} {%.18e} {%d} {%.18e}')
                fmt=['%.18e', '%.18e'])
+    plt.yaxis.grid()
     plt.savefig(savefig, bbox_inches='tight')
