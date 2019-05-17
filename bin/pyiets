@@ -80,23 +80,24 @@ from pyiets.troisi import Troisi
 from shutil import copyfile
 
 
-def get_options(path):
+def get_options(input_file_path):
     ROOT_DIR = os.path.dirname(
             os.path.abspath(
                 os.path.join(__file__, '..')))
     options = pyiets.read.infile(os.path.join(ROOT_DIR,
                                               'input_defaults.json'))
     cwd = os.getcwd()
-    os.chdir(path)
-    options.update(pyiets.read.infile(options['input_file']))
+    os.chdir(os.path.realpath(os.path.dirname(input_file_path)))
+    options.update(pyiets.read.infile(input_file_path))
     pyiets.io.checkinput.check_options(options)
     os.chdir(cwd)
     return options
 
 
 if __name__ == '__main__':
-    WORKDIR = sys.argv[1]
-    options = get_options(WORKDIR)
+    WORKDIR = os.path.dirname(os.path.realpath(sys.argv[1]))
+    options = get_options(os.path.realpath(sys.argv[1]))
+    options['input_file'] = os.path.realpath(sys.argv[1])
     options['workdir'] = os.path.realpath(WORKDIR)
 
     print('Parsing input...')

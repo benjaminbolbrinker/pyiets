@@ -19,37 +19,37 @@ documentation:
 test_all: test_H2O_dscf test_H2O_dscf_tm_params test_H2O_dscf_g09 test_H2O_ridft test_H2O_ridft_tm_params test_H2O_ridft_gaussianin test_H2O_ridft_fake_gaussianin test_H2O_ridft_turbomole_M test_H2O_M test_H2O_self test
 
 test_C10H4Au6S2:
-	pyiets ${C10H4Au6S2}
+	pyiets ${C10H4Au6S2}/input.json
 
 test_H2O_dscf: 
-	pyiets ${H2O_dscf}
+	pyiets ${H2O_dscf}/input.json
 
 test_H2O_dscf_tm_params: 
-	pyiets ${H2O_dscf_tm_params}
+	pyiets ${H2O_dscf_tm_params}/input.json
 
 test_H2O_dscf_g09: 
-	pyiets ${H2O_dscf_g09}
+	pyiets ${H2O_dscf_g09}/input.json
 
 test_H2O_ridft: 
-	pyiets ${H2O_ridft}
+	pyiets ${H2O_ridft}/input.json
 
 test_H2O_ridft_tm_params: 
-	pyiets ${H2O_ridft_tm_params}
+	pyiets ${H2O_ridft_tm_params}/input.json
 
 test_H2O_ridft_gaussianin: 
-	pyiets ${H2O_ridft_gaussianin}
+	pyiets ${H2O_ridft_gaussianin}/input.json
 
 test_H2O_ridft_fake_gaussianin: 
-	pyiets ${H2O_ridft_fake_gaussianin}
+	pyiets ${H2O_ridft_fake_gaussianin}/input.json
 
 test_H2O_ridft_turbomole_M: 
-	pyiets ${H2O_ridft_turbomole_M}
+	pyiets ${H2O_ridft_turbomole_M}/input.json
 
 test_H2O_M: 
-	pyiets ${H2O_M}
+	pyiets ${H2O_M}/input.json
 
 test_H2O_self: 
-	pyiets ${H2O_self}
+	pyiets ${H2O_self}/input.json
 
 test:
 	./tests/test.py
