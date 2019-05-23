@@ -43,7 +43,7 @@ if __name__ == '__main__':
             'formats': ('i8', 'f8', 'f8', 'f8', 'f8', 'f8', 'f8', 'f8')
         })
         ax1.stem(iets['wavenumber'], iets['intensity_uu']/g0)
-        ax1.stem(iets['wavenumber'], iets['intensity_dd']/g0)
+        ax1.stem(iets['wavenumber'], -iets['intensity_dd']/g0)
         ax2.plot([min(iets['wavenumber'])*wavenum_1cm2mV,
                   max(iets['wavenumber'])*wavenum_1cm2mV],
                  2*[0.0], ' ')
