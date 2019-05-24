@@ -70,9 +70,7 @@ class Troisi:
                   for idx in range(len(mode.get_folders()))]
 
         reduced_mass = 0.0
-        mode.print()
         mode.to_non_weighted()
-        mode.print()
         assert len(mode.get_vectors()) == len(self.molecule.an)
         for idx, vector in enumerate(mode.get_vectors()):
             for coord in vector:
