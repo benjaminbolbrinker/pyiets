@@ -50,6 +50,8 @@ def start_tm_single_points(folders, options, restarfileloc=None):
         params = [(folder, options, restarfileloc, lock)
                   for folder in folders]
         pool.map(turbomole.run, params)
+        pool.close()
+        pool.join()
 
 
 def start_gaussian_single_points(folders, options, restarfileloc=None):
@@ -74,6 +76,8 @@ def start_gaussian_single_points(folders, options, restarfileloc=None):
         params = [(folder, options, restarfileloc, lock)
                   for folder in folders]
         pool.map(gaussian.run, params)
+        pool.close()
+        pool.join()
 
 
 def start_artaios(folders, options, restarfileloc=None):
