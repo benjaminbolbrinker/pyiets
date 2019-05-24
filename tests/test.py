@@ -2,7 +2,9 @@
 
 import sys
 import os
-import filecmp
+import math
+
+import numpy as np
 
 
 test_dirs = ['H2O_dscf',
@@ -20,9 +22,18 @@ test_dirs = [os.path.join(os.path.dirname(__file__), test)
              for test in test_dirs]
 
 for test in test_dirs:
-    if filecmp.cmp(os.path.join(test, 'iets.dat'),
-                   os.path.join(test, 'test.dat')):
-        print(test + ' - OK')
-    else:
-        print(test + ' - NOT OK. Terminating...')
-        sys.exit()
+    iets_test = np.loadtxt(os.path.join(test, 'test.dat'), dtype={
+        'names': ('mode_idx', 'wavenumber', 'energy', 'intensity'),
+        'formats': ('i8', 'f8', 'f8', 'f8')
+    })
+
+    iets = np.loadtxt(os.path.join(test, 'iets.dat'), dtype={
+        'names': ('mode_idx', 'wavenumber', 'energy', 'intensity'),
+        'formats': ('i8', 'f8', 'f8', 'f8')
+    })
+    for idx, inten in enumerate(iets['intensity']):
+        if not math.isclose(inten, iets_test['intensity'][idx], rel_tol=1e-04):
+            print(test + ' - NOT OK. Terminating in line ', idx, '...')
+            print(inten, iets_test['intensity'][idx])
+            sys.exit()
+    print(test + ' - OK')
