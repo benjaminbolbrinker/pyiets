@@ -49,7 +49,7 @@ class Mode:
             greensmatrix from Troisi ansatz
 
         """
-        self.vectors = np.array(vectors)
+        self.vectors = np.array(vectors, dtype=np.float64)
         self.atoms = atoms
         assert len(self.vectors) == len(self.atoms)
         self.wavenumber = wavenumber
@@ -66,7 +66,7 @@ class Mode:
                     [float(i)*math.sqrt(
                         element(self.atoms[idx]).atomic_weight)
                      for i in vec]
-                    for idx, vec in enumerate(self.vectors)])
+                    for idx, vec in enumerate(self.vectors)], dtype=np.float64)
             # self.vectors = [self._normalize(vec) for vec in self.vectors]
             norm = np.linalg.norm(
                     np.reshape(self.vectors, int(len(self.vectors)*3)))
@@ -83,8 +83,8 @@ class Mode:
                     [float(i)/math.sqrt(
                         element(self.atoms[idx]).atomic_weight)
                      for i in vec]
-                    for idx, vec in enumerate(self.vectors)])
-            # self.vectors = [self._normalize(vec) for vec in self.vectors]
+                    for idx, vec in enumerate(self.vectors)], dtype=np.float64)
+            # # self.vectors = [self._normalize(vec) for vec in self.vectors]
             norm = np.linalg.norm(
                     np.reshape(self.vectors, int(len(self.vectors)*3)))
 

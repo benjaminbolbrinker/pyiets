@@ -42,7 +42,7 @@ class Molecule:
 
         """
         self.atoms = atoms
-        self.vectors = np.array(vectors)
+        self.vectors = np.array(vectors, dtype=np.float64)
         self.an = atomicnumbers
         for idx, at in enumerate(self.atoms):
             self.atoms[idx] = self.atoms[idx][0] + self.atoms[idx][1:].lower()

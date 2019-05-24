@@ -188,7 +188,8 @@ class Parser:
 
         """
         wavenum, mode_vectors = self._get_mode_vectors(mode_idx)
-        mode_vectors = np.array(mode_vectors).reshape(self.natoms, 3)
+        mode_vectors = np.array(mode_vectors,
+                                dtype=np.float64).reshape(self.natoms, 3)
         mode = vib.Mode(vectors=mode_vectors,
                         atoms=self.molecule.atoms,
                         wavenumber=wavenum,

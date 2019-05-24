@@ -106,6 +106,15 @@ if __name__ == '__main__':
     modes, molecule = preprocess.preprocess()
     print('Done\n')
 
+    # with multiprocessing.Pool(processes=self.options['mp']) as pool:
+    # modes_pool = pool.imap(to_non_weighted, modes, chunksize=chunksize)
+    # pool.close()
+    # pool.join()
+    # modes = [mode for mode in modes_pool]
+
+    # for mode in modes:
+        # mode.to_non_weighted()
+
     print('Running single point calculations...')
     mode_folders, done = restart.choose_mode_folders(
             os.path.join(options['workdir'],

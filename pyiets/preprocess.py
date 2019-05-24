@@ -36,14 +36,6 @@ class Preprocessor():
         chunksize = int(len(modes)/self.options['mp'])
         if chunksize < 1:
             chunksize += 1
-        with multiprocessing.Pool(processes=self.options['mp']) as pool:
-            modes_pool = pool.imap(to_non_weighted, modes, chunksize=chunksize)
-            pool.close()
-            pool.join()
-        modes = [mode for mode in modes_pool]
-
-        # for mode in modes:
-        # mode.to_non_weighted()
 
         if self.options['restart']:
             return (self._prepareDistortions(modes),
@@ -55,7 +47,7 @@ class Preprocessor():
     def _prepareDistortions(self, modes):
         molecule = self.parser.get_molecule()
         for mode in modes:
-            mode_vecs = np.array(mode.vectors)
+            mode_vecs = np.array(mode.vectors, dtype=np.float64)
             dissortions = [molecule.vectors - mode_vecs*self.options['cstep'],
                            molecule.vectors + mode_vecs*self.options['cstep']]
 
@@ -94,7 +86,11 @@ class Preprocessor():
         os.chdir('../../')
 
         for mode in modes:
-            mode_vecs = np.array(mode.vectors)
+            mode_vecs = np.array(mode.vectors, dtype=np.float64)
+            # disstortion0 = []
+            # for idx, vec in enumerate(molecule.vectors):
+            # disstortion0 = np.array(vec) - np.array(mode_vecs[idx])
+
             dissortions = [molecule.vectors - mode_vecs*self.options['cstep'],
                            molecule.vectors + mode_vecs*self.options['cstep']]
 
