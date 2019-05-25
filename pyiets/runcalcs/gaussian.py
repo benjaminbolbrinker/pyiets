@@ -14,7 +14,8 @@ def create_g09_input(g09_options, ase_molecule, filename):
             'multiplicity': 1,
             'nprocshared': 1,
             'grid': None,
-            'force': False
+            'force': False,
+            'nosymmetry': True
             }
 
     options.update(g09_options)
@@ -24,8 +25,9 @@ def create_g09_input(g09_options, ase_molecule, filename):
         fp.write('%NProcShared=' + str(options['nprocshared']) + '\n')
         fp.write('#P ' + options['method']
                        + '/' + options['basis']
-                       + ' GFPrint'
-                       + ' NoSymmetry')
+                       + ' GFPrint')
+        if options['nosymmetry']:
+            fp.write(' NoSymmetry')
         if options['grid']:
             fp.write(' int=grid=' + options['grid'])
         if options['force']:
@@ -48,7 +50,9 @@ def create_g09_input(g09_options, ase_molecule, filename):
         fp.write('#P ' + options['method']
                        + '/' + options['basis']
                        + ' guess=read\n')
-        fp.write('#P GFINPUT IOP(6/7=3) NoSymmetry')
+        fp.write('#P GFINPUT IOP(6/7=3)')
+        if options['nosymmetry']:
+            fp.write(' NoSymmetry')
         if options['grid']:
             fp.write(' int=grid=' + options['grid'])
         if options['force']:
