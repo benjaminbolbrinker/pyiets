@@ -78,7 +78,7 @@ class Mode:
             self.weighted = True
 
     def to_non_weighted(self):
-        if self.weighted:
+        # if self.weighted:
             self.vectors = np.array([
                     [float(i)*math.sqrt(
                         element(self.atoms[idx]).atomic_weight)
@@ -92,7 +92,7 @@ class Mode:
                 norm = 1
 
             self.vectors /= norm
-            self.weighted = False
+            # self.weighted = False
 
     def set_troisi_greensmat(self, gm):
         """Set Greensfunction from Troisi ansatz.
