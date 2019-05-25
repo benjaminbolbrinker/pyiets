@@ -34,8 +34,15 @@ class Preprocessor():
                      for mode_idx in modes]
 
         chunksize = int(len(modes)/self.options['mp'])
+
         if chunksize < 1:
             chunksize += 1
+        with multiprocessing.Pool(processes=self.options['mp']) as pool:
+            modes_pool = pool.imap(to_weighted, modes, chunksize=chunksize)
+            pool.close()
+            pool.join()
+
+        modes = [mode for mode in modes_pool]
 
         if self.options['restart']:
             return (self._prepareDistortions(modes),
@@ -117,6 +124,6 @@ class Preprocessor():
         return modes
 
 
-def to_non_weighted(mode):
-    mode.to_non_weighted()
+def to_weighted(mode):
+    mode.to_weighted()
     return mode
