@@ -12,7 +12,9 @@ def create_g09_input(g09_options, ase_molecule, filename):
             'basis': 'Def2SVP',
             'charge': 0,
             'multiplicity': 1,
-            'nprocshared': 1
+            'nprocshared': 1,
+            'grid': None,
+            'force': False
             }
 
     options.update(g09_options)
@@ -23,7 +25,12 @@ def create_g09_input(g09_options, ase_molecule, filename):
         fp.write('#P ' + options['method']
                        + '/' + options['basis']
                        + ' GFPrint'
-                       + ' NoSymmetry\n\n')
+                       + ' NoSymmetry')
+        if options['grid']:
+            fp.write(' int=grid=' + options['grid'])
+        if options['force']:
+            fp.write(' force')
+        fp.write('\n\n')
         fp.write('Title '
                  + ase_molecule.get_chemical_formula(mode='hill')
                  + '\n\n')
@@ -41,7 +48,12 @@ def create_g09_input(g09_options, ase_molecule, filename):
         fp.write('#P ' + options['method']
                        + '/' + options['basis']
                        + ' guess=read\n')
-        fp.write('#P GFINPUT IOP(6/7=3) NoSymmetry\n')
+        fp.write('#P GFINPUT IOP(6/7=3) NoSymmetry')
+        if options['grid']:
+            fp.write(' int=grid=' + options['grid'])
+        if options['force']:
+            fp.write(' force')
+        fp.write('\n')
         fp.write('# iop(5/33=3)\n')
         fp.write('# iop(3/33=1)\n\n')
         fp.write('Title '
