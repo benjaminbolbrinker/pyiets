@@ -63,7 +63,7 @@ class Mode:
     def to_weighted(self):
         if not self.weighted:
             self.vectors = np.array([
-                    [float(i)*math.sqrt(
+                    [float(i)/math.sqrt(
                         element(self.atoms[idx]).atomic_weight)
                      for i in vec]
                     for idx, vec in enumerate(self.vectors)], dtype=np.float64)
@@ -80,7 +80,7 @@ class Mode:
     def to_non_weighted(self):
         if self.weighted:
             self.vectors = np.array([
-                    [float(i)/math.sqrt(
+                    [float(i)*math.sqrt(
                         element(self.atoms[idx]).atomic_weight)
                      for i in vec]
                     for idx, vec in enumerate(self.vectors)], dtype=np.float64)

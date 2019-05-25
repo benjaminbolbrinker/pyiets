@@ -74,8 +74,8 @@ class Troisi:
         assert len(mode.get_vectors()) == len(self.molecule.an)
         for idx, vector in enumerate(mode.get_vectors()):
             for coord in vector:
-                reduced_mass += (coord**2)/(float(
-                    element(self.molecule.an[idx]).atomic_weight))
+                reduced_mass += (coord**2)/(float(round(
+                    element(self.molecule.an[idx]).atomic_weight)))
         reduced_mass = 1.0 / (reduced_mass)
         troisi_greenmatrix = (((math.sqrt(2.0)/(4.0))/cstep) *
                               (np.array(gm_idx[1]['greensmatrix'],
