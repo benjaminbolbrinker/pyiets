@@ -102,9 +102,11 @@ def run(params):
 
     infilename = 'g09.com'
     coord = options['dissotionoutname']
+    lock.acquire()
     create_g09_input(g09_options=options['sp_control']['params'],
                      ase_molecule=ase.io.read(options['dissotionoutname']),
                      filename=infilename)
+    lock.release()
 
     # Clean directory
     if options['restart']:

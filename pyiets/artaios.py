@@ -113,13 +113,13 @@ class Artaios():
             contains absoulte paths specifying the greensmatrix files from
             artaios-output to be read.
         """
-        # return [self.read_greenmatrix(f) for f in files]
-        with multiprocessing.Pool(processes=self.options['mp']) as pool:
-            greenmatrices = pool.imap(self.read_greenmatrix, files)
-            pool.close()
-            pool.join()
+        return [self.read_greenmatrix(f) for f in files]
+        # with multiprocessing.Pool(processes=self.options['mp']) as pool:
+        # greenmatrices = pool.imap(self.read_greenmatrix, files)
+        # pool.close()
+        # pool.join()
 
-        return [matrix for matrix in greenmatrices]
+        # return [matrix for matrix in greenmatrices]
 
     def read_greenmatrix(self, greenmatrixfile):
         """Call after self.run(). Read greeanmatrix from files.
@@ -190,12 +190,16 @@ class Artaios():
         :obj:`list`
             containing the transmissions.
         """
-        with multiprocessing.Pool(processes=self.options['mp']) as pool:
-            files = [str(os.path.join(folder,
-                     self.options['greenmatrix_file']))
-                     for folder in self.mode_folders]
-            transmission = pool.imap(self.read_transmission_for, files)
-            pool.close()
-            pool.join()
+        files = [str(os.path.join(folder,
+                 self.options['greenmatrix_file']))
+                 for folder in self.mode_folders]
+        return [self.read_transmission_for(f) for f in files]
+        # with multiprocessing.Pool(processes=self.options['mp']) as pool:
+            # files = [str(os.path.join(folder,
+                     # self.options['greenmatrix_file']))
+                     # for folder in self.mode_folders]
+            # transmission = pool.imap(self.read_transmission_for, files)
+            # pool.close()
+            # pool.join()
 
-        return [matrix for matrix in transmission]
+        # return [matrix for matrix in transmission]

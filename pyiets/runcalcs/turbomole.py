@@ -45,7 +45,9 @@ def run(params):
         for cleanupFile in cleanupFiles:
             os.remove(cleanupFile)
 
+    lock.acquire()
     molecule = ase.io.read(coord, format='xyz')
+    lock.release()
 
     # Run
     molecule.set_calculator(calc)
