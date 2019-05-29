@@ -190,16 +190,16 @@ class Artaios():
         :obj:`list`
             containing the transmissions.
         """
-        files = [str(os.path.join(folder,
-                 self.options['greenmatrix_file']))
-                 for folder in self.mode_folders]
-        return [self.read_transmission_for(f) for f in files]
-        # with multiprocessing.Pool(processes=self.options['mp']) as pool:
-            # files = [str(os.path.join(folder,
-                     # self.options['greenmatrix_file']))
-                     # for folder in self.mode_folders]
-            # transmission = pool.imap(self.read_transmission_for, files)
-            # pool.close()
-            # pool.join()
+        # files = [str(os.path.join(folder,
+                 # self.options['greenmatrix_file']))
+                 # for folder in self.mode_folders]
+        # return [self.read_transmission_for(f) for f in files]
+        with multiprocessing.Pool(processes=self.options['mp']) as pool:
+            files = [str(os.path.join(folder,
+                     self.options['greenmatrix_file']))
+                     for folder in self.mode_folders]
+            transmission = pool.imap(self.read_transmission_for, files)
+            pool.close()
+            pool.join()
 
-        # return [matrix for matrix in transmission]
+        return [matrix for matrix in transmission]

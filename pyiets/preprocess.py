@@ -3,6 +3,7 @@ import ase.io
 import pyiets.io.snfio
 import pyiets.io.gaussianio
 import pyiets.io.turbomoleio
+import multiprocessing
 from pyiets.atoms.molecule import Molecule
 import numpy as np
 
@@ -32,17 +33,17 @@ class Preprocessor():
             modes = [self.parser.get_mode(int(mode_idx))
                      for mode_idx in modes]
 
-        # chunksize = int(len(modes)/self.options['mp'])
+        chunksize = int(len(modes)/self.options['mp'])
 
-        # if chunksize < 1:
-            # chunksize += 1
-        # with multiprocessing.Pool(processes=self.options['mp']) as pool:
-            # modes_pool = pool.imap(to_weighted, modes, chunksize=chunksize)
-            # pool.close()
-            # pool.join()
+        if chunksize < 1:
+            chunksize += 1
+        with multiprocessing.Pool(processes=self.options['mp']) as pool:
+            modes_pool = pool.imap(to_weighted, modes, chunksize=chunksize)
+            pool.close()
+            pool.join()
 
-        # modes = [mode for mode in modes_pool]
-        [mode.to_weighted() for mode in modes]
+        modes = [mode for mode in modes_pool]
+        # [mode.to_weighted() for mode in modes]
 
         if self.options['restart']:
             return (self._prepareDistortions(modes),
