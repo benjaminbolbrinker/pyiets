@@ -77,15 +77,7 @@ class Troisi:
                 # reduced_mass += np.float64((np.float64(coord)**2)/(np.float64(
                 # element(self.molecule.an[idx]).atomic_weight)))
                 reduced_mass += np.float64((np.float64(coord)**2)/(np.float64(
-                    self.options['isotope_masses'][
-                        str(element(self.molecule.an[idx]).atomic_number)
-                        ]
-                    [
-                        str(element(self.molecule.an[idx]).mass_number)
-                        ]
-                    [
-                        'mass'
-                        ]
+                    mode.isotope_masses[idx]
                     )))
         reduced_mass = np.float64(1.0) / (reduced_mass)
         troisi_greenmatrix = (((math.sqrt(2.0)/(4.0))/cstep) *

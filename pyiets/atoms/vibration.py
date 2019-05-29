@@ -60,21 +60,17 @@ class Mode:
         self.iets = []
         self.weighted = weighted
         self.options = options
+        if options:
+            self.isotope_masses = [options['isotope_masses']
+                                   [str(element(m).atomic_number)]
+                                   [str(element(m).mass_number)]
+                                   ['mass'] for m in atoms]
 
     def to_weighted(self):
         if not self.weighted:
             if self.options:
                 self.vectors = np.array([
-                        [np.float64(i)/math.sqrt(
-                            self.options['isotope_masses'][
-                                str(element(self.get_atoms()[idx]).atomic_number)
-                                ]
-                            [
-                                str(element(self.get_atoms()[idx]).mass_number)
-                                ]
-                            [
-                                'mass'
-                                ])
+                        [np.float64(i)/math.sqrt(self.isotope_masses[idx])
                          for i in vec]
                         for idx, vec in enumerate(self.vectors)], dtype=np.float64)
             else:
@@ -113,21 +109,12 @@ class Mode:
             if self.options:
                 self.vectors = np.array([
                         [np.float64(i)*math.sqrt(
-                            self.options['isotope_masses'][
-                                str(element(self.get_atoms()[idx]).atomic_number)
-                                ]
-                            [
-                                str(element(self.get_atoms()[idx]).mass_number)
-                                ]
-                            [
-                                'mass'
-                                ])
+                            )
                          for i in vec]
                         for idx, vec in enumerate(self.vectors)], dtype=np.float64)
             else:
                 self.vectors = np.array([
-                        [float(i)*math.sqrt(
-                            element(self.atoms[idx]).atomic_weight)
+                        [np.float64(i)/math.sqrt(self.isotope_masses[idx])
                          for i in vec]
                         for idx, vec in enumerate(self.vectors)], dtype=np.float64)
                 # self.vectors = [self._normalize(vec) for vec in self.vectors]
