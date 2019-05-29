@@ -2,6 +2,7 @@ import os
 import re
 import pyiets.atoms.molecule as mol
 import pyiets.atoms.vibration as vib
+import numpy as np
 
 from ase.units import Bohr
 
@@ -127,12 +128,17 @@ class Parser:
         vector_block = [[float(i) for i in
                         l.split()[2:][column*3:(column*3)+3]]
                         for l in raw_block]
+
+        isotope_masses = [np.float64(self.options['isotope_masses']
+                          [str(element(m).atomic_number)]
+                          [str(element(m).mass_number)]
+                          ['mass']) for m in self.molecule.atoms]
         mode = vib.Mode(vectors=vector_block,
                         atoms=self.molecule.atoms,
                         wavenumber=wavenum,
                         idx=mode_idx,
                         weighted=True,
-                        options=self.options)
+                        isotope_masses=isotope_masses)
         return mode
 
     def get_modes(self):

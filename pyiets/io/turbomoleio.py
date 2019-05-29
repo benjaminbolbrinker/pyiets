@@ -2,6 +2,7 @@ import os
 import logging
 import pyiets.atoms.molecule as mol
 import pyiets.atoms.vibration as vib
+import numpy as np
 
 import cclib
 
@@ -59,12 +60,16 @@ class Parser:
         return molec
 
     def get_mode(self, mode_idx):
+        isotope_masses = [np.float64(self.options['isotope_masses']
+                          [str(element(m).atomic_number)]
+                          [str(element(m).mass_number)]
+                          ['mass']) for m in self.molecule.atoms]
         mode = vib.Mode(vectors=self.data.vibdisps[mode_idx],
                         atoms=self.molecule.atoms,
                         wavenumber=self.data.vibfreqs[mode_idx],
                         idx=mode_idx,
                         weighted=True,
-                        options=self.options)
+                        isotope_masses=isotope_masses)
         return mode
 
     def get_modes(self):

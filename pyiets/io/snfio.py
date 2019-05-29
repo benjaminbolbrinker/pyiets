@@ -27,6 +27,8 @@ from ase import io
 import pyiets.atoms.vibration as vib
 import pyiets.atoms.molecule as mol
 
+from mendeleev import element
+
 
 class Parser:
     """Class for parsing snf output in options['vib_out_file'] file.
@@ -190,12 +192,16 @@ class Parser:
         wavenum, mode_vectors = self._get_mode_vectors(mode_idx)
         mode_vectors = np.array(mode_vectors,
                                 dtype=np.float64).reshape(self.natoms, 3)
+        isotope_masses = [np.float64(self.options['isotope_masses']
+                          [str(element(m).atomic_number)]
+                          [str(element(m).mass_number)]
+                          ['mass']) for m in self.molecule.atoms]
         mode = vib.Mode(vectors=mode_vectors,
                         atoms=self.molecule.atoms,
                         wavenumber=wavenum,
                         idx=mode_idx,
                         weighted=True,
-                        options=self.options)
+                        isotope_masses=isotope_masses)
         return mode
 
     def get_modes(self):

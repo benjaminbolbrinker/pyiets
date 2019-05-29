@@ -21,7 +21,6 @@
 
 import math
 import numpy as np
-from mendeleev import element
 
 
 class Mode:
@@ -30,7 +29,7 @@ class Mode:
     """
     def __init__(self, vectors, atoms, wavenumber, idx=None,
                  dissortion_folders=None, troisi_greensmatrix=None,
-                 weighted=True, options=None):
+                 weighted=True, isotope_masses=None):
         """Creates vibrational mode.
 
         Parameters
@@ -59,16 +58,16 @@ class Mode:
         self.troisi_greensmatrix = troisi_greensmatrix
         self.iets = []
         self.weighted = weighted
-        self.options = options
-        if options:
-            self.isotope_masses = [options['isotope_masses']
-                                   [str(element(m).atomic_number)]
-                                   [str(element(m).mass_number)]
-                                   ['mass'] for m in atoms]
+        self.isotope_masses = isotope_masses
+        # if options:
+            # self.isotope_masses = [np.float64(options['isotope_masses']
+                                   # [str(element(m).atomic_number)]
+                                   # [str(element(m).mass_number)]
+                                   # ['mass']) for m in atoms]
 
     def to_weighted(self):
         if not self.weighted:
-            if self.options:
+            if self.isotope_masses:
                 self.vectors = np.array([
                         [np.float64(i)/math.sqrt(self.isotope_masses[idx])
                          for i in vec]
@@ -106,7 +105,7 @@ class Mode:
             # self.vectors /= norm
             # # self.weighted = False
         if self.weighted:
-            if self.options:
+            if self.isotope_masses:
                 self.vectors = np.array([
                         [np.float64(i)*math.sqrt(self.isotope_masses[idx])
                          for i in vec]
