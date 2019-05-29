@@ -63,7 +63,8 @@ class Parser:
                         atoms=self.molecule.atoms,
                         wavenumber=self.data.vibfreqs[mode_idx],
                         idx=mode_idx,
-                        weighted=True)
+                        weighted=True,
+                        options=self.options)
         return mode
 
     def get_modes(self):

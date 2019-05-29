@@ -194,7 +194,8 @@ class Parser:
                         atoms=self.molecule.atoms,
                         wavenumber=wavenum,
                         idx=mode_idx,
-                        weighted=True)
+                        weighted=True,
+                        options=self.options)
         return mode
 
     def get_modes(self):
