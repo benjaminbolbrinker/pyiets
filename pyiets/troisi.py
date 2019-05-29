@@ -74,8 +74,19 @@ class Troisi:
         assert len(mode.get_vectors()) == len(self.molecule.an)
         for idx, vector in enumerate(mode.get_vectors()):
             for coord in vector:
+                # reduced_mass += np.float64((np.float64(coord)**2)/(np.float64(
+                # element(self.molecule.an[idx]).atomic_weight)))
                 reduced_mass += np.float64((np.float64(coord)**2)/(np.float64(
-                    element(self.molecule.an[idx]).atomic_weight)))
+                    self.options['isotope_masses'][
+                        str(element(self.molecule.an[idx]).atomic_number)
+                        ]
+                    [
+                        str(element(self.molecule.an[idx]).mass_number)
+                        ]
+                    [
+                        'mass'
+                        ]
+                    )))
         reduced_mass = np.float64(1.0) / (reduced_mass)
         troisi_greenmatrix = (((math.sqrt(2.0)/(4.0))/cstep) *
                               (np.array(gm_idx[1]['greensmatrix'],

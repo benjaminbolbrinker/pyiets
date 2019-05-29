@@ -30,7 +30,7 @@ class Mode:
     """
     def __init__(self, vectors, atoms, wavenumber, idx=None,
                  dissortion_folders=None, troisi_greensmatrix=None,
-                 weighted=True):
+                 weighted=True, options=None):
         """Creates vibrational mode.
 
         Parameters
@@ -59,15 +59,31 @@ class Mode:
         self.troisi_greensmatrix = troisi_greensmatrix
         self.iets = []
         self.weighted = weighted
+        self.options = options
 
     def to_weighted(self):
         if not self.weighted:
-            self.vectors = np.array([
-                    [float(i)/math.sqrt(
-                        element(self.atoms[idx]).atomic_weight)
-                     for i in vec]
-                    for idx, vec in enumerate(self.vectors)], dtype=np.float64)
-            # self.vectors = [self._normalize(vec) for vec in self.vectors]
+            if self.options:
+                self.vectors = np.array([
+                        [np.float64(i)/math.sqrt(
+                            self.options['isotope_masses'][
+                                str(element(self.get_atoms()[idx]).atomic_number)
+                                ]
+                            [
+                                str(element(self.get_atoms()[idx]).mass_number)
+                                ]
+                            [
+                                'mass'
+                                ])
+                         for i in vec]
+                        for idx, vec in enumerate(self.vectors)], dtype=np.float64)
+            else:
+                self.vectors = np.array([
+                        [float(i)/math.sqrt(
+                            element(self.atoms[idx]).atomic_weight)
+                         for i in vec]
+                        for idx, vec in enumerate(self.vectors)], dtype=np.float64)
+                # self.vectors = [self._normalize(vec) for vec in self.vectors]
             norm = np.linalg.norm(
                     np.reshape(self.vectors, int(len(self.vectors)*3)))
 
@@ -78,13 +94,43 @@ class Mode:
             self.weighted = True
 
     def to_non_weighted(self):
-        # if self.weighted:
-            self.vectors = np.array([
-                    [float(i)*math.sqrt(
-                        element(self.atoms[idx]).atomic_weight)
-                     for i in vec]
-                    for idx, vec in enumerate(self.vectors)], dtype=np.float64)
-            # # self.vectors = [self._normalize(vec) for vec in self.vectors]
+        # # if self.weighted:
+            # self.vectors = np.array([
+                    # [float(i)*math.sqrt(
+                        # element(self.atoms[idx]).atomic_weight)
+                     # for i in vec]
+                    # for idx, vec in enumerate(self.vectors)], dtype=np.float64)
+            # # # self.vectors = [self._normalize(vec) for vec in self.vectors]
+            # norm = np.linalg.norm(
+                    # np.reshape(self.vectors, int(len(self.vectors)*3)))
+
+            # if norm < 1e-9:
+                # norm = 1
+
+            # self.vectors /= norm
+            # # self.weighted = False
+        if self.weighted:
+            if self.options:
+                self.vectors = np.array([
+                        [np.float64(i)*math.sqrt(
+                            self.options['isotope_masses'][
+                                str(element(self.get_atoms()[idx]).atomic_number)
+                                ]
+                            [
+                                str(element(self.get_atoms()[idx]).mass_number)
+                                ]
+                            [
+                                'mass'
+                                ])
+                         for i in vec]
+                        for idx, vec in enumerate(self.vectors)], dtype=np.float64)
+            else:
+                self.vectors = np.array([
+                        [float(i)*math.sqrt(
+                            element(self.atoms[idx]).atomic_weight)
+                         for i in vec]
+                        for idx, vec in enumerate(self.vectors)], dtype=np.float64)
+                # self.vectors = [self._normalize(vec) for vec in self.vectors]
             norm = np.linalg.norm(
                     np.reshape(self.vectors, int(len(self.vectors)*3)))
 
@@ -92,7 +138,7 @@ class Mode:
                 norm = 1
 
             self.vectors /= norm
-            # self.weighted = False
+            self.weighted = False
 
     def set_troisi_greensmat(self, gm):
         """Set Greensfunction from Troisi ansatz.

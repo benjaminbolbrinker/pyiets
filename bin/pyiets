@@ -86,6 +86,8 @@ def get_options(input_file_path):
                 os.path.join(__file__, '..')))
     options = pyiets.read.infile(os.path.join(ROOT_DIR,
                                               'input_defaults.json'))
+    options['isotope_masses'] = pyiets.read.infile(os.path.join(ROOT_DIR,
+                                                   'isotope_masses.json'))
     cwd = os.getcwd()
     os.chdir(os.path.realpath(os.path.dirname(input_file_path)))
     options.update(pyiets.read.infile(input_file_path))
