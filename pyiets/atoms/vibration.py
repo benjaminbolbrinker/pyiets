@@ -108,8 +108,7 @@ class Mode:
         if self.weighted:
             if self.options:
                 self.vectors = np.array([
-                        [np.float64(i)*math.sqrt(
-                            )
+                        [np.float64(i)*math.sqrt(self.isotope_masses[idx])
                          for i in vec]
                         for idx, vec in enumerate(self.vectors)], dtype=np.float64)
             else:
