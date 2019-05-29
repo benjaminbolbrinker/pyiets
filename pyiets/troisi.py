@@ -3,8 +3,7 @@ import math
 from shutil import copyfile, move
 import numpy as np
 from tempfile import mkstemp
-
-from mendeleev import element
+import multiprocessing
 
 import pyiets.artaios as artaios
 import pyiets.restart as restart
@@ -199,12 +198,21 @@ class Troisi:
             Troisi Greensmatrix.
 
         """
-        troisi_mat = []
-        for mode in self.modes:
-            self.calc_greensmatrix(mode.get_idx())
-            troisi_mat.append(mode.get_troisi_greensmat())
-        self.troisi_greenmatrices = troisi_mat
-        return troisi_mat
+        # troisi_mat = []
+        # for mode in self.modes:
+            # self.calc_greensmatrix(mode.get_idx())
+            # troisi_mat.append(mode.get_troisi_greensmat())
+        # self.troisi_greenmatrices = troisi_mat
+        # return troisi_mat
+
+        with multiprocessing.Pool(processes=self.options['mp']) as pool:
+            troisi_mat = pool.map(self.calc_greensmatrix,
+                                   [mode.get_idx() for mode in self.modes])
+            pool.close()
+            pool.join()
+
+        self.troisi_greenmatrices = [t for t in troisi_mat]
+        return self.troisi_greenmatrices
 
     def calc_IET_spectrum(self):
         """Calculates IETS.
