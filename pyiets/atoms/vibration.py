@@ -72,12 +72,6 @@ class Mode:
                         [np.float64(i)/math.sqrt(self.isotope_masses[idx])
                          for i in vec]
                         for idx, vec in enumerate(self.vectors)], dtype=np.float64)
-            else:
-                self.vectors = np.array([
-                        [float(i)/math.sqrt(
-                            element(self.atoms[idx]).atomic_weight)
-                         for i in vec]
-                        for idx, vec in enumerate(self.vectors)], dtype=np.float64)
                 # self.vectors = [self._normalize(vec) for vec in self.vectors]
             norm = np.linalg.norm(
                     np.reshape(self.vectors, int(len(self.vectors)*3)))
@@ -108,11 +102,6 @@ class Mode:
             if self.isotope_masses:
                 self.vectors = np.array([
                         [np.float64(i)*math.sqrt(self.isotope_masses[idx])
-                         for i in vec]
-                        for idx, vec in enumerate(self.vectors)], dtype=np.float64)
-            else:
-                self.vectors = np.array([
-                        [np.float64(i)/math.sqrt(self.isotope_masses[idx])
                          for i in vec]
                         for idx, vec in enumerate(self.vectors)], dtype=np.float64)
                 # self.vectors = [self._normalize(vec) for vec in self.vectors]
