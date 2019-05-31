@@ -1,0 +1,44 @@
+#!/bin/bash
+#SBATCH --job-name=test
+#SBATCH --export=NONE
+#SBATCH --time=0-01:00:00
+#SBATCH --nodes=1
+#SBATCH --tasks-per-node=16
+#SBATCH --partition=std
+set -ex
+. /sw/batch/init.sh
+
+
+
+module switch turbomole/7.1.1-smp
+module switch env env/2017Q2-gcc-openmpi
+module load python/3.6.1
+
+#module switch env env/gcc-5.2.0_openmpi-1.8.6
+#module switch env env/intel-17.0.1_impi
+#module load env/intel-15.0.3_impi-5.0.3
+#module load env/gcc-4.9.2_openmpi-1.8.6
+#module switch env env/intel-17.0.1_impi
+#module load env/intel-15.0.3_impi-5.0.3
+#module load env/gcc-4.9.2_openmpi-1.8.6
+
+source /sw/compiler/intel-17.0.1/bin/ifortvars.sh intel64
+export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/sw/compiler/intel-17.0.1//compilers_and_libraries_2017.1.132/linux/compiler/lib/intel64_lin/:/sw/compiler/intel-17.0.1//compilers_and_libraries_2017.1.132/linux/compiler/lib/intel64_lin_mic/"
+
+#export PARA_ARCH=MPI 
+
+export PATH=$TURBODIR/bin/`sysname`:$PATH 
+
+export PARNODES=1
+
+tm_tmp=./tm_tmp/
+mkdir -p $tm_tmp
+export TURBOTMPDIR=$tm_tmp
+
+export PATH=/home/p1tx073/Software/artaios/bin:$PATH
+
+#jobex -relax
+#ridft > ridft.out
+#aoforce > aoforce.out
+
+$HOME/Software/pyiets/bin/pyiets input.json

@@ -13,6 +13,6 @@
 "artaios_in": "artaios.in",
 "modes": "all",
 "c_modes": "all",
-"mp": 8,
+"mp": 16,
 "iets_output_file": "iets_all_new.dat"
 }

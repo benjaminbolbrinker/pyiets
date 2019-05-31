@@ -34,11 +34,10 @@ class Preprocessor():
                      for mode_idx in modes]
 
         chunksize = int(len(modes)/self.options['mp'])
-
         if chunksize < 1:
             chunksize += 1
         with multiprocessing.Pool(processes=self.options['mp']) as pool:
-            modes_pool = pool.imap(to_weighted, modes, chunksize=chunksize)
+            modes_pool = pool.map(to_weighted, modes, chunksize=chunksize)
             pool.close()
             pool.join()
 
