@@ -139,7 +139,7 @@ class Artaios():
         for idx, line in enumerate(rawinput):
             arr = [[float(a[0]), float(a[1])]
                    for a in re.findall(r'\(\s*(.*?)\s*,\s*(.*?)\s*\)', line)]
-            arr = [np.complex128(*a) for a in arr]
+            arr = [np.complex128(complex(*a)) for a in arr]
             greenmatrix.append(arr)
         folder, fn = os.path.split(greenmatrixfile)
         return {'mode': os.path.basename(folder),
