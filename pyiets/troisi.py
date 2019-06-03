@@ -173,7 +173,7 @@ class Troisi:
             fp.write(str(len(gm)) + '\n')
             for row in gm:
                 for c in row:
-                    fp.write(' ( ' + str(c.real) + ' , ' + str(c.imag) + ' ) ')
+                    fp.write(' ( %.14e , %.14e ) ' % c.real, c.imag)
                 fp.write('\n')
 
     def prepare_input_artaios(self):
