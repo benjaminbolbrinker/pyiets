@@ -19,7 +19,7 @@ When all three input files are provided type
 
 .. code-block:: bash
 
-   pyiets .
+   pyiets input.json
 
 After successfully finished call
 
