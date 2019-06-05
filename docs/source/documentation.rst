@@ -41,7 +41,7 @@ After setting up the input files run pyIETS via
 
 .. code-block:: bash
 
-   pyiets .
+   pyiets input.json
 
 The program should have generated two folders and one file. The file is named via the :code:`iets_out_file`-tag and contains the IETS-spectrum. 
 The folders are named via the :code:`mode_folder` and :code:`output_folder`-tag, respectively.
