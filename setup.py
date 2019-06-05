@@ -27,9 +27,10 @@ import setuptools
 with open("README.rst", "r") as fh:
     long_description = fh.read()
 
+exec(open('pyiets/version.py').read())
 setuptools.setup(
     name='pyiets',
-    version='0.1.5',
+    version=__version__,
     author=('Benjamin Bolbrinker, Michael Deffner, ' +
             'Martin Zoellner, Carmen Herrmann'),
     author_email='benjamin.bolbrinker@chemie.uni.hamburg.de',

@@ -9,7 +9,7 @@ This program calculates inelastic tunneling (IET) spectra of molecular junctions
 The implementation is equivalent to the on of SNF_ :cite:`neugebauer2002quantum`  :cite:`weymuth2012movipac` and allows for more flexible usage and extension. 
 Specifically IET spectra can be calculated by incoorporating two-component calculations using Turbomole_ :cite:`turbomole2010development`
 
-Essentially peak intensities :math:`W_{\alpha}` are calculated 
+Essentially peak intensities :math:`W_{\alpha}` are calculated via
 
 .. math::
    

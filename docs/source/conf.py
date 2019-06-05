@@ -23,10 +23,12 @@ project = 'pyIETS'
 copyright = '2019, Benjamin Bolbrinker, Michael Deffner, Martin Zoellner, Carmen Herrmann'
 author = 'Benjamin Bolbrinker, Michael Deffner, Martin Zoellner, Carmen Herrmann'
 
+exec(open('../../pyiets/version.py').read())
+
 # The short X.Y version
-version = '0.1.6'
+version = __version__
 # The full version, including alpha/beta/rc tags
-release = '0.1.6'
+release = __version__
 
 
 # -- General configuration ---------------------------------------------------
