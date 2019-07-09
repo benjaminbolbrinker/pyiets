@@ -6,16 +6,15 @@ verify_ssl = true
 [dev-packages]
 
 [packages]
-numpy = "*"
-cclib = "*"
-ase = "*"
-sphinx = "*"
-sphinxcontrib-bibtex = "*"
-numpydoc = "*"
-sphinx-rtd-theme = "*"
-mendeleev = "*"
-matplotlib = "*"
-pyiets = {path = "."}
+numpy = "1.15.2"
+cclib = "1.6.1"
+ase = "3.16.2"
+sphinx = "1.8.4"
+sphinxcontrib-bibtex = "0.4.2"
+numpydoc = "0.8.0"
+sphinx-rtd-theme = "0.4.3"
+mendeleev = "0.4.4"
+matplotlib = "3.0.0"
 
 [requires]
-python_version = "3.5"
+python_version = "3.6"

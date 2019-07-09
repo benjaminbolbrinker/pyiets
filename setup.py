@@ -23,19 +23,29 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 import setuptools
+import pipfile
 
 with open("README.rst", "r") as fh:
     long_description = fh.read()
 
+install_requires = []
+pf = pipfile.load('Pipfile').data['default']
+for key, value in pf.items():
+    temp = str(key) + '==' + str(value)
+    # temp = [str(key), str(value)]
+    # temp = str(key)
+    install_requires.append(temp)
+print(install_requires)
+
 exec(open('pyiets/version.py').read())
 setuptools.setup(
-    name='pyiets',
+    name='pyiets-tools',
     version=__version__,
     author=('Benjamin Bolbrinker, Michael Deffner, ' +
             'Martin Zoellner, Carmen Herrmann'),
     author_email='benjamin.bolbrinker@chemie.uni.hamburg.de',
     description='A tool for calculating inelastic tunneling spectra',
-    packages=['pyiets'],
+    packages=setuptools.find_packages(),
     scripts=['bin/pyiets', 'bin/pyiets-plot',
              'bin/pyiets-compplot', 'bin/pyiets-clean',
              'bin/pyiets-gaussian-broadening',
@@ -43,21 +53,11 @@ setuptools.setup(
              'bin/pyiets-plot-spindiff-gaussian'],
     long_description=long_description,
     long_description_content_type='text/markdown',
-    url='https://github.com/',
+    # url='https://github.com/',
     classifiers=[
         'Programming Language :: Python :: 3',
-        'License :: OSI Approved :: GPLv3',
-        'Operating System :: Ubuntu 18.04'
+        'License :: OSI Approved :: GNU General Public License v3 (GPLv3)',
+        'Operating System :: POSIX :: Linux'
     ],
-    install_requires=[
-        'ase==3.16.2',
-        'cclib==1.6.1',
-        'numpy==1.15.2',
-        'mendeleev==0.4.4',
-        'sphinx==1.8.4',
-        'matplotlib==3.0.0',
-        'numpydoc==0.8.0',
-        'sphinxcontrib-bibtex',
-        'sphinx-rtd-theme',
-    ],
+    install_requires=install_requires,
 )

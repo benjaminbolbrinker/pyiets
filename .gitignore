@@ -14,3 +14,5 @@ distortions/
 nohup.out
 output/
 bin/.nfs0000*
+build
+dist
