@@ -39,7 +39,7 @@ print(install_requires)
 
 exec(open('pyiets/version.py').read())
 setuptools.setup(
-    name='pyiets-tools',
+    name='pyiets',
     version=__version__,
     author=('Benjamin Bolbrinker, Michael Deffner, ' +
             'Martin Zoellner, Carmen Herrmann'),
@@ -60,4 +60,5 @@ setuptools.setup(
         'Operating System :: POSIX :: Linux'
     ],
     install_requires=install_requires,
+    data_files=['input_defaults.json', 'isotope_masses.json'],
 )

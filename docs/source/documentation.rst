@@ -29,6 +29,7 @@ Usage
    "vib_out": "snf",
    "vib_out_file": "snf.out",
    "artaios_in": "artaios.in",
+   "restart": false,
    "mp": 4
    }
 
