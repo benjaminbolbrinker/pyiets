@@ -9,7 +9,7 @@ For installing this package simply type:
 
 .. code-block:: bash
 
-   ./install
+   pip3 install --user pyiets
 
 To confirm the environment was installed properly type:
 
