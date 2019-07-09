@@ -19,7 +19,7 @@ Essentially peak intensities :math:`W_{\alpha}` are calculated via
 
 
 where :math:`G_0` and :math:`\boldsymbol{\Gamma}^{\mathrm{L}}(E_{\mathrm{F}})` denote the conductance quantum and the self-energy at the fermi-level, respectively.
-The greensmatrix :math:`\boldsymbol{G}^\alpha(E_{\mathrm{F}})` can be expressed via the derivative of electronic the electronic greensmatrix with respect to vibrational normal modes.
+The greensmatrix :math:`\boldsymbol{G}^\alpha(E_{\mathrm{F}})` can be expressed via the derivative of the electronic greensmatrix with respect to vibrational normal modes.
 
 .. math::
 

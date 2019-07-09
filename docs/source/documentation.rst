@@ -3,7 +3,7 @@
 Documentation
 *************
 
-In the following sections explain the usage and all relevant input files with corresponding parameters.
+The following sections explain the usage and all relevant input files with corresponding parameters.
 
 .. _inputfiles-label:
 
@@ -14,7 +14,7 @@ Usage
 
 2) Create an input file for ARTAIOS in your working directory.
 
-3) Create a file :code:`input.json` containing at the following working example
+3) Create a file :code:`input.json` containing the following 
 
 .. code-block:: json
 
@@ -33,9 +33,10 @@ Usage
    "mp": 4
    }
 
-This tells pyIETS to use Turbomole for single point calculations by employing the parameters provided in :code:`params`.
-The following three parameters tell pyIETS the names of the files created in step 1) and 2). 
-The flag :code:`mp` specifies the number of single point calculations that will be run in parallel (each on a different core).
+This means Turbomole will be used for single point calculations by employing the parameters provided in :code:`params`. 
+The :code:`vib_out` flag specifies the format of the file specified by :code:`vib_out_file`.
+The name of the ARTAIOS input file is specified via :code:`artaios_in`.
+The flag :code:`mp` specifies the number of single point calculations that will be executed in parallel (each on a different core).
 Further examples are provided in the :code:`tests`-directory.
 
 After setting up the input files run pyIETS via
@@ -44,9 +45,8 @@ After setting up the input files run pyIETS via
 
    pyiets input.json
 
-The program should have generated two folders and one file. The file is named via the :code:`iets_out_file`-tag and contains the IETS-spectrum. 
-The folders are named via the :code:`mode_folder` and :code:`output_folder`-tag, respectively.
-The former contains the single-point calculations and transport calculations of the undistorted and distorted molecule which was provided.
+The program should generate two folders and one file. The file is named via the :code:`iets_out_file`-tag and contains the IETS-spectrum. 
+The folders are named via the :code:`mode_folder` and :code:`output_folder`-tag, respectively and contain the single-point calculations and transport calculations of the undistorted and distorted molecule.
 The latter contains the resulting Troisi-greensmatrices and the corresponding calculations are saved in files named via the :code:`troisi_greenmatrix_file`-tag.
 
 Two-component calculations with Turbomole
@@ -63,9 +63,9 @@ Then adjust the input files:
 Speeding up
 -----------
 
-For speeding up the calculation use initial guesses of the occupied molecular orbitals and start vectors from a previously performed single point calculation of the equilibrium structure (structure of the molecule provided in the vibrational calculation). 
+For speeding up the calculation use an initial guess of the occupied molecular orbitals from a previously performed single point calculation of the equilibrium structure.
 
-In Turbomole this can be achived by using the :code:`use <path to control-file>` instead of :code:`eht` in the :code:`define_str`-parameter.
+In Turbomole this can be achieved by using the :code:`use <path to control-file>` instead of :code:`eht` in the :code:`define_str`-parameter.
 
 
 Input files

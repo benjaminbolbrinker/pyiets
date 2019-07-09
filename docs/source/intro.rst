@@ -5,14 +5,14 @@ Make sure Turbomole_ :cite:`turbomole2010development` or Gaussian_ :cite:`g16`, 
 
 For this program to function three inputfiles have to be provided:
 
-- :code:`input.json`: the main control file of the program containg containing (see :ref:`here <inputjson-label>`)
+- :code:`input.json`: the main control file of the program containing (see :ref:`here <inputjson-label>`)
 
   - general settings 
   - options for single point calculation
 
 - :code:`artaios.in`: control file for spin-dependent electron transport calculations for molecular junctions
 
-- output file from previous calculation of vibrational normal modes. Supported formats are SNF-output and Gaussian-output.
+- output file from a previous calculation containing vibrational normal mode vectors. Supported formats are SNF-output and Gaussian-output.
   
 
 When all three input files are provided type 
@@ -27,7 +27,7 @@ After successfully finished call
    
    pyiets-plot iets.dat iets.png
 
-to visualize the results. Clean up the temporary folders with
+to visualize the results. Clean up the temporary folders via
 
 .. code-block:: bash
 
